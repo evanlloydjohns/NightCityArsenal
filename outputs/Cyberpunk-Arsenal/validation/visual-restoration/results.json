@@ -1,0 +1,40 @@
+{
+  "productionSHA256": "87b057d73a3cf269818bc03e6b27b2ae98832c1f915e11b19b3e2ddd6680d6be",
+  "method": "GPU-disabled offline headless Edge; actual historical colors with newer behavior",
+  "expected": {
+    "body": "radial-gradient(ellipse at 0 0,#631e2f30,transparent 40%),radial-gradient(ellipse at 100% 40%,#3e11221f,transparent 48%),var(--bg)",
+    "sidebar": "linear-gradient(90deg,#1e0e15,#100b0e)",
+    "card": "linear-gradient(145deg,#231117,#100c0f 70%)",
+    "image": "radial-gradient(ellipse,#72304738,transparent 72%)",
+    "inspection": "radial-gradient(ellipse,#a7446740,transparent 73%)"
+  },
+  "passed": 6,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Recovered historical card, image, sidebar and page gradients render exactly",
+      "passed": true
+    },
+    {
+      "name": "CSS-only production change; exact scripts, data, markup and NC monogram retained",
+      "passed": true
+    },
+    {
+      "name": "Expanded filters, table and Favorites keep restoration and current interactions",
+      "passed": true
+    },
+    {
+      "name": "Current spacious two-column inspection uses recovered surface lighting",
+      "passed": true
+    },
+    {
+      "name": "Comparison retains empty slots, sticky identities, grouping and mixed-family warnings",
+      "passed": true
+    },
+    {
+      "name": "1920, 4K and narrow views retain geometry without expensive effects or requests",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

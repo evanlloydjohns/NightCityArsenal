@@ -1,0 +1,62 @@
+[
+  {
+    "file": "border-dpr-1-zoom-0.8.png",
+    "diagonalBorderPixels": 5,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-1-zoom-1.25.png",
+    "diagonalBorderPixels": 19,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-1-zoom-1.5.png",
+    "diagonalBorderPixels": 25,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-1-zoom-1.png",
+    "diagonalBorderPixels": 15,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-1.25-zoom-0.8.png",
+    "diagonalBorderPixels": 8,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-1.25-zoom-1.25.png",
+    "diagonalBorderPixels": 26,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-1.25-zoom-1.5.png",
+    "diagonalBorderPixels": 56,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-1.25-zoom-1.png",
+    "diagonalBorderPixels": 22,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-2-zoom-0.8.png",
+    "diagonalBorderPixels": 29,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-2-zoom-1.25.png",
+    "diagonalBorderPixels": 107,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-2-zoom-1.5.png",
+    "diagonalBorderPixels": 137,
+    "passed": true
+  },
+  {
+    "file": "border-dpr-2-zoom-1.png",
+    "diagonalBorderPixels": 61,
+    "passed": true
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-25",
+  "passed": true,
+  "method": "Isolated headless Edge; file://; offline",
+  "checks": [
+    "Opening source/template.html redirects to ../index.html",
+    "115 iconic cards load",
+    "Built styles apply",
+    "No page errors",
+    "Current image-enhanced build rechecked by the full 24-group suite"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "application": "Night City Arsenal",
+  "builtAtUtc": "2026-10-26T03:17:06+00:00",
+  "applicationFingerprint": "87b057d73a3c",
+  "dataVersion": "2026.10.25-r2",
+  "targetPatch": "2.5",
+  "iconicCount": 115,
+  "totalWeapons": 190,
+  "delivery": "Self-contained offline HTML; ZIP contains the same application and instructions",
+  "files": {
+    "Night-City-Arsenal.html": {
+      "bytes": 8455157,
+      "sha256": "87b057d73a3cf269818bc03e6b27b2ae98832c1f915e11b19b3e2ddd6680d6be"
+    },
+    "Night-City-Arsenal.zip": {
+      "bytes": 6011749,
+      "sha256": "ebf51a8c0ed479dba6c983c47d23ae71446c0d0ea20eb1b5e943c043a2e340ff"
+    }
+  }
+}

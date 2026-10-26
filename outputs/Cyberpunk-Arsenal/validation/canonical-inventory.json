@@ -1,0 +1,1449 @@
+[
+  {
+    "id": "Items.Preset_Achilles_Collectible",
+    "name": "Achilles x-MOD2",
+    "class": "Precision Rifle",
+    "technology": "Tech",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3109/achilles-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/achilles-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/achilles-x-mod2",
+      "https://cyberpunk.gameslantern.com/weapons/achilles"
+    ]
+  },
+  {
+    "id": "Items.Preset_VB_Axe",
+    "name": "Agaou",
+    "class": "Axe",
+    "technology": "Throwable",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3037/agaou",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/agaou",
+      "https://cyberpunk.vaexil.tv/weapons/agaou"
+    ]
+  },
+  {
+    "id": "Items.Preset_Pozhar_AirDrop",
+    "name": "Alabai",
+    "class": "Shotgun",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17020/alabai",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/alabai",
+      "https://cyberpunk.vaexil.tv/weapons/alabai",
+      "https://cyberpunk.gameslantern.com/weapons/carnage"
+    ]
+  },
+  {
+    "id": "Items.Preset_Kenshin_Spy",
+    "name": "Ambition",
+    "class": "Pistol",
+    "technology": "Tech",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17021/ambition",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/ambition",
+      "https://cyberpunk.vaexil.tv/weapons/ambition",
+      "https://cyberpunk.gameslantern.com/weapons/militech-ticon"
+    ]
+  },
+  {
+    "id": "Items.Preset_Overture_Cassidy",
+    "name": "Amnesty",
+    "class": "Revolver",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17022/amnesty",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/amnesty",
+      "https://cyberpunk.vaexil.tv/weapons/amnesty",
+      "https://cyberpunk.gameslantern.com/weapons/overture"
+    ]
+  },
+  {
+    "id": "Items.Preset_Crusher_Amazon",
+    "name": "Amstaff",
+    "class": "Shotgun",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17023/amstaff",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/amstaff",
+      "https://cyberpunk.vaexil.tv/weapons/amstaff",
+      "https://cyberpunk.gameslantern.com/weapons/crusher"
+    ]
+  },
+  {
+    "id": "Items.Preset_Kenshin_Frank",
+    "name": "Apparition",
+    "class": "Pistol",
+    "technology": "Tech",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1094/apparition",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/apparition",
+      "https://cyberpunk.vaexil.tv/weapons/apparition",
+      "https://cyberpunk.gameslantern.com/weapons/militech-ticon"
+    ]
+  },
+  {
+    "id": "Items.Preset_Overture_Kerry",
+    "name": "Archangel",
+    "class": "Revolver",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1085/archangel",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/archangel",
+      "https://cyberpunk.vaexil.tv/weapons/archangel",
+      "https://cyberpunk.gameslantern.com/weapons/overture"
+    ]
+  },
+  {
+    "id": "Items.Preset_Zhuo_Eight_Star",
+    "name": "Ba Xing Chong",
+    "class": "Shotgun",
+    "technology": "Smart",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1077/ba-xing-chong",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/ba-xing-chong",
+      "https://cyberpunk.vaexil.tv/weapons/ba-xing-chong",
+      "https://cyberpunk.vaexil.tv/weapons/ba-xing-chong"
+    ]
+  },
+  {
+    "id": "Items.Preset_Baseball_Bat_Malina",
+    "name": "Baby Boomer",
+    "class": "Two-Handed Club",
+    "technology": "Blunt",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17025/baby-boomer",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/baby-boomer",
+      "https://cyberpunk.vaexil.tv/weapons/baby-boomer"
+    ]
+  },
+  {
+    "id": "Items.Preset_Metel_Kurt",
+    "name": "Bald Eagle",
+    "class": "Revolver",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3142/bald-eagle",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/bald-eagle",
+      "https://cyberpunk.vaexil.tv/weapons/bald-eagle",
+      "https://cyberpunk.gameslantern.com/weapons/metel"
+    ]
+  },
+  {
+    "id": "Items.Preset_Baseball_Bat_Legendary",
+    "name": "Baseball Bat x-MOD2",
+    "class": "Two-Handed Club",
+    "technology": "Blunt",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3119/baseball-bat-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/baseball-bat-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/baseball-bat-x-mod2"
+    ]
+  },
+  {
+    "id": "Items.Preset_Dildo_SexShop",
+    "name": "BFC 9000",
+    "class": "One-Handed Club",
+    "technology": "Blunt",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3121/bfc-9000",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/bfc-9000",
+      "https://cyberpunk.vaexil.tv/weapons/bfc-9000"
+    ]
+  },
+  {
+    "id": "Items.Preset_Katana_GoG",
+    "name": "Black Unicorn",
+    "class": "Katana",
+    "technology": "Blade",
+    "content": "Rewards",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17027/black-unicorn",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/black-unicorn",
+      "https://cyberpunk.vaexil.tv/weapons/black-unicorn"
+    ]
+  },
+  {
+    "id": "Items.Preset_Tactician_Dino",
+    "name": "Bloody Maria",
+    "class": "Shotgun",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17028/bloody-maria",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/bloody-maria",
+      "https://cyberpunk.vaexil.tv/weapons/bloody-maria",
+      "https://cyberpunk.gameslantern.com/weapons/carnage"
+    ]
+  },
+  {
+    "id": "Items.Preset_Neurotoxin_Knife_Iconic",
+    "name": "Blue Fang",
+    "class": "Knife",
+    "technology": "Throwable",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1236/blue-fang",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/blue-fang",
+      "https://cyberpunk.vaexil.tv/weapons/blue-fang"
+    ]
+  },
+  {
+    "id": "Items.Preset_Grad_AirDrop",
+    "name": "Borzaya",
+    "class": "Sniper Rifle",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17029/borzaya",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/borzaya",
+      "https://cyberpunk.vaexil.tv/weapons/borzaya",
+      "https://cyberpunk.gameslantern.com/weapons/grad"
+    ]
+  },
+  {
+    "id": "Items.Preset_Nekomata_Breakthrough",
+    "name": "Breakthrough",
+    "class": "Sniper Rifle",
+    "technology": "Tech",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1039/breakthrough",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/breakthrough",
+      "https://cyberpunk.vaexil.tv/weapons/breakthrough",
+      "https://cyberpunk.gameslantern.com/weapons/nekomata"
+    ]
+  },
+  {
+    "id": "Items.Preset_Butchers_Knife_Iconic",
+    "name": "Butcher's Cleaver",
+    "class": "Cleaver",
+    "technology": "Blade",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3117/butchers-cleaver",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/butchers-cleaver",
+      "https://cyberpunk.vaexil.tv/weapons/butcher-s-cleaver"
+    ]
+  },
+  {
+    "id": "Items.Preset_Pulsar_Buzzsaw",
+    "name": "Buzzsaw",
+    "class": "Submachine Gun",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3147/buzzsaw",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/buzzsaw",
+      "https://cyberpunk.vaexil.tv/weapons/buzzsaw",
+      "https://cyberpunk.gameslantern.com/weapons/pulsar"
+    ]
+  },
+  {
+    "id": "Items.Preset_Katana_Wakako",
+    "name": "Byakko",
+    "class": "Katana",
+    "technology": "Blade",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/988/byakko",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/byakko",
+      "https://cyberpunk.vaexil.tv/weapons/byakko"
+    ]
+  },
+  {
+    "id": "Items.Preset_Shovel_Caretaker",
+    "name": "Caretaker's Spade",
+    "class": "Hammer",
+    "technology": "Blunt",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17030/caretakers-spade",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/caretakers-spade",
+      "https://cyberpunk.vaexil.tv/weapons/caretaker-s-spade"
+    ]
+  },
+  {
+    "id": "Items.Preset_Umbra_Bebe",
+    "name": "Carmen",
+    "class": "Assault Rifle",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3079/carmen",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/carmen",
+      "https://cyberpunk.vaexil.tv/weapons/carmen"
+    ]
+  },
+  {
+    "id": "Items.Preset_Grit_Amazon",
+    "name": "Catahoula",
+    "class": "Pistol",
+    "technology": "Tech",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17032/catahoula",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/catahoula",
+      "https://cyberpunk.vaexil.tv/weapons/catahoula",
+      "https://cyberpunk.gameslantern.com/weapons/ha-4-grit"
+    ]
+  },
+  {
+    "id": "Items.Preset_Kenshin_Royce",
+    "name": "Chaos",
+    "class": "Pistol",
+    "technology": "Tech",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1088/chaos",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/chaos",
+      "https://cyberpunk.vaexil.tv/weapons/chaos",
+      "https://cyberpunk.gameslantern.com/weapons/militech-ticon"
+    ]
+  },
+  {
+    "id": "Items.Preset_Unity_Angelica",
+    "name": "Cheetah",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17033/cheetah",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/cheetah",
+      "https://cyberpunk.vaexil.tv/weapons/cheetah",
+      "https://cyberpunk.gameslantern.com/weapons/unity"
+    ]
+  },
+  {
+    "id": "Items.Preset_Warden_Amazon",
+    "name": "Chesapeake",
+    "class": "Submachine Gun",
+    "technology": "Smart",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17035/chesapeake",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/chesapeake",
+      "https://cyberpunk.vaexil.tv/weapons/chesapeake"
+    ]
+  },
+  {
+    "id": "Items.Preset_Kyubi_Amazon",
+    "name": "Chinook",
+    "class": "Assault Rifle",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17036/chinook",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/chinook",
+      "https://cyberpunk.vaexil.tv/weapons/chinook"
+    ]
+  },
+  {
+    "id": "Items.Preset_Fanged_Axe_Collectible",
+    "name": "Claw x-MOD2",
+    "class": "Axe",
+    "technology": "Throwable",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17038/claw-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/claw-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/claw-x-mod2"
+    ]
+  },
+  {
+    "id": "Items.Preset_Katana_Cocktail",
+    "name": "Cocktail Stick",
+    "class": "Katana",
+    "technology": "Blade",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17039/cocktail-stick",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/cocktail-stick",
+      "https://cyberpunk.vaexil.tv/weapons/cocktail-stick"
+    ]
+  },
+  {
+    "id": "Items.Preset_Burya_Comrade",
+    "name": "Comrade's Hammer",
+    "class": "Revolver",
+    "technology": "Tech",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1084/comrades-hammer",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/comrades-hammer",
+      "https://cyberpunk.vaexil.tv/weapons/comrade-s-hammer",
+      "https://cyberpunk.gameslantern.com/weapons/burya"
+    ]
+  },
+  {
+    "id": "Items.Preset_Burya_King",
+    "name": "Coronation",
+    "class": "Revolver",
+    "technology": "Tech",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/19010/coronation",
+      "https://cyberpunk.gameslantern.com/weapons/burya",
+      "https://www.theclick.gg/cyberpunk-2077-coronation-revolver/"
+    ]
+  },
+  {
+    "id": "Items.Preset_Cane_Fingers",
+    "name": "Cottonmouth",
+    "class": "One-Handed Club",
+    "technology": "Blunt",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1101/cottonmouth",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/cottonmouth",
+      "https://cyberpunk.vaexil.tv/weapons/cottonmouth"
+    ]
+  },
+  {
+    "id": "Items.Preset_Overture_River",
+    "name": "Crash",
+    "class": "Revolver",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1086/crash",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/crash",
+      "https://cyberpunk.vaexil.tv/weapons/crash",
+      "https://cyberpunk.gameslantern.com/weapons/overture"
+    ]
+  },
+  {
+    "id": "Items.Preset_Kappa_George",
+    "name": "Crimestopper",
+    "class": "Pistol",
+    "technology": "Smart",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3094/crimestopper",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/crimestopper",
+      "https://cyberpunk.vaexil.tv/weapons/crimestopper"
+    ]
+  },
+  {
+    "id": "Items.Preset_Crowbar_Bunker",
+    "name": "Crowbar",
+    "class": "One-Handed Club",
+    "technology": "Blunt",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17041/crowbar-bunker",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/crowbar",
+      "https://cyberpunk.vaexil.tv/weapons/crowbar"
+    ]
+  },
+  {
+    "id": "Items.Preset_Chainsword_Legendary",
+    "name": "Cut-o-Matic x-MOD2",
+    "class": "Chainsword",
+    "technology": "Blade",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3116/cut-o-matic-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/cut-o-matic-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/cut-o-matic-x-mod2",
+      "https://cyberpunk.vaexil.tv/weapons/cut-o-matic-x-mod2"
+    ]
+  },
+  {
+    "id": "Items.Preset_Nue_Maiko",
+    "name": "Death and Taxes",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1242/death-and-taxes",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/death-and-taxes",
+      "https://cyberpunk.vaexil.tv/weapons/death-and-taxes",
+      "https://cyberpunk.gameslantern.com/weapons/nue"
+    ]
+  },
+  {
+    "id": "Items.Preset_Testera_Nicolas",
+    "name": "Dezerter",
+    "class": "Shotgun",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3145/dezerter",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/dezerter",
+      "https://cyberpunk.vaexil.tv/weapons/dezerter",
+      "https://cyberpunk.gameslantern.com/weapons/testera"
+    ]
+  },
+  {
+    "id": "Items.Preset_Sidewinder_Divided",
+    "name": "Divided We Stand",
+    "class": "Assault Rifle",
+    "technology": "Smart",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1069/divided-we-stand",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/divided-we-stand",
+      "https://cyberpunk.vaexil.tv/weapons/divided-we-stand"
+    ]
+  },
+  {
+    "id": "Items.Preset_Nova_Doom_Doom",
+    "name": "Doom Doom",
+    "class": "Revolver",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1241/doom-doom",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/doom-doom",
+      "https://cyberpunk.vaexil.tv/weapons/doom-doom",
+      "https://cyberpunk.gameslantern.com/weapons/nova"
+    ]
+  },
+  {
+    "id": "Items.Preset_Lexington_Wilson",
+    "name": "Dying Night",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3127/dying-night",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/dying-night",
+      "https://cyberpunk.vaexil.tv/weapons/dying-night",
+      "https://cyberpunk.gameslantern.com/weapons/m-10af-lexington"
+    ]
+  },
+  {
+    "id": "Items.Common_Borg4a_HauntedGun",
+    "name": "Erebus",
+    "class": "Submachine Gun",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17048/erebus",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/erebus",
+      "https://cyberpunk.vaexil.tv/weapons/erebus",
+      "https://cyberpunk.vaexil.tv/weapons/erebus"
+    ]
+  },
+  {
+    "id": "Items.Preset_Katana_E3",
+    "name": "Errata",
+    "class": "Katana",
+    "technology": "Blade",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3088/errata",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/errata",
+      "https://cyberpunk.vaexil.tv/weapons/errata"
+    ]
+  },
+  {
+    "id": "Items.Preset_Knife_Kurtz_1",
+    "name": "Fang",
+    "class": "Knife",
+    "technology": "Throwable",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17049/fang",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/fang",
+      "https://cyberpunk.vaexil.tv/weapons/fang"
+    ]
+  },
+  {
+    "id": "Items.Preset_Saratoga_Maelstrom",
+    "name": "Fenrir",
+    "class": "Submachine Gun",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17050/fenrir",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/fenrir",
+      "https://cyberpunk.vaexil.tv/weapons/fenrir",
+      "https://cyberpunk.gameslantern.com/weapons/saratoga"
+    ]
+  },
+  {
+    "id": "Items.Preset_Nekomata_Amazon",
+    "name": "Foxhound",
+    "class": "Sniper Rifle",
+    "technology": "Tech",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17051/foxhound",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/foxhound",
+      "https://cyberpunk.vaexil.tv/weapons/foxhound",
+      "https://cyberpunk.gameslantern.com/weapons/nekomata"
+    ]
+  },
+  {
+    "id": "Items.Preset_Yukimura_Kiji",
+    "name": "Genjiroh",
+    "class": "Pistol",
+    "technology": "Smart",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1064/genjiroh",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/genjiroh",
+      "https://cyberpunk.vaexil.tv/weapons/genjiroh",
+      "https://cyberpunk.gameslantern.com/weapons/kappa"
+    ]
+  },
+  {
+    "id": "Items.Preset_Baseball_Bat_Denny",
+    "name": "Gold-Plated Baseball Bat",
+    "class": "Two-Handed Club",
+    "technology": "Blunt",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1100/gold-plated-baseball-bat",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/gold-plated-baseball-bat",
+      "https://cyberpunk.vaexil.tv/weapons/gold-plated-baseball-bat"
+    ]
+  },
+  {
+    "id": "Items.Preset_Quasar_Baron",
+    "name": "Gris-Gris",
+    "class": "Revolver",
+    "technology": "Tech",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17052/gris-gris",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/gris-gris",
+      "https://cyberpunk.vaexil.tv/weapons/gris-gris",
+      "https://cyberpunk.gameslantern.com/weapons/quasar"
+    ]
+  },
+  {
+    "id": "Items.Preset_Guillotine_Collectible",
+    "name": "Guillotine x-MOD2",
+    "class": "Submachine Gun",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3146/guillotine-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/guillotine-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/guillotine-x-mod2"
+    ]
+  },
+  {
+    "id": "Items.Preset_Carnage_Edgerunners",
+    "name": "Guts",
+    "class": "Shotgun",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3155/guts",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/guts",
+      "https://cyberpunk.vaexil.tv/weapons/guts",
+      "https://cyberpunk.gameslantern.com/weapons/carnage"
+    ]
+  },
+  {
+    "id": "Items.Preset_Sword_Witcher",
+    "name": "Gwynbleidd",
+    "class": "Sword",
+    "technology": "Blade",
+    "content": "Rewards",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3118/gwynbleidd",
+      "https://cyberpunk.vaexil.tv/weapons/gwynbleidd"
+    ]
+  },
+  {
+    "id": "Items.Preset_Kyubi_Myers",
+    "name": "Hawk",
+    "class": "Assault Rifle",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17055/hawk",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/hawk",
+      "https://cyberpunk.vaexil.tv/weapons/hawk"
+    ]
+  },
+  {
+    "id": "Items.Preset_Punk_Knife_Iconic",
+    "name": "Headhunter",
+    "class": "Knife",
+    "technology": "Throwable",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1237/headhunter",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/headhunter",
+      "https://cyberpunk.vaexil.tv/weapons/headhunter"
+    ]
+  },
+  {
+    "id": "Items.Preset_Unity_Agent",
+    "name": "Her Majesty",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3150/her-majesty",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/her-majesty",
+      "https://cyberpunk.vaexil.tv/weapons/her-majesty",
+      "https://cyberpunk.gameslantern.com/weapons/unity"
+    ]
+  },
+  {
+    "id": "Items.Preset_Hercules_Prototype",
+    "name": "Hercules 3AX",
+    "class": "Assault Rifle",
+    "technology": "Smart",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3098/hercules-3ax",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/hercules-3-ax",
+      "https://cyberpunk.vaexil.tv/weapons/hercules-3ax",
+      "https://cyberpunk.vaexil.tv/weapons/hercules-3ax"
+    ]
+  },
+  {
+    "id": "Items.Preset_Kolac_Tiny_Mike",
+    "name": "Hypercritical",
+    "class": "Precision Rifle",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17057/hypercritical",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/hypercritical",
+      "https://cyberpunk.vaexil.tv/weapons/hypercritical"
+    ]
+  },
+  {
+    "id": "Items.Preset_Katana_Takemura",
+    "name": "Jinchu-maru",
+    "class": "Katana",
+    "technology": "Blade",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/992/jinchu-maru",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/jinchu-maru",
+      "https://cyberpunk.vaexil.tv/weapons/jinchu-maru"
+    ]
+  },
+  {
+    "id": "Items.Preset_Kappa_Legendary",
+    "name": "Kappa x-MOD2",
+    "class": "Pistol",
+    "technology": "Smart",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17061/kappa-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/kappa-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/kappa-x-mod2"
+    ]
+  },
+  {
+    "id": "Items.Preset_Liberty_Yorinobu",
+    "name": "Kongou",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1055/kongou",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/kongou",
+      "https://cyberpunk.vaexil.tv/weapons/kongou",
+      "https://cyberpunk.gameslantern.com/weapons/liberty"
+    ]
+  },
+  {
+    "id": "Items.Preset_Kyubi_Legendary",
+    "name": "Kyubi x-MOD2",
+    "class": "Assault Rifle",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3078/kyubi-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/kyubi-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/kyubi-x-mod2"
+    ]
+  },
+  {
+    "id": "Items.Preset_Nue_Jackie",
+    "name": "La Chingona Dorada",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3156/la-chingona-dorada",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/la-chingona-dorada",
+      "https://cyberpunk.vaexil.tv/weapons/la-chingona-dorada",
+      "https://cyberpunk.gameslantern.com/weapons/nue"
+    ]
+  },
+  {
+    "id": "Items.Preset_Burya_AirDrop",
+    "name": "Laika",
+    "class": "Revolver",
+    "technology": "Tech",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17066/laika",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/laika",
+      "https://cyberpunk.vaexil.tv/weapons/laika",
+      "https://cyberpunk.gameslantern.com/weapons/burya"
+    ]
+  },
+  {
+    "id": "Items.Preset_Lexington_Shooting_Competition",
+    "name": "Lexington x-MOD2",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3140/lexington-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/lexington-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/lexington-x-mod2",
+      "https://cyberpunk.gameslantern.com/weapons/m-10af-lexington"
+    ]
+  },
+  {
+    "id": "Items.Preset_Omaha_Suzie",
+    "name": "Lizzie",
+    "class": "Pistol",
+    "technology": "Tech",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1050/lizzie",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/lizzie",
+      "https://cyberpunk.vaexil.tv/weapons/lizzie",
+      "https://cyberpunk.gameslantern.com/weapons/militech-ticon"
+    ]
+  },
+  {
+    "id": "Items.Preset_MA70_Collectible",
+    "name": "MA70 HB x-MOD2",
+    "class": "Light Machine Gun",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3135/ma70-hb-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/ma-70-hb-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/ma70-hb-x-mod2"
+    ]
+  },
+  {
+    "id": "Items.Preset_Silverhand_3516",
+    "name": "Malorian Arms 3516",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1087/malorian-arms-3516",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/malorian-arms-3516",
+      "https://cyberpunk.vaexil.tv/weapons/malorian-arms-3516",
+      "https://cyberpunk.gameslantern.com/weapons/malorian-arms-3516"
+    ]
+  },
+  {
+    "id": "Items.Preset_Nova_Hitman",
+    "name": "Mancinella",
+    "class": "Revolver",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3144/mancinella",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/mancinella",
+      "https://cyberpunk.vaexil.tv/weapons/mancinella",
+      "https://cyberpunk.gameslantern.com/weapons/nova"
+    ]
+  },
+  {
+    "id": "Items.Preset_Ajax_Moron",
+    "name": "Moron Labe",
+    "class": "Assault Rifle",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1081/moron-labe",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/moron-labe",
+      "https://cyberpunk.vaexil.tv/weapons/moron-labe",
+      "https://cyberpunk.gameslantern.com/weapons/kyubi"
+    ]
+  },
+  {
+    "id": "Items.Preset_Carnage_Mox",
+    "name": "Mox",
+    "class": "Shotgun",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17074/mox",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/mox",
+      "https://cyberpunk.vaexil.tv/weapons/mox",
+      "https://cyberpunk.gameslantern.com/weapons/carnage"
+    ]
+  },
+  {
+    "id": "Items.Preset_Baton_Murphy",
+    "name": "Murphy's Law",
+    "class": "One-Handed Club",
+    "technology": "Blunt",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17075/murphys-law",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/murphys-law",
+      "https://cyberpunk.vaexil.tv/weapons/murphy-s-law"
+    ]
+  },
+  {
+    "id": "Items.Preset_Osprey_Prototype",
+    "name": "NDI Osprey",
+    "class": "Sniper Rifle",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17076/ndi-osprey",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/ndi-osprey",
+      "https://cyberpunk.vaexil.tv/weapons/ndi-osprey",
+      "https://cyberpunk.vaexil.tv/weapons/ndi-osprey"
+    ]
+  },
+  {
+    "id": "Items.Preset_Tanto_Saburo",
+    "name": "Nehan",
+    "class": "Knife",
+    "technology": "Throwable",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17078/nehan",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/nehan",
+      "https://cyberpunk.vaexil.tv/weapons/nehan"
+    ]
+  },
+  {
+    "id": "Items.Preset_Grad_Buck",
+    "name": "O'Five",
+    "class": "Sniper Rifle",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17081/ofive",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/o-five",
+      "https://cyberpunk.vaexil.tv/weapons/o-five",
+      "https://cyberpunk.gameslantern.com/weapons/grad"
+    ]
+  },
+  {
+    "id": "Items.Preset_Chao_VooDoo",
+    "name": "Ogou",
+    "class": "Pistol",
+    "technology": "Smart",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3095/ogou",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/ogou",
+      "https://cyberpunk.vaexil.tv/weapons/ogou",
+      "https://cyberpunk.gameslantern.com/weapons/kappa"
+    ]
+  },
+  {
+    "id": "Items.Preset_Overture_Dante",
+    "name": "Ol' Reliable",
+    "class": "Revolver",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3143/ol-reliable",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/ol-reliable",
+      "https://cyberpunk.vaexil.tv/weapons/ol-reliable",
+      "https://cyberpunk.gameslantern.com/weapons/overture"
+    ]
+  },
+  {
+    "id": "Items.Preset_Satara_Brick",
+    "name": "Order",
+    "class": "Shotgun",
+    "technology": "Tech",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3108/order",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/order",
+      "https://cyberpunk.vaexil.tv/weapons/order"
+    ]
+  },
+  {
+    "id": "Items.Preset_Grad_Panam",
+    "name": "Overwatch",
+    "class": "Sniper Rifle",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1053/overwatch",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/overwatch",
+      "https://cyberpunk.vaexil.tv/weapons/overwatch",
+      "https://cyberpunk.gameslantern.com/weapons/grad"
+    ]
+  },
+  {
+    "id": "Items.Preset_Ticon_Reed",
+    "name": "Pariah",
+    "class": "Pistol",
+    "technology": "Tech",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3105/pariah",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/pariah",
+      "https://cyberpunk.vaexil.tv/weapons/pariah",
+      "https://cyberpunk.gameslantern.com/weapons/militech-ticon"
+    ]
+  },
+  {
+    "id": "Items.Preset_Ajax_Amazon",
+    "name": "Pit Bull",
+    "class": "Assault Rifle",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3081/pit-bull",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/pit-bull",
+      "https://cyberpunk.vaexil.tv/weapons/pit-bull",
+      "https://cyberpunk.gameslantern.com/weapons/kyubi"
+    ]
+  },
+  {
+    "id": "Items.Preset_Warden_Boris",
+    "name": "Pizdets",
+    "class": "Submachine Gun",
+    "technology": "Smart",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3096/pizdets",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/pizdets",
+      "https://cyberpunk.vaexil.tv/weapons/pizdets"
+    ]
+  },
+  {
+    "id": "Items.Preset_Liberty_Dex",
+    "name": "Plan B",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17082/plan-b",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/plan-b",
+      "https://cyberpunk.vaexil.tv/weapons/plan-b",
+      "https://cyberpunk.gameslantern.com/weapons/liberty"
+    ]
+  },
+  {
+    "id": "Items.Preset_Pozhar_Legendary",
+    "name": "Pozhar x-MOD2",
+    "class": "Shotgun",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3137/pozhar-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/pozhar-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/pozhar-x-mod2",
+      "https://cyberpunk.gameslantern.com/weapons/carnage"
+    ]
+  },
+  {
+    "id": "Items.Preset_Masamune_Rogue",
+    "name": "Prejudice",
+    "class": "Assault Rifle",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3077/prejudice",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/prejudice",
+      "https://cyberpunk.vaexil.tv/weapons/prejudice",
+      "https://cyberpunk.gameslantern.com/weapons/kyubi"
+    ]
+  },
+  {
+    "id": "Items.Preset_Liberty_Rogue",
+    "name": "Pride",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3139/pride",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/pride",
+      "https://cyberpunk.vaexil.tv/weapons/pride",
+      "https://cyberpunk.gameslantern.com/weapons/liberty"
+    ]
+  },
+  {
+    "id": "Items.Preset_Saratoga_Raffen",
+    "name": "Problem Solver",
+    "class": "Submachine Gun",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1243/problem-solver",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/problem-solver",
+      "https://cyberpunk.vaexil.tv/weapons/problem-solver",
+      "https://cyberpunk.gameslantern.com/weapons/saratoga"
+    ]
+  },
+  {
+    "id": "Items.Preset_Shingen_Prototype",
+    "name": "Prototype: Shingen Mark V",
+    "class": "Submachine Gun",
+    "technology": "Smart",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1071/prototype-shingen-mark-v",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/prototype-shingen-mark-v",
+      "https://cyberpunk.vaexil.tv/weapons/prototype-shingen-mark-v",
+      "https://cyberpunk.gameslantern.com/weapons/shingen"
+    ]
+  },
+  {
+    "id": "Items.Preset_Copperhead_Genesis",
+    "name": "Psalm 11:6",
+    "class": "Assault Rifle",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1082/psalm-116",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/psalm-11-6",
+      "https://cyberpunk.vaexil.tv/weapons/psalm-11-6",
+      "https://cyberpunk.gameslantern.com/weapons/kyubi"
+    ]
+  },
+  {
+    "id": "Items.Preset_Senkoh_Prototype",
+    "name": "Raiju",
+    "class": "Submachine Gun",
+    "technology": "Tech",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3106/raiju",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/raiju",
+      "https://cyberpunk.vaexil.tv/weapons/raiju",
+      "https://cyberpunk.gameslantern.com/weapons/senkoh-lx"
+    ]
+  },
+  {
+    "id": "Items.Preset_Rasetsu_Prototype",
+    "name": "Rasetsu",
+    "class": "Sniper Rifle",
+    "technology": "Tech",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3110/rasetsu",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/rasetsu",
+      "https://cyberpunk.vaexil.tv/weapons/rasetsu",
+      "https://cyberpunk.vaexil.tv/weapons/rasetsu"
+    ]
+  },
+  {
+    "id": "Items.Preset_Nue_Bree",
+    "name": "Riskit",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17087/riskit",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/riskit",
+      "https://cyberpunk.vaexil.tv/weapons/riskit",
+      "https://cyberpunk.gameslantern.com/weapons/nue"
+    ]
+  },
+  {
+    "id": "Items.Preset_Lexington_Rook",
+    "name": "Rook",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17088/rook",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/rook",
+      "https://cyberpunk.vaexil.tv/weapons/rook",
+      "https://cyberpunk.gameslantern.com/weapons/m-10af-lexington"
+    ]
+  },
+  {
+    "id": "Items.Preset_Overture_Dodger",
+    "name": "Rosco",
+    "class": "Revolver",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17089/rosco",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/rosco",
+      "https://cyberpunk.vaexil.tv/weapons/rosco",
+      "https://cyberpunk.gameslantern.com/weapons/overture"
+    ]
+  },
+  {
+    "id": "Items.Preset_Hammer_Sasquatch",
+    "name": "Sasquatch's Hammer",
+    "class": "Hammer",
+    "technology": "Blunt",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17090/sasquatchs-hammer",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/sasquatchs-hammer",
+      "https://cyberpunk.vaexil.tv/weapons/sasquatch-s-hammer"
+    ]
+  },
+  {
+    "id": "Items.Preset_Katana_Saburo",
+    "name": "Satori",
+    "class": "Katana",
+    "technology": "Blade",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/991/satori",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/satori",
+      "https://cyberpunk.vaexil.tv/weapons/satori"
+    ]
+  },
+  {
+    "id": "Items.Preset_Katana_Surgeon",
+    "name": "Scalpel",
+    "class": "Katana",
+    "technology": "Blade",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1380/scalpel",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/scalpel",
+      "https://cyberpunk.vaexil.tv/weapons/scalpel"
+    ]
+  },
+  {
+    "id": "Items.Preset_Ticon_Gwent",
+    "name": "Scorch",
+    "class": "Pistol",
+    "technology": "Tech",
+    "content": "Rewards",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17091/scorch",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/scorch",
+      "https://cyberpunk.vaexil.tv/weapons/scorch",
+      "https://cyberpunk.gameslantern.com/weapons/militech-ticon"
+    ]
+  },
+  {
+    "id": "Items.Preset_Liberty_Padre",
+    "name": "Seraph",
+    "class": "Pistol",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3141/seraph",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/seraph",
+      "https://cyberpunk.vaexil.tv/weapons/seraph",
+      "https://cyberpunk.gameslantern.com/weapons/liberty"
+    ]
+  },
+  {
+    "id": "Items.Preset_Sword_Sihil",
+    "name": "Sihil",
+    "class": "Sword",
+    "technology": "Blade",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/19014/sihil",
+      "https://gamingbolt.com/cyberpunk-2077-update-2-5-adds-5-new-items-from-the-witcher-3-and-a-halo-2-inspired-pose"
+    ]
+  },
+  {
+    "id": "Items.Preset_Dildo_Stout",
+    "name": "Sir John Phallustiff",
+    "class": "One-Handed Club",
+    "technology": "Blunt",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17092/sir-john-phallustiff",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/sir-john-phallustiff",
+      "https://cyberpunk.vaexil.tv/weapons/sir-john-phallustiff"
+    ]
+  },
+  {
+    "id": "Items.Preset_Yukimura_Skippy",
+    "name": "Skippy",
+    "class": "Pistol",
+    "technology": "Smart",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1066/skippy",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/skippy",
+      "https://cyberpunk.vaexil.tv/weapons/skippy",
+      "https://cyberpunk.gameslantern.com/weapons/kappa"
+    ]
+  },
+  {
+    "id": "Items.Preset_Igla_Sovereign",
+    "name": "Sovereign",
+    "class": "Shotgun",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1079/sovereign",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/sovereign",
+      "https://cyberpunk.vaexil.tv/weapons/sovereign",
+      "https://cyberpunk.gameslantern.com/weapons/igla"
+    ]
+  },
+  {
+    "id": "Items.Preset_Grad_Scav",
+    "name": "Sparky",
+    "class": "Sniper Rifle",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17093/sparky",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/sparky",
+      "https://cyberpunk.vaexil.tv/weapons/sparky",
+      "https://cyberpunk.gameslantern.com/weapons/grad"
+    ]
+  },
+  {
+    "id": "Items.Preset_Knife_Stinger",
+    "name": "Stinger",
+    "class": "Knife",
+    "technology": "Throwable",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/984/stinger",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/stinger",
+      "https://cyberpunk.vaexil.tv/weapons/stinger"
+    ]
+  },
+  {
+    "id": "Items.Preset_Metel_AirDrop",
+    "name": "Taigan",
+    "class": "Revolver",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17095/taigan",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/taigan",
+      "https://cyberpunk.vaexil.tv/weapons/taigan",
+      "https://cyberpunk.gameslantern.com/weapons/metel"
+    ]
+  },
+  {
+    "id": "Items.Preset_Tactician_Headsman",
+    "name": "The Headsman",
+    "class": "Shotgun",
+    "technology": "Power",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1078/the-headsman",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/the-headsman",
+      "https://cyberpunk.vaexil.tv/weapons/the-headsman",
+      "https://cyberpunk.gameslantern.com/weapons/carnage"
+    ]
+  },
+  {
+    "id": "Items.Preset_Baton_Tinker_Bell",
+    "name": "Tinker Bell",
+    "class": "One-Handed Club",
+    "technology": "Blunt",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1102/tinker-bell",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/tinker-bell",
+      "https://cyberpunk.vaexil.tv/weapons/tinker-bell"
+    ]
+  },
+  {
+    "id": "Items.Preset_Katana_Hiromi",
+    "name": "Tsumetogi",
+    "class": "Katana",
+    "technology": "Blade",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17098/tsumetogi",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/tsumetogi",
+      "https://cyberpunk.vaexil.tv/weapons/tsumetogi"
+    ]
+  },
+  {
+    "id": "Items.Preset_Umbra_Collectible",
+    "name": "Umbra x-MOD2",
+    "class": "Assault Rifle",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3080/umbra-x-mod2",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/umbra-x-mod-2",
+      "https://cyberpunk.vaexil.tv/weapons/umbra-x-mod2"
+    ]
+  },
+  {
+    "id": "Items.Preset_Machete_Borg_AirDrop",
+    "name": "Volkodav",
+    "class": "Machete",
+    "technology": "Blade",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/17099/volkodav",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/volkodav",
+      "https://cyberpunk.vaexil.tv/weapons/volkodav"
+    ]
+  },
+  {
+    "id": "Items.Preset_Achilles_Nash",
+    "name": "Widow Maker",
+    "class": "Precision Rifle",
+    "technology": "Tech",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1037/widow-maker",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/widow-maker",
+      "https://cyberpunk.vaexil.tv/weapons/widow-maker",
+      "https://cyberpunk.gameslantern.com/weapons/achilles"
+    ]
+  },
+  {
+    "id": "Items.Preset_Defender_Kurt",
+    "name": "Wild Dog",
+    "class": "Light Machine Gun",
+    "technology": "Power",
+    "content": "Phantom Liberty",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3136/wild-dog",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/wild-dog",
+      "https://cyberpunk.vaexil.tv/weapons/wild-dog"
+    ]
+  },
+  {
+    "id": "Items.Preset_Ashura_Twitch",
+    "name": "Yasha",
+    "class": "Sniper Rifle",
+    "technology": "Smart",
+    "content": "Rewards",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/3099/yasha",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/yasha",
+      "https://cyberpunk.vaexil.tv/weapons/yasha",
+      "https://cyberpunk.gameslantern.com/weapons/ashura"
+    ]
+  },
+  {
+    "id": "Items.Preset_Dian_Yinglong",
+    "name": "Yinglong",
+    "class": "Submachine Gun",
+    "technology": "Smart",
+    "content": "Base Game",
+    "sources": [
+      "https://gamestegy.com/cyberpunk-2077/wiki/1074/yinglong",
+      "https://nukesdragons.com/cyberpunk-2077/db/weapons/yinglong",
+      "https://cyberpunk.vaexil.tv/weapons/yinglong",
+      "https://cyberpunk.gameslantern.com/weapons/dian"
+    ]
+  }
+]

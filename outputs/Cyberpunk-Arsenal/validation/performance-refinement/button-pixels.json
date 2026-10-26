@@ -1,0 +1,72 @@
+[
+  {
+    "file": "border-navigation.png",
+    "diagonalPixels": 4,
+    "passed": true
+  },
+  {
+    "file": "border-replace.png",
+    "diagonalPixels": 15,
+    "passed": true
+  },
+  {
+    "file": "border-add-disabled.png",
+    "diagonalPixels": 100,
+    "passed": true
+  },
+  {
+    "file": "border-reset.png",
+    "diagonalPixels": 7,
+    "passed": true
+  },
+  {
+    "file": "border-filter-toggle.png",
+    "diagonalPixels": 17,
+    "passed": true
+  },
+  {
+    "file": "border-view.png",
+    "diagonalPixels": 5,
+    "passed": true
+  },
+  {
+    "file": "border-details.png",
+    "diagonalPixels": 8,
+    "passed": true
+  },
+  {
+    "file": "border-compare.png",
+    "diagonalPixels": 15,
+    "passed": true
+  },
+  {
+    "file": "border-selected.png",
+    "diagonalPixels": 7,
+    "passed": true
+  },
+  {
+    "file": "border-chip.png",
+    "diagonalPixels": 8,
+    "passed": true
+  },
+  {
+    "file": "border-modal-close.png",
+    "diagonalPixels": 7,
+    "passed": true
+  },
+  {
+    "file": "border-previous.png",
+    "diagonalPixels": 13,
+    "passed": true
+  },
+  {
+    "file": "border-next.png",
+    "diagonalPixels": 7,
+    "passed": true
+  },
+  {
+    "file": "border-export.png",
+    "diagonalPixels": 15,
+    "passed": true
+  }
+]

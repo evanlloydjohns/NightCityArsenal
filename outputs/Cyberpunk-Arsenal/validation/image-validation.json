@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-25",
+  "weaponImageCount": 190,
+  "iconicImageCount": 115,
+  "nonIconicImageCount": 75,
+  "sourceMappingCount": 190,
+  "distinctImageHashes": 186,
+  "sharedSourceImages": [
+    [
+      "Amnesty",
+      "Ol' Reliable"
+    ],
+    [
+      "Electric Baton Alpha",
+      "Tinker Bell"
+    ],
+    [
+      "Monkey Wrench",
+      "Steel Pipe"
+    ],
+    [
+      "Neurotoxin knife",
+      "Punknife"
+    ]
+  ],
+  "sourceEncodings": {
+    "PNG": 189,
+    "WebP": 1
+  },
+  "imageIntegrityChecks": 190,
+  "nonemptyPixelChecks": 190,
+  "offlineImageDecodeChecks": 190,
+  "visuallyInspectedContactSheets": {
+    "iconic": 4,
+    "nonIconic": 3
+  },
+  "sourceManifest": "source/weapon-images.json",
+  "imageTransformation": "None; original image bytes and source credits retained",
+  "builtRuntimeExternalImageRequests": 0,
+  "note": "Some source inventory images are shared; affected details disclose this. A distinct current Monkey Wrench model image was not verified. Testera uses Games Atlas rendered artwork."
+}

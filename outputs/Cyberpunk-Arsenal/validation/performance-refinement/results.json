@@ -1,0 +1,49 @@
+{
+  "method": "Offline production HTML in isolated headless Edge with --disable-gpu --disable-gpu-compositing",
+  "productionSHA256": "87b057d73a3cf269818bc03e6b27b2ae98832c1f915e11b19b3e2ddd6680d6be",
+  "passed": 10,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Original vector NC logo, neutral content and readable aligned card hierarchy",
+      "passed": true
+    },
+    {
+      "name": "Favorites and comparison patch existing cards/images; formatter is reused",
+      "passed": true
+    },
+    {
+      "name": "Search, filtering and sorting reuse nodes without altering result order",
+      "passed": true
+    },
+    {
+      "name": "Native offscreen containment retains all records and stable scroll extents",
+      "passed": true
+    },
+    {
+      "name": "Sidebar collapse restores filters and accordions; mobile drawer remains available",
+      "passed": true
+    },
+    {
+      "name": "Inspection has two columns, smaller unknowns, unchanged fields and one scroller",
+      "passed": true
+    },
+    {
+      "name": "Empty comparison has one main add action and directly clickable slots",
+      "passed": true
+    },
+    {
+      "name": "Four-weapon comparison retains compact sticky identities and grouped math",
+      "passed": true
+    },
+    {
+      "name": "All angular button families share continuous polygon geometry and keyboard focus",
+      "passed": true
+    },
+    {
+      "name": "GPU-disabled visual checks at 4K and narrow inspection; favorites and notes intact",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

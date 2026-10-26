@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-25",
+  "datasetVersion": "2026.10.25-r2",
+  "multiSelectLogic": "OR within a category; AND across categories",
+  "pistolRevolverIconicCount": 38,
+  "oldPreferencesMigrated": true,
+  "slotSourceRecordsValidated": 190,
+  "capacityUsesPublishedTierCounts": true,
+  "muzzleSourceId": "PowerModule",
+  "numericalStatsAndOtherWeaponFieldsUnchanged": true,
+  "visualSlotKinds": [
+    "normal-mod",
+    "tech-mod",
+    "smart-mod",
+    "melee-mod",
+    "throwable-mod",
+    "scope",
+    "muzzle"
+  ],
+  "mobileKeyboardSpaceEscapePassed": true,
+  "testGroupsPassed": 24,
+  "testGroupsFailed": 0,
+  "method": "Production file:// in isolated headless Edge, offline"
+}

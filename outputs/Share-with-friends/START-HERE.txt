@@ -1,0 +1,31 @@
+NIGHT CITY ARSENAL — OFFLINE WEAPON REFERENCE
+
+OPEN: Double-click Night-City-Arsenal.html after saving it to your computer.
+No installer, server, account, Node.js or Python is needed. All data and images
+are inside the HTML file. Use a current desktop browser such as Edge, Chrome
+or Firefox. If Windows opens it in an editor, use Open with > your browser.
+
+If received as a ZIP: extract the ZIP first, then open Night-City-Arsenal.html.
+If Discord shows a preview or source text, download the file before opening it.
+
+115 iconic weapons / 190 total weapons.
+Inventory target: Cyberpunk 2077 patch 2.5.
+Data snapshot: 2026.10.25-r2.
+Application fingerprint: 87b057d73a3c.
+
+Search, multi-select filters, comparisons, favorites and slot icons work offline.
+Each person's favorites and preferences stay in their own browser; they are not
+included when this file is sent to another person. There is no tracking or sync.
+
+UPDATES: Replace the old HTML in the same folder with the same filename.
+Browser file-storage behavior varies. Before moving the file or changing browser,
+use Data notes > Export preferences; import that backup in the updated copy.
+Updates arrive as a new file from the person sharing it; there is no auto-updater.
+
+DATA: Community-sourced weapon stats are not individually measured in patch 2.5.
+Unknown values, tier gaps and source differences are explained under Data notes.
+The included DATA-SOURCES.md and VALIDATION-REPORT.md provide more detail.
+
+UNOFFICIAL FAN WORK: Not approved or endorsed by CD PROJEKT RED.
+Game artwork belongs to CD PROJEKT RED. Image credits and source links remain
+inside the app. Shared free of charge for noncommercial fan use.
