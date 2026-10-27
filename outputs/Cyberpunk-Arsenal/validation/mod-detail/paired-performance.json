@@ -1,0 +1,361 @@
+{
+  "method": "Three alternating pairs; offline isolated headless Edge; GPU/compositing disabled; 4x CPU; 1920x1080; response includes scripted activation and two animation frames.",
+  "files": [
+    {
+      "file": "before.html",
+      "sha256": "a3ca3778593c7365acf1b99a38cd6b014369f98a2856686e8be0c7218048636a"
+    },
+    {
+      "file": "index.html",
+      "sha256": "d1a75f656ca2ca1837121a5ddd3daf403f08a03557c3d61d34b6f4dd7675742f"
+    }
+  ],
+  "summary": {
+    "before": {
+      "open-mods": {
+        "responseMs": 234.59999999962747,
+        "taskMs": 260.02399999999983
+      },
+      "search-recoil": {
+        "responseMs": 27.799999999813735,
+        "taskMs": 35.533999999999956
+      },
+      "clear-search": {
+        "responseMs": 99.29999999981374,
+        "taskMs": 103.81299999999993
+      },
+      "inspect-add-vantage": {
+        "responseMs": 177.69999999925494,
+        "taskMs": 197.52900000000005
+      },
+      "change-reference-tier": {
+        "responseMs": 38.200000000186265,
+        "taskMs": 45.14500000000021
+      },
+      "compatible-weapon-search": {
+        "responseMs": 26.799999999813735,
+        "taskMs": 22.290000000000365
+      },
+      "open-raw-fields": {
+        "responseMs": 24.200000000186265,
+        "taskMs": 12.182999999999833
+      },
+      "close-detail": {
+        "responseMs": 51.89999999944121,
+        "taskMs": 53.06799999999967
+      }
+    },
+    "refined": {
+      "open-mods": {
+        "responseMs": 272.09999999962747,
+        "taskMs": 286.70700000000005
+      },
+      "search-recoil": {
+        "responseMs": 38.200000000186265,
+        "taskMs": 39.59399999999991
+      },
+      "clear-search": {
+        "responseMs": 118.90000000037253,
+        "taskMs": 129.702
+      },
+      "inspect-add-vantage": {
+        "responseMs": 199.40000000037253,
+        "taskMs": 219.6800000000001
+      },
+      "change-reference-tier": {
+        "responseMs": 37.799999999813735,
+        "taskMs": 47.6639999999997
+      },
+      "compatible-weapon-search": {
+        "responseMs": 18,
+        "taskMs": 23.552999999999713
+      },
+      "open-raw-fields": {
+        "responseMs": 26.200000000186265,
+        "taskMs": 28.747000000000078
+      },
+      "close-detail": {
+        "responseMs": 63.19999999925494,
+        "taskMs": 64.98900000000019
+      }
+    }
+  },
+  "runs": [
+    {
+      "pair": 0,
+      "version": "before",
+      "actions": [
+        {
+          "name": "open-mods",
+          "responseMs": 259.80000000074506,
+          "taskMs": 288.238
+        },
+        {
+          "name": "search-recoil",
+          "responseMs": 27.299999999813735,
+          "taskMs": 44.60100000000011
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 99.29999999981374,
+          "taskMs": 103.81299999999993
+        },
+        {
+          "name": "inspect-add-vantage",
+          "responseMs": 160,
+          "taskMs": 182.9940000000001
+        },
+        {
+          "name": "change-reference-tier",
+          "responseMs": 38.200000000186265,
+          "taskMs": 46.61099999999996
+        },
+        {
+          "name": "compatible-weapon-search",
+          "responseMs": 26.90000000037253,
+          "taskMs": 22.539000000000087
+        },
+        {
+          "name": "open-raw-fields",
+          "responseMs": 25.299999999813735,
+          "taskMs": 13.22100000000015
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 56.80000000074506,
+          "taskMs": 58.32900000000008
+        }
+      ]
+    },
+    {
+      "pair": 0,
+      "version": "refined",
+      "actions": [
+        {
+          "name": "open-mods",
+          "responseMs": 266.40000000037253,
+          "taskMs": 285.55299999999994
+        },
+        {
+          "name": "search-recoil",
+          "responseMs": 40.299999999813735,
+          "taskMs": 42.346
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 118.90000000037253,
+          "taskMs": 122.64000000000009
+        },
+        {
+          "name": "inspect-add-vantage",
+          "responseMs": 199.40000000037253,
+          "taskMs": 219.6800000000001
+        },
+        {
+          "name": "change-reference-tier",
+          "responseMs": 35.89999999944121,
+          "taskMs": 41.55400000000009
+        },
+        {
+          "name": "compatible-weapon-search",
+          "responseMs": 27.399999999441206,
+          "taskMs": 23.552999999999713
+        },
+        {
+          "name": "open-raw-fields",
+          "responseMs": 31.90000000037253,
+          "taskMs": 28.747000000000078
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 63.19999999925494,
+          "taskMs": 64.98900000000019
+        }
+      ]
+    },
+    {
+      "pair": 1,
+      "version": "refined",
+      "actions": [
+        {
+          "name": "open-mods",
+          "responseMs": 272.09999999962747,
+          "taskMs": 286.70700000000005
+        },
+        {
+          "name": "search-recoil",
+          "responseMs": 31.5,
+          "taskMs": 36.915000000000035
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 115.79999999981374,
+          "taskMs": 129.702
+        },
+        {
+          "name": "inspect-add-vantage",
+          "responseMs": 179.8999999994412,
+          "taskMs": 191.7390000000001
+        },
+        {
+          "name": "change-reference-tier",
+          "responseMs": 37.799999999813735,
+          "taskMs": 47.6639999999997
+        },
+        {
+          "name": "compatible-weapon-search",
+          "responseMs": 18,
+          "taskMs": 19.97300000000024
+        },
+        {
+          "name": "open-raw-fields",
+          "responseMs": 24.09999999962747,
+          "taskMs": 25.81800000000012
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 61.200000000186265,
+          "taskMs": 63.03300000000034
+        }
+      ]
+    },
+    {
+      "pair": 1,
+      "version": "before",
+      "actions": [
+        {
+          "name": "open-mods",
+          "responseMs": 234.59999999962747,
+          "taskMs": 260.02399999999983
+        },
+        {
+          "name": "search-recoil",
+          "responseMs": 27.799999999813735,
+          "taskMs": 32.92399999999995
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 97.19999999925494,
+          "taskMs": 99.69399999999995
+        },
+        {
+          "name": "inspect-add-vantage",
+          "responseMs": 177.69999999925494,
+          "taskMs": 197.52900000000005
+        },
+        {
+          "name": "change-reference-tier",
+          "responseMs": 38.30000000074506,
+          "taskMs": 45.14500000000021
+        },
+        {
+          "name": "compatible-weapon-search",
+          "responseMs": 25.299999999813735,
+          "taskMs": 22.290000000000365
+        },
+        {
+          "name": "open-raw-fields",
+          "responseMs": 24.200000000186265,
+          "taskMs": 12.182999999999833
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 51.19999999925494,
+          "taskMs": 53.01199999999984
+        }
+      ]
+    },
+    {
+      "pair": 2,
+      "version": "before",
+      "actions": [
+        {
+          "name": "open-mods",
+          "responseMs": 222.29999999981374,
+          "taskMs": 241.75400000000002
+        },
+        {
+          "name": "search-recoil",
+          "responseMs": 31.59999999962747,
+          "taskMs": 35.533999999999956
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 100.29999999981374,
+          "taskMs": 103.84199999999998
+        },
+        {
+          "name": "inspect-add-vantage",
+          "responseMs": 180.30000000074506,
+          "taskMs": 201.68600000000004
+        },
+        {
+          "name": "change-reference-tier",
+          "responseMs": 36.59999999962747,
+          "taskMs": 41.398999999999965
+        },
+        {
+          "name": "compatible-weapon-search",
+          "responseMs": 26.799999999813735,
+          "taskMs": 19.283999999999857
+        },
+        {
+          "name": "open-raw-fields",
+          "responseMs": 22.299999999813735,
+          "taskMs": 12.128000000000139
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 51.89999999944121,
+          "taskMs": 53.06799999999967
+        }
+      ]
+    },
+    {
+      "pair": 2,
+      "version": "refined",
+      "actions": [
+        {
+          "name": "open-mods",
+          "responseMs": 290.8999999994412,
+          "taskMs": 305.9020000000001
+        },
+        {
+          "name": "search-recoil",
+          "responseMs": 38.200000000186265,
+          "taskMs": 39.59399999999991
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 138.20000000018626,
+          "taskMs": 142.14300000000014
+        },
+        {
+          "name": "inspect-add-vantage",
+          "responseMs": 227.29999999981374,
+          "taskMs": 236.75900000000016
+        },
+        {
+          "name": "change-reference-tier",
+          "responseMs": 40.299999999813735,
+          "taskMs": 52.78399999999994
+        },
+        {
+          "name": "compatible-weapon-search",
+          "responseMs": 16.299999999813735,
+          "taskMs": 24.65599999999979
+        },
+        {
+          "name": "open-raw-fields",
+          "responseMs": 26.200000000186265,
+          "taskMs": 29.741000000000017
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 72.59999999962747,
+          "taskMs": 74.88099999999997
+        }
+      ]
+    }
+  ]
+}

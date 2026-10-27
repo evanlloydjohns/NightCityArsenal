@@ -40,6 +40,22 @@ for modification in mods['modifications']:
         modification['image']['src']='data:'+asset['mime']+';base64,'+base64.b64encode(payload).decode('ascii')
         modification['imageStatus']='Source-linked in-game item artwork; copyright CD PROJEKT RED. Source: Gamestegy.'
 mods['meta']['itemImageCount']=len(mod_images['images'])
+mods['meta']['display']=json.loads((ROOT/'modification-display.json').read_text(encoding='utf-8'))
+# Presentation rows retain published values; refresh failures must not silently invent scaling.
+mod_lookup={m['id']:m for m in mods['modifications']}
+for item_id,view in mods['meta']['display']['primaryModFields'].items():
+    item=mod_lookup[item_id]
+    if view.get('descriptionRows'):
+        assert set(view['descriptionRows'])==set(item['tiers']), 'Refresh display tiers: '+item_id
+        for tier,rows in view['descriptionRows'].items():
+            assert all(row['value'] in item['tierEffects'][tier]['summary'] for row in rows), 'Unsourced display value: '+item_id
+    else:
+        for effect in item['tierEffects'].values():
+            assert set(view['fields']) <= {field['label'] for field in effect['fields']}
+            assert all(row['value'] in effect['summary'] for row in view.get('extraRows',[]))
+for item_id,notes in mods['meta']['display']['tierNotes'].items():
+    assert set(notes) <= set(mod_lookup[item_id]['tiers'])
+
 html=html.replace('/*__MOD_DATA__*/',json.dumps(mods,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'))
 html=html.replace('/*__PLANNER_CORE__*/',(ROOT/'planner-core.js').read_text(encoding='utf-8'))
 html=html.replace('/*__EXPANSION__*/',(ROOT/'expansion.js').read_text(encoding='utf-8'))

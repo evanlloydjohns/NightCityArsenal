@@ -1,4 +1,41 @@
-# Current equipment UX quality pass — October 26, 2026
+# Current modification detail refinement — October 26, 2026
+
+The new detail hierarchy uses the existing approved surfaces and assets. Effects, category support, acquisition, restrictions and the compact source-listed browser are separate. Published numerical values use stat rows; the compact tier control is inline with the effects heading. General installation rules and technical source disclosures are collapsed. Important permanence, fixed/pre-installed equipment, one-core and unverified-replacement warnings remain visible. Catalog previews label their Reference Tier. The original weapon controller, base stylesheet, compatibility engine, weapon/equipment data and all artwork are unchanged.
+
+**126 groups pass, zero failures**, including eight new detail-format groups. All 257 published equipment tiers were exercised without mutating data. Twelve DPR/zoom and fourteen actual-control raster cases also pass. Existing regression coverage retains search/filtering, Favorites, visual equipment planning, saved builds, notes/tags/favorites, JSON portability, stale references and offline operation. Screenshots cover numeric, conditional and weapon-browser detail states at 1920, 2560, 768 and 390px, alongside the existing catalog/4K coverage. Headless inspection found no overflow or lost source controls in those views.
+
+## Paired software-rendering measurements
+
+Three alternating before/refined pairs use isolated offline headless Edge, 1920×1080, GPU/compositing disabled and 4x CPU throttling. The before file is an exact copy of the preceding delivered HTML. Response timings include scripted activation and two animation frames, not physical input latency or FPS. OS/user load is uncontrolled. No other agent-launched browser test ran concurrently with any profile. Only the within-run pairs should be compared; earlier runs under other load are not a speed baseline.
+
+| Equipment interaction | Previous (ms) | Refined (ms) |
+|---|---:|---:|
+| Open Mods | 234.6 | 272.1 |
+| Search equipment | 27.8 | 38.2 |
+| Clear equipment search | 99.3 | 118.9 |
+| Inspect Add-Vantage | 177.7 | 199.4 |
+| Change reference tier | 38.2 | 37.8 |
+| Search source-listed weapons | 26.8 | 18.0 |
+| Expand raw fields | 24.2 | 26.2 |
+
+The structured catalog adds about 37.5 ms to first opening and the new inspection adds about 21.7 ms in this artificially throttled run. This is a modest render cost for additional rows and tags, not a claim of zero overhead. Tier switching and compatibility search remain responsive. No continuous animation, blur, background polling, remote asset, heavy runtime dependency or all-weapon/mod combination rendering was added.
+
+| Arsenal interaction | Previous (ms) | Refined (ms) |
+|---|---:|---:|
+| Show all 190 weapons | 135.3 | 130.9 |
+| First weapon table | 560.4 | 562.8 |
+| Weapon search | 28.7 | 26.7 |
+| First weapon inspection | 254.1 | 257.8 |
+
+Arsenal results show small differences without a broad regression. The 45-frame scroll uses 670.8 → 667.5 ms of browser task work; scheduled frame waits are not input latency. The separate current planner workload records idle task work of 1.2 ms over one second. Existing node/image reuse, lazy decoding, native measured containment and one numeric formatter remain intact. Headless results do not guarantee identical behavior in every physical browser; independent Firefox/Safari and screen-reader runs were not performed.
+
+Current evidence is in `validation/mod-detail/`: `results.json`, `paired-performance.json`, `arsenal-performance.json`, `performance.json` and screenshots. New maintenance harnesses are `source/tests/mod-detail.test.cjs` and `mod-detail-profile.cjs`.
+
+The tested HTML SHA256 is **`d1a75f656ca2ca1837121a5ddd3daf403f08a03557c3d61d34b6f4dd7675742f`**. The application remains self-contained and offline. The final shared-file/fresh-ZIP distribution check additionally decodes all 190 weapon and 72 equipment images and verifies saved-plan persistence; see `validation/distribution-test.json`. Final packages contain the identical tested HTML and current reports.
+
+---
+
+# Previous equipment UX quality pass (historical snapshot)
 
 The approved visual baseline is preserved. The original base stylesheet, weapon data and all 190 weapon images remain exact. Targeted integration changes improve Favorites feedback, equipment-card interactions, source-listed weapon browsing, selected-slot information and saved-build actions. All 72 current equipment items have authentic source-linked artwork. Base statistics are never recalculated.
 

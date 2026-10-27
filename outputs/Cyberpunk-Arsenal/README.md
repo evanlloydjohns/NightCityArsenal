@@ -79,3 +79,6 @@ Normal use requires only `index.html`. The development build command is `python 
 ## Equipment UX update
 
 All 72 current equipment items now show authentic source-linked in-game artwork. Click a mod name, image or card to inspect it. In the compact source-listed weapon browser, search/filter and choose the weapon tier; Plan build preselects the inspected modification only when its slot/tier fit is source-checked. Saved-build names and artwork open the plan; management actions remain available. Favorites explicitly distinguishes an empty collection, filters hiding saved weapons, and a search with no matches. Clearing Favorites filters includes standard weapons. Existing favorites, saved builds and notes retain their original storage keys. See MODIFICATIONS-DATA.md for reconciliation, imagery credits and source limits.
+
+
+Modification inspection now formats published numerical effects as separate stat rows, with a compact reference-tier selector alongside the effects heading. Class/technology tags and a labeled slot icon are separate from acquisition. Important warnings remain visible; general Installation Rules & Restrictions, raw source fields and verification details are collapsed below the compact weapon browser. Conditional effects remain descriptive, and no units or calculated bonuses are invented.

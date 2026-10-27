@@ -1,4 +1,16 @@
-# Current Mods & Builds UX refinement validation — October 26, 2026
+# Current modification detail validation — October 26, 2026
+
+**126 test groups pass, zero failures**, plus 26 raster checks. The eight new groups verify all 257 equipment tier variants, exact signs/units, complete conditional prose, compact tier control/focus, inert compatibility chips, labeled slot glyphs, visible restrictions, collapsed general/raw/verification disclosures, concise card reference tiers, preserved filters/click behavior and responsive geometry. Known Big Mag/Gambiteer raw-field differences, Gaki's separate charge statement, E305's Wiki-only Tier 5 and Cetus's conditional headshot statement are retained without invented conversions.
+
+The 118 previous groups also pass on this HTML, covering the original weapon catalog/comparisons, Favorites, planning, storage, import/export and prior visual improvements. All browser checks use isolated headless Edge with GPU/compositing disabled; file tests are offline. Existing approved base CSS, original weapon controller, compatibility engine, numerical equipment/weapon datasets and image manifests remain unchanged. No migration, recalculation, runtime dependency or new source data was introduced.
+
+Structured field arrays supply scope/muzzle rows directly. Seven simple-mod display mappings are explicitly reviewed per published tier; the build validates their values against canonical fields/descriptions. Other conditional effects remain readable text. All original fields, source descriptions, URLs, attribution and uncertainty notes remain available. The new shared display/rules configuration is `source/modification-display.json`; it does not change equipment identity or build schema.
+
+Current evidence: `validation/mod-detail/results.json`, desktop/narrow screenshots, three performance reports, existing regression folders and `validation/distribution-test.json`. The exact tested/final HTML SHA256 is `d1a75f656ca2ca1837121a5ddd3daf403f08a03557c3d61d34b6f4dd7675742f`. Before/refined GPU-disabled profiles show modest additional Mods rendering work, with responsive tier/filter interactions and no broad Arsenal regression; see PERFORMANCE-REPORT.md for numbers and limitations. Both sharing formats are checked offline and the source archive includes current evidence. Historical reports below do not supersede this refinement.
+
+---
+
+# Previous Mods & Builds UX refinement validation (historical snapshot)
 
 **118 test groups pass, zero failures**, plus 12 DPR/zoom and 14 actual-control raster checks. All source-linked artwork decodes offline: 190 unchanged weapons and 72 distinct equipment images. The 72-record inventory contains 257 published tier variants, including newly cross-listed Disjunctor. The previous 71 records' effects, tiers, fits and acquisition rules remain unchanged. The 74/75 source footer discrepancy remains explicit; no phantom entries were added. See MODIFICATIONS-DATA.md for category totals and data limits.
 
