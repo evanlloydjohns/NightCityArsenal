@@ -4,6 +4,7 @@ A self-contained Cyberpunk 2077 weapon reference and information-only equipment 
 
 - **Launch:** double-click [Night-City-Arsenal.html](outputs/Share-with-friends/Night-City-Arsenal.html), or [index.html](outputs/Cyberpunk-Arsenal/index.html).
 - **Share:** [Night-City-Arsenal.zip](outputs/Share-with-friends/Night-City-Arsenal.zip).
+- **Install with Edge / future HTTPS hosting:** [PWA instructions](outputs/Cyberpunk-Arsenal/PWA.md); static output in `outputs/Cyberpunk-Arsenal/pwa/` and `outputs/Night-City-Arsenal-PWA.zip`.
 - **Maintain:** [application README](outputs/Cyberpunk-Arsenal/README.md) — architecture, build/release commands and scoped testing commands.
 - **Continue work:** [STATUS.md](outputs/Cyberpunk-Arsenal/STATUS.md) — known issues, data limits and implementation decisions.
 - **Constraints:** [AGENTS.md](AGENTS.md); preserve the approved design and use terminal/headless tools only.

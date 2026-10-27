@@ -2,6 +2,8 @@
 
 **Launch:** double-click `index.html`. For Discord use `../Share-with-friends/Night-City-Arsenal.html` or the smaller ZIP of the same name. No installation, internet, account or server is needed.
 
+**Windows app:** the additional `pwa/` distribution supports Edge installation, standalone windows and service-worker offline launches. See [PWA.md](PWA.md) for local preview, installation, data migration, updates and future HTTPS hosting. The original single-file distribution remains supported.
+
 ## Current features
 
 - 190 weapons: 115 iconic and 75 standard; 72 modifications/attachments with 257 published tier variants and bundled artwork.
@@ -22,6 +24,7 @@ Buildless vanilla JavaScript/CSS; Python is a development-only packager.
 | `source/weapons.json`, `source/modifications.json`, `source/modification-display.json` | Canonical source values; separate presentation mappings/shared installation rules |
 | `source/assets/`, `*-images.json` | Local artwork and attributed/checksummed mappings |
 | `source/build.py`, `source/package_release.py` | Embed all runtime content and refresh distributions/checksums |
+| `source/build_pwa.py`, `source/pwa/`, `source/serve_pwa.py` | Derive hosted PWA, manifest, exact NC icons, safe caching/update lifecycle and loopback preview |
 | `source/tests/`, `validation/` | Development tests, reports and headless screenshots |
 
 ## Build and release
@@ -33,6 +36,8 @@ python source/build.py
 ```
 
 This refreshes `index.html`; the HTML/ZIP, `START-HERE.txt` and `release.json` in `../Share-with-friends/`; this project's `SHA256SUMS.txt`; and `../Cyberpunk-Arsenal.zip` (full source/report archive). Keep filenames stable. Edit source, not generated HTML. After an application change, test the built distribution; finalize reports and rebuild packages so the final HTML remains byte-for-byte identical to the tested file. Documentation/package-only updates should leave its fingerprint unchanged.
+
+It also builds the static `pwa/` deployment folder and `../Night-City-Arsenal-PWA.zip`. Preview with `python source/serve_pwa.py`, then open `http://localhost:8765/` in Edge. No deployment occurs during builds.
 
 ## Scoped testing
 
@@ -58,6 +63,7 @@ These are example selections, not a mandatory full suite. Elsewhere use installe
 | Favorites, imagery, compact fit browser or card interactions | `equipment-ux.test.cjs` |
 | Build storage failures | `build-storage.test.cjs` |
 | Changed production sharing files | `distribution.test.cjs` |
+| Manifest, service worker, offline HTTP launches, installation eligibility or updates | `pwa.test.cjs` |
 
 Use a targeted screenshot/layout check for visual changes. Broader `*refinement.test.cjs`, `atmosphere.test.cjs`, `visual-restoration.test.cjs` and `*profile.cjs` audits are for relevant layout/rendering work, not every small edit. Baseline-dependent suites need a preserved pre-change HTML path in `ATMOSPHERE_BASELINE`/`RESTORATION_BASELINE`. Profiles take paths documented in their headers. Keep browser work headless; do not alter personal browser settings/storage.
 

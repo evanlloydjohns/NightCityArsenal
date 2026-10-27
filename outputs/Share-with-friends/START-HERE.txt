@@ -13,7 +13,7 @@ Inventory target: Cyberpunk 2077 patch 2.5.
 Data snapshot: 2026.10.25-r2.
 Equipment: 72 modifications and attachments.
 Equipment snapshot: 2026.10.26-mods-r1.
-Application fingerprint: d7d4af6111fd.
+Application fingerprint: c91a86eecd71.
 
 Search, multi-select filters, comparisons, favorites and slot icons work offline.
 Mods: browse equipment effects, tiers, compatibility and acquisition.
@@ -28,6 +28,10 @@ Browser file-storage behavior varies. Before moving the file or changing browser
 use Data notes > Export preferences; import that backup in the updated copy.
 Back up builds separately with Builds > Export JSON, then Builds > Import JSON.
 Updates arrive as a new file from the person sharing it; there is no auto-updater.
+
+WINDOWS APP OPTION: A separate hosted PWA supports Edge installation and cached
+offline launches. This downloaded HTML remains the self-contained file version.
+See PWA.md for installation, updates and exporting/importing between origins.
 
 DATA: Community-sourced weapon stats are not individually measured in patch 2.5.
 Unknown values, tier gaps and source differences are explained under Data notes.

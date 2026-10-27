@@ -50,6 +50,10 @@ use Data notes > Export preferences; import that backup in the updated copy.
 Back up builds separately with Builds > Export JSON, then Builds > Import JSON.
 Updates arrive as a new file from the person sharing it; there is no auto-updater.
 
+WINDOWS APP OPTION: A separate hosted PWA supports Edge installation and cached
+offline launches. This downloaded HTML remains the self-contained file version.
+See PWA.md for installation, updates and exporting/importing between origins.
+
 DATA: Community-sourced weapon stats are not individually measured in patch 2.5.
 Unknown values, tier gaps and source differences are explained under Data notes.
 The included DATA-SOURCES.md and VALIDATION-REPORT.md provide more detail.
@@ -64,7 +68,7 @@ inside the app. Shared free of charge for noncommercial fan use.
         # No source template or developer dependencies in the friend-facing ZIP.
         archive.writestr('Night-City-Arsenal/'+APP_FILENAME,html)
         archive.writestr('Night-City-Arsenal/START-HERE.txt',readme.encode('utf-8'))
-        for name in ['DATA-SOURCES.md','VALIDATION-REPORT.md','PERFORMANCE-REPORT.md','VISUAL-BASELINE.md','MODIFICATIONS-DATA.md']:
+        for name in ['DATA-SOURCES.md','VALIDATION-REPORT.md','PERFORMANCE-REPORT.md','VISUAL-BASELINE.md','MODIFICATIONS-DATA.md','PWA.md']:
             archive.write(project/name,'Night-City-Arsenal/'+name)
     with zipfile.ZipFile(friends_zip) as archive:
         if archive.testzip() is not None:raise ValueError('Friend ZIP integrity check failed.')

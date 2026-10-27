@@ -1,4 +1,18 @@
-# Current item-shadow restoration validation — October 26, 2026
+# Current PWA implementation validation — October 26, 2026
+
+The original single-file app is retained, with the same approved screens, CSS, artwork, embedded data and storage schema. Its only application logic addition is a read-only unsaved-plan status accessor for the separate hosted PWA's restart safeguard. No statistics are recalculated. The additional generated `pwa/` distribution supplies a valid relative manifest with a stable ID, Arsenal start URL, standalone display, exact original NC vector/seven rendered icon sizes, and a versioned service worker. No Windows installer, framework, production service or cloud resource was created.
+
+**59 existing regression groups passed:** planner-core 16, application 24, modifications/planner UI 16, build-storage 3. **10 PWA groups passed** in installed Microsoft Edge running headlessly with GPU/compositing disabled and an isolated persistent profile. **Five distribution checks passed** against the exact friend HTML and a fresh ZIP extraction in file:// offline contexts. Zero page errors or CSP violations were observed in the PWA checks. No visual/performance redesign or broad profiling audit was performed.
+
+PWA checks cover browser manifest/installability diagnostics with no errors; relative scope/ID and root/subdirectory hosting; all icon dimensions and exact NC SVG paths; required HTML/manifest cache readiness despite a missing optional favicon; offline search, filters, sort, compare, weapon/mod inspection and planner; **all 262 item-image decodes**; JSON export/import; persisted favorites, notes, tags, build favorites and configuration; cache repair; waiting updates, dirty-plan/dialog guards and multiple-window restart refusal; user-initiated activation without storage loss; cache cleanup isolated from unrelated app/scope caches; and rejection of both unavailable required HTML and incorrect deployment bytes. A full Edge process restart with the loopback server stopped loaded the cached application and preserved personal data. Update failures and server shutdown were test fixtures, not changes to the real distribution.
+
+Evidence: `validation/pwa-test.json`, `validation/test-results.json`, `validation/modifications/core-results.json`, `ui-results.json`, `storage-results.json` and `validation/distribution-test.json`. Tested single-file SHA256: `c91a86eecd71d99c10d7b7c6411a323e851572bf1fdd20051dee2c386ad355d2`. Tested PWA SHA256: `d1e793f3fc164d8bfd070fdac9f343b84f84a98985530a6d7ea2d5a72473b303`. Final packaging must preserve these bytes; documentation changes do not alter either application.
+
+Limits: Windows Start/taskbar/Alt+Tab identity, actual Edge installation and standalone OS window decorations were not automated or claimed. Follow the precise manual verification in `PWA.md`. Browser cache eviction/site-data removal remains possible; keep JSON backups. File, localhost and HTTPS storage do not migrate automatically. Existing community data confidence and the opaque DB-2 Testera image limitation remain unchanged. All tests used headless browsers and loopback-only servers; no desktop automation or personal browser setting changes occurred.
+
+---
+
+# Previous item-shadow restoration validation — October 26, 2026
 
 The requested alpha-aware artwork shadows are restored across weapon/mod/attachment image surfaces, with smaller thumbnail variants. **22 existing visual/regression groups and five targeted workflow checks passed**, plus the final offline shared-file/fresh-ZIP distribution checks. The non-style HTML content is byte-for-byte unchanged from the preceding release, preserving all scripts, canonical data, embedded imagery, preferences and saved-build behavior. Main styling, layout and asset files were not changed. Only image styling and the intentional shadow allowance in rendering guards changed.
 

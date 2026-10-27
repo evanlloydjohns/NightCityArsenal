@@ -3,6 +3,7 @@ import base64,hashlib,json,re,sys
 from pathlib import Path
 sys.dont_write_bytecode=True
 from package_release import package_release
+from build_pwa import build_pwa
 ROOT = Path(__file__).resolve().parent
 data=json.loads((ROOT/'weapons.json').read_text(encoding='utf-8'))
 images=json.loads((ROOT/'weapon-images.json').read_text(encoding='utf-8'))
@@ -62,5 +63,6 @@ html=html.replace('/*__EXPANSION__*/',(ROOT/'expansion.js').read_text(encoding='
 target=ROOT.parent/'index.html'
 target.write_text(html,encoding='utf-8')
 print(f'Built {target} ({target.stat().st_size:,} bytes)')
+build_pwa(html)
 release_meta={**data['meta'],'modificationCount':len(mods['modifications']),'equipmentDataVersion':mods['meta']['dataVersion'],'buildSchemaVersion':1,'equipmentImageCount':len(mod_images['images']),'equipmentInventoryRevision':mods['meta'].get('inventoryRevision')}
 package_release(target,release_meta)

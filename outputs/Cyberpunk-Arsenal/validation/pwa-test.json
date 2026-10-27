@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "browser": "Installed Microsoft Edge, isolated headless persistent profile, GPU disabled",
+  "productionSHA256": "c91a86eecd71d99c10d7b7c6411a323e851572bf1fdd20051dee2c386ad355d2",
+  "pwaSHA256": "d1e793f3fc164d8bfd070fdac9f343b84f84a98985530a6d7ea2d5a72473b303",
+  "checks": [
+    "Manifest: stable relative ID, Arsenal start, scope, standalone display, colors and icon purposes",
+    "Exact original NC vector and seven correctly sized raster icons; no desktop framework or external runtime",
+    "Headless Edge accepts manifest with no installability errors; nested base path registers and fully precaches despite optional missing favicon",
+    "Favorites, comparison, slot configuration, notes, tags and build favorites persist after reload",
+    "Offline all seven views, filters, search, sort, comparison, mod inspection, all 262 image decodes and JSON round trips",
+    "Retry repairs a missing required cache entry without replacing user data",
+    "Update waits without reload; unsaved plan and another open window block restart; explicit safe restart preserves storage",
+    "Failed/mismatched deployment keeps active offline application and user data intact",
+    "Browser process restart with server stopped loads from service worker and preserves saved personal data",
+    "Root hosting also registers; cache cleanup is isolated by application scope"
+  ],
+  "limitations": [
+    "Windows Start/taskbar installation and standalone OS window were not automated; manual verification required.",
+    "Offline cache can be evicted by browser/OS storage policy; JSON backups remain necessary."
+  ]
+}

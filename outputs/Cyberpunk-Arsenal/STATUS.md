@@ -1,8 +1,8 @@
 # Continuation status
 
-- **Application code checkpoint:** `5ec5ea9`; all requested features through item shadows are implemented and committed. No active unfinished implementation is recorded. Documentation commits may follow this checkpoint.
-- **Current runnable fingerprint:** `d7d4af6111fd` (full SHA256 in `../Share-with-friends/release.json`). Data targets patch 2.5; this is a stored research target, not a new claim that every item was game-tested.
-- **Validation:** the detail refinement passed 126 groups and 26 raster checks. The subsequent CSS-only shadow change passed 22 relevant regression groups, five workflow checks and offline distribution checks. Other historical report hashes refer to earlier HTML; read the latest report section rather than treating every archived run as current.
+- **Current implementation:** Edge-installable PWA distribution added after the `5ec5ea9` application and `9121b34` documentation checkpoints. The approved application remains intact; file:// delivery is still supported. See `PWA.md` for preview, installation, migration, safe updates and hosting instructions.
+- **Current runnable fingerprint:** `c91a86eecd71` (full SHA256 in `../Share-with-friends/release.json`); hosted PWA `d1e793f3fc16` (full SHA256 in `validation/pwa-test.json`). Data targets patch 2.5; this is a stored research target, not a new claim that every item was game-tested.
+- **Current validation:** 59 existing regression groups, 10 PWA groups and five offline distribution checks passed. Headless Edge reports no manifest/installability errors. Full process restart with the loopback server stopped, all 262 item-image decodes, JSON portability, cache repair, failed deployments and safe updates passed. Windows Start/taskbar installation and OS window behavior remain manual verification steps. Other historical report hashes refer to earlier HTML; read the latest report section rather than treating every archived run as current.
 
 ## Known issues and limits
 
@@ -19,4 +19,6 @@
 - `modification-display.json` controls presentation/shared rules separately from canonical numerical data. Seven simple-mod mappings are reviewed per tier; ambiguous raw fields remain technical disclosures.
 - Shadows are a user-requested exception to older no-image-filter guards: one static alpha-aware shadow, smaller for thumbnails. Preserve the approved burgundy design and other CPU-rendering safeguards.
 - ZIPs, QA screenshots and `work/` research caches are Git-ignored. Builds recreate packages; live research refresh tooling may require local caches and upstream parser maintenance. They are not runtime dependencies.
-- Hosting is a future option only; nothing has been deployed or configured for it.
+- `source/pwa/` and `source/build_pwa.py` generate `pwa/` and `../Night-City-Arsenal-PWA.zip`. Do not edit generated PWA files. Required HTML/manifest are hash-verified and cached together; optional shell icons do not block preparation. Artwork remains embedded. Updates wait, never force a reload, guard unsaved plans/dialogs and other open windows, and only delete obsolete app caches at the same scope. Storage keys/schema are unchanged. File, localhost and HTTPS origins require explicit JSON migration.
+- Offline cache/site data can be evicted or cleared; keep JSON backups. Unsaved drafts remain session-scoped. Actual Windows installation is not claimed from headless testing.
+- HTTPS static hosting is prepared but nothing has been deployed. The only server used in automated tests was a temporary loopback fixture; `source/serve_pwa.py` provides an optional loopback-only development preview.

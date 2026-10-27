@@ -21,7 +21,7 @@ The complete `Cyberpunk-Arsenal.zip` is the maintenance/source package. Send the
 
 ## Hosting later
 
-The same static HTML could be hosted later, letting friends use a URL and receive the latest version whenever they reload. Hosting would add server availability and setup requirements. This release stays an offline browser app, as requested; no hosting or server settings have been changed.
+The additional `pwa/` distribution is ready for HTTPS static hosting and Edge installation. `../Night-City-Arsenal-PWA.zip` contains that deployment folder's contents. The original HTML/ZIP above remain independent file:// distributions. See [PWA.md](PWA.md) for installation, offline preparation, safe updates and moving personal data between origins. Nothing has been deployed or configured in the cloud.
 
 The share ZIP also includes `PERFORMANCE-REPORT.md` with measured software-rendering results and their limitations. All screenshots, raw profiling data and development tests remain in the complete source archive.
 

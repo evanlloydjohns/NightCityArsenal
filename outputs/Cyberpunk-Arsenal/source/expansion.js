@@ -138,6 +138,6 @@
   else if(action==='compare-builds')compareBuilds();
   else if(action==='more-builds'){buildPage+=60;renderBuildResults();}
  });
- window.NCAExpansion=Object.freeze({render,engine:E,data:DB,getBuilds:()=>E.clone(builds),getDraft:()=>draft?E.clone(draft):null,startPlan,openBuild,filteredMods,filteredBuilds});
+ window.NCAExpansion=Object.freeze({render,engine:E,data:DB,getBuilds:()=>E.clone(builds),getDraft:()=>draft?E.clone(draft):null,isDraftDirty:()=>dirty,startPlan,openBuild,filteredMods,filteredBuilds});
  if(['mods','builds','planner'].includes(A.getView()))render(A.getView());
 })();
