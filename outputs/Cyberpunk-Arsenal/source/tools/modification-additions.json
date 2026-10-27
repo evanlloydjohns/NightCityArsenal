@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "inventoryRevision": "2026.10.26-r2",
+    "recordCount": 72,
+    "advertisedSourceCount": 75,
+    "sourceInventoryCount": 72,
+    "inventoryNote": "Rechecked October 26, 2026: Nukes & Dragons now lists 32 ranged (including 3 throwable), 10 melee, 16 scopes and 14 muzzles: 72 named records. This includes newly listed Disjunctor, absent from the previous 71-item snapshot. Gamestegy independently lists the same 72 current items (42 weapon mods, 16 scopes, 14 muzzles); its separate legacy/cyberware/clothing records are excluded. N&D footer totals vary between cached pages (74/75), so three unnamed banner entries remain unresolved; they are not fabricated."
+  },
+  "modifications": [
+    {
+      "id": "mod.disjunctor",
+      "name": "Disjunctor",
+      "gameIds": [],
+      "category": "Ranged mod",
+      "slotKind": "mod",
+      "iconic": true,
+      "uniqueGroup": null,
+      "content": "Base Game",
+      "tiers": [
+        "5"
+      ],
+      "tierEffects": {
+        "5": {
+          "summary": "+10% charge speed after a headshot with a fully charged weapon, lasting 10 seconds and stacking up to 5 times. +50% damage with Bolt shots.",
+          "fields": []
+        }
+      },
+      "compatibleWeaponIds": [
+        "Items.Preset_Achilles_Collectible",
+        "Items.Preset_Achilles_Default",
+        "Items.Preset_Burya_Default",
+        "Items.Preset_Burya_King",
+        "Items.Preset_Grit_Default",
+        "Items.Preset_Kenshin_Default",
+        "Items.Preset_Nekomata_Default",
+        "Items.Preset_Omaha_Default",
+        "Items.Preset_Quasar_Default",
+        "Items.Preset_Satara_Default",
+        "Items.Preset_Senkoh_Default",
+        "Items.Preset_Ticon_Default"
+      ],
+      "outsideCatalogWeapons": [],
+      "compatibilityComplete": true,
+      "classes": [
+        "Pistol",
+        "Precision Rifle",
+        "Revolver",
+        "Shotgun",
+        "Sniper Rifle",
+        "Submachine Gun"
+      ],
+      "technologies": [
+        "Tech"
+      ],
+      "effectCategories": [
+        "Charge",
+        "Conditional damage"
+      ],
+      "acquisition": [
+        {
+          "methods": [
+            "Guaranteed"
+          ],
+          "text": "After Clampdown, Miguel texts that King left a package at V’s Megabuilding H10 apartment. The package contains Disjunctor. This route is community-documented, not independently game-tested."
+        }
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/disjunctor"
+        },
+        {
+          "name": "Gamestegy — effect, acquisition and individual fits",
+          "url": "https://gamestegy.com/cyberpunk-2077/wiki/19016/disjunctor"
+        },
+        {
+          "name": "Official Update 2.5 notes — Clampdown quest",
+          "url": "https://www.cyberpunk.net/en/news/52120/check-out-whats-coming-to-night-city-in-the-edgerunners-2-update-for-cyberpunk-2077/"
+        }
+      ],
+      "verificationNotes": [
+        "Listed as a new iconic Tech mod in patch 2.5 by Gamestegy and cross-listed by Nukes & Dragons. The official notes confirm Clampdown but do not name this reward.",
+        "Community source values and installation behavior have not been independently game-tested. This is not a Chimera-core mod; do not apply Chimera removability to it.",
+        "Nukes & Dragons lists 12 fits; Gamestegy lists 13 including HA-4 Grit (Barghest). Only their common individual fits are used here; the variant remains unverified."
+      ],
+      "image": null,
+      "imageStatus": "Source-linked authentic item artwork is mapped in modification-images.json; source: Gamestegy, copyright CD PROJEKT RED.",
+      "addedIn": "2.5"
+    }
+  ]
+}

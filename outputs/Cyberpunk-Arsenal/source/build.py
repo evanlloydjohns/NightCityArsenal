@@ -27,11 +27,24 @@ html=html.replace('/*__STYLES__*/',(ROOT/'styles.css').read_text(encoding='utf-8
 html=html.replace('/*__DATA__*/',json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'))
 html=html.replace('/*__LOGIC__*/',(ROOT/'app.js').read_text(encoding='utf-8'))
 mods=json.loads((ROOT/'modifications.json').read_text(encoding='utf-8'))
+mod_images=json.loads((ROOT/'modification-images.json').read_text(encoding='utf-8'))
+assert set(mod_images['images']) <= {m['id'] for m in mods['modifications']}
+for modification in mods['modifications']:
+    asset=mod_images['images'].get(modification['id'])
+    if asset:
+        image_path=(ROOT/asset['file']).resolve()
+        assert ROOT.resolve() in image_path.parents
+        payload=image_path.read_bytes()
+        assert hashlib.sha256(payload).hexdigest()==asset['sha256'], modification['name']
+        modification['image']={k:asset[k] for k in ['kind','attribution','sourceUrl','sourcePage','width','height']}
+        modification['image']['src']='data:'+asset['mime']+';base64,'+base64.b64encode(payload).decode('ascii')
+        modification['imageStatus']='Source-linked in-game item artwork; copyright CD PROJEKT RED. Source: Gamestegy.'
+mods['meta']['itemImageCount']=len(mod_images['images'])
 html=html.replace('/*__MOD_DATA__*/',json.dumps(mods,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'))
 html=html.replace('/*__PLANNER_CORE__*/',(ROOT/'planner-core.js').read_text(encoding='utf-8'))
 html=html.replace('/*__EXPANSION__*/',(ROOT/'expansion.js').read_text(encoding='utf-8'))
 target=ROOT.parent/'index.html'
 target.write_text(html,encoding='utf-8')
 print(f'Built {target} ({target.stat().st_size:,} bytes)')
-release_meta={**data['meta'],'modificationCount':len(mods['modifications']),'equipmentDataVersion':mods['meta']['dataVersion'],'buildSchemaVersion':1}
+release_meta={**data['meta'],'modificationCount':len(mods['modifications']),'equipmentDataVersion':mods['meta']['dataVersion'],'buildSchemaVersion':1,'equipmentImageCount':len(mod_images['images']),'equipmentInventoryRevision':mods['meta'].get('inventoryRevision')}
 package_release(target,release_meta)

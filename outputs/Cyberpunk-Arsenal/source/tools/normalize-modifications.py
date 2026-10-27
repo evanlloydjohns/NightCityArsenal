@@ -137,6 +137,14 @@ meta['fixedAttachments']={
  'Items.Preset_Lexington_Rook':{'scope':{'name':'Grandstand factory scope','status':'fixed','source':'https://cyberpunk.fandom.com/wiki/Rook'},'muzzle':{'name':'XC-10 Strix factory silencer','status':'fixed','source':'https://cyberpunk.fandom.com/wiki/Rook'}},
  'Items.Preset_Tactician_Headsman':{'scope':{'name':'Dedicated factory scope','status':'unverified','source':'https://nukesdragons.com/cyberpunk-2077/db/weapons/the-headsman'}}
 }
+# Reviewed additions preserve new source records when rebuilding the earlier research cache.
+additions=json.loads((ROOT/'tools/modification-additions.json').read_text(encoding='utf-8'))
+by_id={m['id']:m for m in out}
+by_id.update({m['id']:m for m in additions['modifications']})
+out=list(by_id.values());meta.update(additions['meta'])
+image_manifest=json.loads((ROOT/'modification-images.json').read_text(encoding='utf-8'))
+for m in out:
+ if m['id'] in image_manifest['images']:m['imageStatus']='Source-linked authentic item artwork is mapped in modification-images.json; source: Gamestegy, copyright CD PROJEKT RED.'
 (ROOT/'modifications.json').write_text(json.dumps({'meta':meta,'modifications':sorted(out,key=lambda m:m['name'].lower())},indent=2,ensure_ascii=False),encoding='utf-8')
 (CACHE/'normalization-report.json').write_text(json.dumps({'count':len(out),'compatibilityGaps':problems,'unknownAcquisition':[m['name']for m in out if m['acquisition'][0]['methods']==['Unknown']],'wikiMatches':sum(len(m['sources'])>1 for m in out),'categories':{c:sum(m['category']==c for m in out)for c in sorted({m['category']for m in out})}},indent=2),encoding='utf-8')
 print((CACHE/'normalization-report.json').read_text())

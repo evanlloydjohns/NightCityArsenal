@@ -71,7 +71,7 @@ inside the app. Shared free of charge for noncommercial fan use.
         if digest(archive.read('Night-City-Arsenal/'+APP_FILENAME))!=app_hash:
             raise ValueError('Friend ZIP contains a different application.')
     release={'application':'Night City Arsenal','builtAtUtc':datetime.now(timezone.utc).isoformat(timespec='seconds'),'applicationFingerprint':app_hash[:12],'dataVersion':meta['datasetVersion'],'targetPatch':meta['targetPatch'],'iconicCount':meta['iconicCount'],'totalWeapons':meta['totalCount'],'delivery':'Self-contained offline HTML; ZIP contains the same application and instructions','files':{APP_FILENAME:{'bytes':len(html),'sha256':app_hash},ZIP_FILENAME:{'bytes':friends_zip.stat().st_size,'sha256':digest(friends_zip.read_bytes())}}}
-    release.update(modificationCount=meta.get('modificationCount',0),equipmentDataVersion=meta.get('equipmentDataVersion'),buildSchemaVersion=meta.get('buildSchemaVersion'))
+    release.update(modificationCount=meta.get('modificationCount',0),equipmentDataVersion=meta.get('equipmentDataVersion'),buildSchemaVersion=meta.get('buildSchemaVersion'),equipmentImageCount=meta.get('equipmentImageCount'),equipmentInventoryRevision=meta.get('equipmentInventoryRevision'))
     (shared/'release.json').write_text(json.dumps(release,indent=2),encoding='utf-8')
     tracked=sorted(p for p in project.rglob('*') if p.is_file() and p.name!='SHA256SUMS.txt' and '__pycache__' not in p.parts and p.suffix!='.pyc')
     (project/'SHA256SUMS.txt').write_text('\n'.join(digest(p.read_bytes())+'  '+p.relative_to(project).as_posix() for p in tracked)+'\n',encoding='utf-8')

@@ -195,7 +195,14 @@
     $('catalog-heading').firstChild.textContent=currentView==='favorites'?'Your favorites ':state.iconic==='iconic'?'Iconic arsenal ':state.iconic==='normal'?'Standard arsenal ':'Full arsenal ';
     $('catalog-kicker').textContent=currentView==='favorites'?'NC / SAVED INVENTORY':'NC / INVENTORY';
     $('results-announcement').textContent=`${rows.length} weapon${rows.length===1?'':'s'} found`;renderChips();hideTooltip();
-    if(!rows.length){$('catalog').innerHTML=`<div class="empty"><div class="empty-symbol">${currentView==='favorites'?'☆':'⌕'}</div><h3>${currentView==='favorites'&&!state.favorites.length?'Your collection starts here.':'No weapons match this search.'}</h3><p>${currentView==='favorites'&&!state.favorites.length?'Star weapons in the arsenal to save them on this browser.':'Try another keyword or clear your filters.'}</p><button class="primary" data-action="${currentView==='favorites'&&!state.favorites.length?'browse':'reset'}">${currentView==='favorites'&&!state.favorites.length?'Browse weapons':'Clear search & filters'}</button></div>`;decorateControls($('catalog'));return;}
+    if(!rows.length){
+      const noFavorites=currentView==='favorites'&&!state.favorites.length;
+      const hiddenFavorites=currentView==='favorites'&&state.favorites.length&&!filtered({...state,query:''},'favorites').length;
+      const searched=!!state.query.trim()&&!hiddenFavorites;
+      const heading=noFavorites?'Your collection starts here.':hiddenFavorites?'Filters are hiding your favorites.':searched?'No search results.':'No weapons match these filters.';
+      const message=noFavorites?'Star weapons in the arsenal to save them in this browser.':hiddenFavorites?`${state.favorites.length} saved favorite${state.favorites.length===1?' is':'s are'} outside the current collection or filters. Your saved weapons are still here.`:searched?`No weapons match “${state.query}” with the current filters.`:'Try another collection or clear your filters.';
+      $('catalog').innerHTML=`<div class="empty"><div class="empty-symbol">${currentView==='favorites'?'☆':'⌕'}</div><h3>${heading}</h3><p>${escape(message)}</p><button class="primary" data-action="${noFavorites?'browse':searched?'clear-search':'reset'}">${noFavorites?'Browse weapons':searched?'Clear search':'Clear filters'}</button></div>`;decorateControls($('catalog'));return;
+    }
     const cards=state.view==='cards',pool=cards?cardPool:rowPool,missing=rows.filter(w=>!pool.has(w.id));
     if(missing.length){const fresh=fragment(cards?missing.map(card).join(''):table(missing));hydrateArtwork(fresh);decorateControls(fresh);fresh.querySelectorAll(cards?'.weapon-card':'tbody>tr').forEach(node=>pool.set(node.dataset.weapon,node));}
     let root,parent;
@@ -335,7 +342,7 @@
     $('search').value=state.query;$('sort').value=state.sort;$('direction').textContent=state.direction==='asc'?'↑':'↓';
     $('view-cards').setAttribute('aria-pressed',state.view==='cards');$('view-table').setAttribute('aria-pressed',state.view==='table');renderReference();
   }
-  function resetFilters() { const fresh=freshDefaults();for(const key of [...filterKeys,'query'])state[key]=fresh[key];save();syncControls();render(); }
+  function resetFilters() { const fresh=freshDefaults();for(const key of [...filterKeys,'query'])state[key]=fresh[key];if(currentView==='favorites')state.iconic='all';save();syncControls();render(); }
   function setSort(key,toggle){if(!['name','itemType',...statMap.keys()].includes(key))return;state.direction=toggle&&state.sort===key?(state.direction==='asc'?'desc':'asc'):['name','itemType','reload','stamina','returnTime'].includes(key)?'asc':'desc';state.sort=key;save();syncControls();renderCatalog();}
   function navigate(view) {if(!['arsenal','compare','favorites','data','mods','builds','planner'].includes(view))view='arsenal';currentView=view;history.replaceState(null,'','#'+view);render();}
   function updateWeaponSelection(id){
@@ -353,7 +360,7 @@
   }
   function patchWeaponNode(node,w){node.classList.toggle('selected',state.compare.includes(w.id));node.querySelectorAll('[data-action="favorite"],[data-action="compare"]').forEach(button=>patchSelectionButton(button,w));}
   function toggleFavorite(id){
-    if(!BY_ID.has(id))return;state.favorites=state.favorites.includes(id)?state.favorites.filter(x=>x!==id):[...state.favorites,id];save();updateWeaponSelection(id);
+    if(!BY_ID.has(id))return;state.favorites=state.favorites.includes(id)?state.favorites.filter(x=>x!==id):[...state.favorites,id];save();updateWeaponSelection(id);if(!storageAvailable)toast('Favorite updated for this session. Browser storage is unavailable; export preferences to keep it.');
     if(currentView==='favorites')renderCatalog();
   }
   function toggleCompare(id){
@@ -380,6 +387,7 @@
     else if(action==='clear-compare'){const ids=[...state.compare];state.compare=[];save();ids.forEach(updateWeaponSelection);if(currentView==='compare')render();else renderTray();}
     else if(action==='browse')navigate('arsenal');
     else if(action==='reset')resetFilters();
+    else if(action==='clear-search'){state.query='';save();syncControls();renderCatalog();}
     else if(action==='clear-filter'||action==='clear-category'){const key=b.dataset.key;if(filterKeys.includes(key)){state[key]=multiKeys.includes(key)?(action==='clear-filter'?valuesFor(state,key).filter(v=>v!==b.dataset.value):[]):defaults[key];save();syncControls();render();}}
     else if(action==='sort')setSort(b.dataset.sort,true);
     else if(action==='detail-prev'||action==='detail-next'){
@@ -407,7 +415,7 @@
   for(const view of ['cards','table'])$('view-'+view).addEventListener('click',()=>{state.view=view;save();syncControls();renderCatalog();});
   $('details').addEventListener('cancel',event=>{event.preventDefault();closeDetail();});
   $('details').addEventListener('click',event=>{if(event.target===$('details')){const r=$('details').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeDetail();}});
-  document.addEventListener('keydown',event=>{if(event.key==='/'&&!$('details').open&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)&&!$('weapon-picker').open){event.preventDefault();if(!['arsenal','favorites'].includes(currentView))navigate('arsenal');$('search').focus();}});
+  document.addEventListener('keydown',event=>{if(event.key==='/'&&!$('equipment-dialog')?.open&&!$('details').open&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)&&!$('weapon-picker').open){event.preventDefault();if(!['arsenal','favorites'].includes(currentView))navigate('arsenal');$('search').focus();}});
   document.addEventListener('click',event=>{
     if(event.target.id==='export-dataset')download('night-city-arsenal-weapons.json',DB);
     else if(event.target.id==='export-preferences')download('night-city-arsenal-preferences.json',{application:'night-city-arsenal',version:1,preferences:state});

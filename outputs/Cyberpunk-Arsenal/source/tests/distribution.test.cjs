@@ -47,7 +47,7 @@ print(destination/'Night-City-Arsenal'/'Night-City-Arsenal.html')`;
   await page.locator('#filter-class summary').click();await page.locator('#filter-class').getByRole('checkbox',{name:'Pistol',exact:true}).check();await page.locator('#filter-class').getByRole('checkbox',{name:'Revolver',exact:true}).check();assert.equal(await page.locator('.weapon-card').count(),38);await page.locator('#reset').click();
   await page.getByRole('button',{name:'Favorite Her Majesty',exact:true}).click();await page.reload();assert.equal(await page.locator('#favorite-count').textContent(),'1');
   assert.deepEqual(await page.evaluate(()=>NCAExpansion.getBuilds()),[]);
-  await page.locator('.masthead [data-nav="mods"]').click();assert.equal(await page.locator('#mods-results .equipment-card').count(),71);
+  await page.locator('.masthead [data-nav="mods"]').click();assert.equal(await page.locator('#mods-results .equipment-card').count(),72);assert.equal(await page.evaluate(async()=>{await Promise.all(NCAExpansion.data.modifications.map(async m=>{const img=new Image();img.src=m.image.src;await img.decode();if(!img.naturalWidth)throw Error(m.name);}));return NCAExpansion.data.modifications.length;}),72);
   await page.evaluate(()=>NCAExpansion.startPlan('Items.Preset_Kyubi_Legendary'));
   await page.locator('[data-plan-action="pick-slot"][data-slot-id="normal-mod:1"]').click();
   await page.locator('#equipment-search').fill('Big Mag');await page.locator('#equipment-picker-results [data-plan-action="select-equipment"]').click();
@@ -55,7 +55,7 @@ print(destination/'Night-City-Arsenal'/'Night-City-Arsenal.html')`;
   await page.locator('[data-plan-action="save-build"]').click();await page.reload();
   const saved=await page.evaluate(()=>NCAExpansion.getBuilds());assert.equal(saved.length,1);assert.equal(saved[0].selections[0].modId,'mod.big-mag');assert.match(saved[0].notes,/Acquisition reminder/);
   assert.deepEqual(errors,[]);assert.ok(requests.every(u=>u.startsWith('file:')||u.startsWith('blob:')));
-  await context.close();report.checks.push(`${path.basename(path.dirname(file))}: offline catalog, 190 image decodes, multi-select, favorites, 71 mods, visual configuration, saved build reload, no sender preferences/builds and no page errors passed`);
+  await context.close();report.checks.push(`${path.basename(path.dirname(file))}: offline catalog, 190 image decodes, multi-select, favorites, 72 mods and artwork decodes, visual configuration, saved build reload, no sender preferences/builds and no page errors passed`);
  }
  await browser.close();browser=null;
  report.applicationFingerprint=release.applicationFingerprint;report.productionSHA256=hash(original);report.passed=true;

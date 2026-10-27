@@ -1,8 +1,62 @@
-# Current Mods and Builds expansion: performance and validation
+# Current equipment UX quality pass — October 26, 2026
+
+The approved visual baseline is preserved. The original base stylesheet, weapon data and all 190 weapon images remain exact. Targeted integration changes improve Favorites feedback, equipment-card interactions, source-listed weapon browsing, selected-slot information and saved-build actions. All 72 current equipment items have authentic source-linked artwork. Base statistics are never recalculated.
+
+## Current verification
+
+**118 test groups pass, zero failures**, comprising the original 73 plus 16 planner/data, 16 Mods/Builds end-to-end, 3 storage and 10 targeted equipment UX groups. Twelve DPR/zoom raster checks and fourteen actual button-family pixel checks also pass. Screenshots cover catalog, inspection, compact compatibility rows, picker, slots, notes and builds at 1920, 2560 and 390px; existing regressions also cover 4K. All testing is isolated and headless with GPU/compositing disabled; file tests disable network. One temporary loopback server tests hosted-origin persistence and is closed afterward. No personal browser settings/storage or desktop windows were touched.
+
+The complete offline shared-file and fresh-ZIP checks additionally decode all 190 weapon images and all 72 equipment images, check manifest hashes and confirm visual selection and build persistence. Distribution evidence is in `validation/distribution-test.json`. Packages contain the exact tested HTML, SHA256 **`a3ca3778593c7365acf1b99a38cd6b014369f98a2856686e8be0c7218048636a`**.
+
+## GPU-disabled performance
+
+Three alternating pairs compare the preceding feature release (Git `e2004cb`) and this refinement, at 1920×1080 with CDP 4x CPU throttling. Responses include activation and two animation frames; they are not physical input latency or FPS. No other agent browser test ran concurrently with either profile. User/OS load is uncontrolled, and these results should not be compared directly to earlier runs under different load. Git newline normalization changes the before file's byte hash, not browser content.
+
+| Arsenal interaction | Previous release (ms) | Refined release (ms) |
+|---|---:|---:|
+| Show all 190 weapons | 75.0 | 78.3 |
+| First weapon table | 264.1 | 251.9 |
+| Return to cached Cards | 47.1 | 45.1 |
+| Weapon search | 21.9 | 24.7 |
+| First weapon inspection | 126.3 | 114.2 |
+
+The Arsenal measurements show small run-to-run differences, without a broad regression or a claimed systematic speedup. The scheduled 45-frame scroll consumes 420.6 → 412.9 ms of browser task work; its total duration includes deliberate frame waits.
+
+Three fresh contexts measure the new interfaces under the same settings:
+
+| Equipment interaction | Median response (ms) |
+|---|---:|
+| open mods | 140.4 |
+| search recoil | 27.3 |
+| clear mod search | 55.0 |
+| open equipment detail | 116.7 |
+| compatible search | 25.8 |
+| close equipment detail | 32.7 |
+| open planner | 51.8 |
+| open slot picker | 44.7 |
+| picker search | 21.4 |
+| select equipment | 30.3 |
+| save build | 30.7 |
+| open builds | 30.0 |
+| search build notes | 28.6 |
+
+Idle browser task work over one second is 2.1 ms. The compact compatibility browser renders ten initial rows, with ten more only on request. Item images use their original source-sized WebP payloads (496,874 bytes total, at most 160×160), shared data references and lazy/async decoding. No animation, blur, heavy runtime dependency or all-weapon/mod combination rendering was added. Existing weapon node/image reuse and measured offscreen containment remain active. The final standalone HTML is under 10 MB; the smaller ZIP is the preferred sharing package.
+
+Raw evidence: `validation/equipment-ux/arsenal-performance.json`, `performance.json`, `results.json` and screenshots. Maintenance harnesses: `source/tests/theme-profile.cjs`, `expansion-profile.cjs`, `equipment-ux.test.cjs`. Headless measurements are not a guarantee for every physical browser/device. Independent Firefox/Safari, manual touch and screen-reader testing were not performed.
+
+## Data and persistence boundaries
+
+Favorites persistence and old preference migration passed. No Builds/Favorites key collision or lost-save bug was reproduced. The reproducible UX defect was generic no-results messaging when collection/filters hid saved favorites. Empty collection, hidden results and no search matches now differ; clearing Favorites filters includes standard weapons. This does not diagnose the user's private browser state. File URLs and hosted origins can have separate storage; existing JSON backups remain the portability mechanism.
+
+The previous 71 equipment records retain effects, tiers, fits, acquisition and rules. Disjunctor is an additive correction cross-listed by N&D and Gamestegy. Current catalogs reconcile 72 named items; N&D's 74/75 footer discrepancy remains unresolved. Parallax's exact acquisition and several source-specific tier/field/fit limitations remain explicit. No per-item live-game 2.5 certification is claimed. See `MODIFICATIONS-DATA.md` for full imagery attribution, inventory reconciliation and limits. All 72 current items have genuine artwork, with zero category fallbacks used; fallback glyphs remain available for future missing assets.
+
+---
+
+# Previous Mods and Builds expansion (historical)
 
 The approved application was captured before development in Git commit **736742b**. Existing `source/styles.css`, weapon data, image mappings and artwork remain unchanged. Only integration changes were made to the existing controller/template; equipment/UI/core logic lives in separate new source files. New Mods/Builds panels use the established palette, SVG slot glyphs, typography and shared chamfer geometry. There is no modified-stat simulation, backend, remote asset, visible browser automation or personal-browser setting change.
 
-## Current measurements
+## Earlier measurements
 
 Measurements use isolated offline headless Microsoft Edge at 1920x1080 with `--disable-gpu --disable-gpu-compositing`, reduced motion and CDP 4x CPU throttling. Responses span scripted activation through two animation frames, rather than physical input latency. The user continued using the computer; OS scheduling is uncontrolled. No other agent-launched browser test ran concurrently with either profiling workload. Headless/throttled results do not guarantee timings in the user's visible browser.
 
@@ -35,7 +89,7 @@ The new feature workload uses three fresh offline contexts at the same GPU-disab
 
 Idle task work over a one-second observation was **1.30 ms**. No continuous animation or polling loop was added. New equipment search uses a precomputed text index; only the active equipment/picker list is rendered. The build library renders at most 60 cards before Show more. All record combinations are not materialized. Existing weapon node/image reuse, one numeric formatter, lazy image loading, scoped rail sizing and measured native offscreen containment remain active and regression-tested. No filter, blur, mask, large shadow or compositor hint was added. Raw evidence is in `validation/modifications/arsenal-performance.json` and `performance.json`; development harnesses are `theme-profile.cjs` and `expansion-profile.cjs`.
 
-## Current validation
+## Earlier validation
 
 **107 groups passed:** 73 existing regression/visual groups plus 15 planner/data/core groups, 16 end-to-end expansion groups and 3 storage/fixed-sight-filter groups. All browser groups use offline GPU-disabled headless Edge. Twelve DPR/zoom outline checks and fourteen actual-button-family pixel audits also pass. Friend-file and fresh-ZIP extraction checks exercise the original Arsenal plus all 71 Mods, visual selection, saved-build persistence, and empty recipient personal data.
 
@@ -130,7 +184,7 @@ The fixed 45-frame scrolling workload used **804.0 -> 646.9 ms** of browser task
 - Inspection is capped at 1240px total (roughly 1160px of usable information width), constrained to 94vw; mobile remains stacked. The image anchor is 490px on wide desktops. Quest/location/prerequisites and choice/deadline information stay visible. Method, story phase, lifepath and fallback details expand in place. Technical identity occupies a shared lower section. All original text and links remain available.
 - Card action is now **Inspect**, because it opens the complete inspection modal. Existing accessible Details-for-weapon names remain compatible. The exact NC SVG paths and comparison math are unchanged. No Mods & Attachments expansion was implemented.
 
-## Current validation
+## Earlier validation
 
 **67 test groups passed:** 24 core, 9 UI refinement, 11 sidebar, 7 terminal-shell, 10 rendering/geometry, and 6 atmospheric-refinement groups. The new suite compares every acquisition/identity fact, acquisition hint, iconic effect and provenance link for all 190 weapons against the preserved prior HTML. Tests also cover responsive modality, long acquisition routes, shared imagery in Favorites/comparison, mixed-family warnings, offline requests and software-rendering safeguards.
 

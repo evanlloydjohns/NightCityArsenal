@@ -1,13 +1,13 @@
 {
-  "passed": 15,
+  "passed": 16,
   "failed": 0,
   "results": [
     {
-      "name": "Canonical 71 equipment records, 256 tier variants, categories, sources and IDs",
+      "name": "Canonical 72 equipment records, 257 tier variants, categories, sources and IDs",
       "passed": true
     },
     {
-      "name": "Acquisition does not classify random rewards as guaranteed; 70 item-specific routes",
+      "name": "Acquisition does not classify random rewards as guaranteed; 71 item-specific routes",
       "passed": true
     },
     {
@@ -60,6 +60,10 @@
     },
     {
       "name": "Approved base styling and weapon/artifact source hashes remain unchanged",
+      "passed": true
+    },
+    {
+      "name": "New Disjunctor is tier 5, source-cross-checked, and separate from the Chimera core",
       "passed": true
     }
   ]

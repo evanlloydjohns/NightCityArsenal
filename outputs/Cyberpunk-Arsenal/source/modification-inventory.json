@@ -1,432 +1,438 @@
 {
-  "schemaVersion": 1,
-  "dataVersion": "2026.10.26-mods-r1",
+  "meta": "Rechecked October 26, 2026: Nukes & Dragons now lists 32 ranged (including 3 throwable), 10 melee, 16 scopes and 14 muzzles: 72 named records. This includes newly listed Disjunctor, absent from the previous 71-item snapshot. Gamestegy independently lists the same 72 current items (42 weapon mods, 16 scopes, 14 muzzles); its separate legacy/cyberware/clothing records are excluded. N&D footer totals vary between cached pages (74/75), so three unnamed banner entries remain unresolved; they are not fabricated.",
+  "count": 72,
   "records": [
     {
       "id": "mod.add-vantage",
       "name": "Add-Vantage",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/add-vantage"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/add-vantage"
     },
     {
       "id": "mod.airstrike",
       "name": "Airstrike",
       "category": "Melee mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/airstrike"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/airstrike"
     },
     {
       "id": "mod.barbarian",
       "name": "Barbarian",
       "category": "Melee mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/barbarian"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/barbarian"
     },
     {
       "id": "mod.better-half",
       "name": "Better Half",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/better-half"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/better-half"
     },
     {
       "id": "mod.big-mag",
       "name": "Big Mag",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/big-mag"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/big-mag"
     },
     {
       "id": "mod.bleedout",
       "name": "Bleedout",
       "category": "Melee mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/bleedout"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/bleedout"
     },
     {
       "id": "mod.bloodbruiser",
       "name": "Bloodbruiser",
       "category": "Melee mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/bloodbruiser"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/bloodbruiser"
     },
     {
       "id": "mod.boomerang",
       "name": "Boomerang",
       "category": "Throwable mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/boomerang"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/boomerang"
     },
     {
       "id": "mod.c-thru",
       "name": "C-Thru",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/c-thru"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/c-thru"
     },
     {
       "id": "mod.clearvue-mk-8",
       "name": "ClearVue Mk.8",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/clear-vue-mk-8"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/clear-vue-mk-8"
     },
     {
       "id": "mod.condenser",
       "name": "Condenser",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/condenser"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/condenser"
     },
     {
       "id": "mod.cqo-kanone-mini-mk-72",
       "name": "CQO Kanone MINI Mk.72",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/cqo-kanone-mini-mk-72"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/cqo-kanone-mini-mk-72"
     },
     {
       "id": "mod.critochet",
       "name": "Critochet",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/critochet"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/critochet"
     },
     {
       "id": "mod.cs-1-taipan",
       "name": "CS-1 Taipan",
       "category": "Silencer",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/cs-1-taipan"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/cs-1-taipan"
     },
     {
       "id": "mod.cyclone",
       "name": "Cyclone",
       "category": "Melee mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/cyclone"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/cyclone"
+    },
+    {
+      "id": "mod.disjunctor",
+      "name": "Disjunctor",
+      "category": "Ranged mod",
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/disjunctor"
     },
     {
       "id": "mod.e255-percipient",
       "name": "E255 Percipient",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/e-255-percipient"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/e-255-percipient"
     },
     {
       "id": "mod.e305-prospecta",
       "name": "E305 Prospecta",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/e-305-prospecta"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/e-305-prospecta"
     },
     {
       "id": "mod.equalizer",
       "name": "Equalizer",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/equalizer"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/equalizer"
     },
     {
       "id": "mod.firecracker",
       "name": "Firecracker",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/firecracker"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/firecracker"
     },
     {
       "id": "mod.fleetshot",
       "name": "Fleetshot",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/fleetshot"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/fleetshot"
     },
     {
       "id": "mod.focus-fire",
       "name": "Focus Fire",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/focus-fire"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/focus-fire"
     },
     {
       "id": "mod.gaki",
       "name": "Gaki",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/gaki"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/gaki"
     },
     {
       "id": "mod.gambiteer",
       "name": "Gambiteer",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/gambiteer"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/gambiteer"
     },
     {
       "id": "mod.grandstand-mk-2x",
       "name": "Grandstand Mk.2x",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/grandstand-mk-2-x"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/grandstand-mk-2-x"
     },
     {
       "id": "mod.hackatomy",
       "name": "Hackatomy",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/hackatomy"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/hackatomy"
     },
     {
       "id": "mod.haemocide",
       "name": "Haemocide",
       "category": "Melee mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/haemocide"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/haemocide"
     },
     {
       "id": "mod.handyman",
       "name": "Handyman",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/handyman"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/handyman"
     },
     {
       "id": "mod.headhopper",
       "name": "Headhopper",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/headhopper"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/headhopper"
     },
     {
       "id": "mod.headtoll",
       "name": "Headtoll",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/headtoll"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/headtoll"
     },
     {
       "id": "mod.hpo-kanone-max-mk-77",
       "name": "HPO Kanone MAX Mk.77",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/hpo-kanone-max-mk-77"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/hpo-kanone-max-mk-77"
     },
     {
       "id": "mod.hyakume",
       "name": "Hyakume",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/hyakume"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/hyakume"
     },
     {
       "id": "mod.javelin",
       "name": "Javelin",
       "category": "Throwable mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/javelin"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/javelin"
     },
     {
       "id": "mod.jue",
       "name": "Jue",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/jue"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/jue"
     },
     {
       "id": "mod.k-o",
       "name": "K.O.",
       "category": "Melee mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/k-o"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/k-o"
     },
     {
       "id": "mod.kairo-sa-1",
       "name": "Kairo SA-1",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/kairo-sa-1"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/kairo-sa-1"
     },
     {
       "id": "mod.kanetsugu",
       "name": "Kanetsugu",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/kanetsugu"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/kanetsugu"
     },
     {
       "id": "mod.kneel",
       "name": "Kneel!",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/kneel"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/kneel"
     },
     {
       "id": "mod.os-1-gimleteye",
       "name": "OS-1 GimletEye",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/os-1-gimlet-eye"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/os-1-gimlet-eye"
     },
     {
       "id": "mod.panorama",
       "name": "Panorama",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/panorama"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/panorama"
     },
     {
       "id": "mod.parallax",
       "name": "Parallax",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/parallax"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/parallax"
     },
     {
       "id": "mod.pax",
       "name": "Pax",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/pax"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/pax"
     },
     {
       "id": "mod.pinpoint",
       "name": "Pinpoint",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/pinpoint"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/pinpoint"
     },
     {
       "id": "mod.pyro",
       "name": "Pyro",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/pyro"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/pyro"
     },
     {
       "id": "mod.rc-7-aswang",
       "name": "RC-7 Aswang",
       "category": "Muzzle brake",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-aswang"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-aswang"
     },
     {
       "id": "mod.rc-7-babaroga",
       "name": "RC-7 Babaroga",
       "category": "Muzzle brake",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-babaroga"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-babaroga"
     },
     {
       "id": "mod.rc-7-dybbuk",
       "name": "RC-7 Dybbuk",
       "category": "Muzzle brake",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-dybbuk"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-dybbuk"
     },
     {
       "id": "mod.rc-7-ifrit",
       "name": "RC-7 Ifrit",
       "category": "Muzzle brake",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-ifrit"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-ifrit"
     },
     {
       "id": "mod.rc-7-kutrub",
       "name": "RC-7 Kutrub",
       "category": "Muzzle brake",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-kutrub"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-kutrub"
     },
     {
       "id": "mod.rc-7-liger",
       "name": "RC-7 Liger",
       "category": "Muzzle brake",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-liger"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-liger"
     },
     {
       "id": "mod.rc-7-strigoi",
       "name": "RC-7 Strigoi",
       "category": "Muzzle brake",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-strigoi"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-strigoi"
     },
     {
       "id": "mod.rc-7-varkolak",
       "name": "RC-7 Varkolak",
       "category": "Muzzle brake",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-varkolak"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-varkolak"
     },
     {
       "id": "mod.rc-7-yokai",
       "name": "RC-7 Yokai",
       "category": "Muzzle brake",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-yokai"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-yokai"
     },
     {
       "id": "mod.rc-7-zaar",
       "name": "RC-7 Zaar",
       "category": "Muzzle brake",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-zaar"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-zaar"
     },
     {
       "id": "mod.ready-steady",
       "name": "Ready Steady",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/ready-steady"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/ready-steady"
     },
     {
       "id": "mod.severance",
       "name": "Severance",
       "category": "Melee mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/severance"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/severance"
     },
     {
       "id": "mod.shuffler",
       "name": "Shuffler",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/shuffler"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/shuffler"
     },
     {
       "id": "mod.silencio",
       "name": "Silencio",
       "category": "Melee mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/silencio"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/silencio"
     },
     {
       "id": "mod.slice-em-up",
       "name": "Slice 'Em Up",
       "category": "Melee mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/slice-em-up"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/slice-em-up"
     },
     {
       "id": "mod.so-21-saika",
       "name": "SO-21 Saika",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/so-21-saika"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/so-21-saika"
     },
     {
       "id": "mod.spinetickler",
       "name": "Spinetickler",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/spinetickler"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/spinetickler"
     },
     {
       "id": "mod.stabilizer",
       "name": "Stabilizer",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/stabilizer"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/stabilizer"
     },
     {
       "id": "mod.supercharger",
       "name": "Supercharger",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/supercharger"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/supercharger"
     },
     {
       "id": "mod.swiss-cheese",
       "name": "Swiss Cheese",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/swiss-cheese"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/swiss-cheese"
     },
     {
       "id": "mod.tsx-tocororo",
       "name": "TSX Tocororo",
       "category": "Silencer",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/tsx-tocororo"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/tsx-tocororo"
     },
     {
       "id": "mod.type-2067",
       "name": "Type 2067",
       "category": "Scope",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/type-2067"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/type-2067"
     },
     {
       "id": "mod.vivisector",
       "name": "Vivisector",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/vivisector"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/vivisector"
     },
     {
       "id": "mod.wallpuncher",
       "name": "Wallpuncher",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/wallpuncher"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/wallpuncher"
     },
     {
       "id": "mod.xc-10-cetus",
       "name": "XC-10 Cetus",
       "category": "Silencer",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/xc-10-cetus"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/xc-10-cetus"
     },
     {
       "id": "mod.xc-10-strix",
       "name": "XC-10 Strix",
       "category": "Silencer",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/xc-10-strix"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/xc-10-strix"
     },
     {
       "id": "mod.zenith",
       "name": "Zenith",
       "category": "Ranged mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/zenith"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/zenith"
     },
     {
       "id": "mod.zero-g",
       "name": "Zero-G",
       "category": "Throwable mod",
-      "primarySource": "https://nukesdragons.com/cyberpunk-2077/db/mods/zero-g"
+      "sourceUrl": "https://nukesdragons.com/cyberpunk-2077/db/mods/zero-g"
     }
   ]
 }

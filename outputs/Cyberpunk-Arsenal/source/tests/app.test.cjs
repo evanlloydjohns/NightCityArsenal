@@ -68,7 +68,7 @@ async function setFilter(key,values){
  });
  await test('Search: names, effect keywords, class, manufacturer, base model and all words',async()=>{
   for(const query of ['Malorian Arms 3516','Optical Camo','katana','Militech','Unity','Satori hemorrhaging']){await page.locator('#search').fill(query);await checkCount();assert.ok(await count()>0,query);}
-  await page.locator('#search').fill('no-such-weapon-8241');assert.equal(await count(),0);assert.ok(await page.getByText('No weapons match this search.',{exact:true}).isVisible());await page.locator('#reset').click();assert.equal(await count(),115);
+  await page.locator('#search').fill('no-such-weapon-8241');assert.equal(await count(),0);assert.ok(await page.getByText('No search results.',{exact:true}).isVisible());await page.locator('#reset').click();assert.equal(await count(),115);
  });
  await test('Filters: every select individually, combined filters, unknowns and reset',async()=>{
   const samples={content:'Phantom Liberty',group:'Melee',class:'Katana',technology:'Smart',manufacturer:'Arasaka',damageType:'Physical',missable:'missable'};

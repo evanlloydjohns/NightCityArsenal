@@ -11,9 +11,9 @@ If Discord shows a preview or source text, download the file before opening it.
 115 iconic weapons / 190 total weapons.
 Inventory target: Cyberpunk 2077 patch 2.5.
 Data snapshot: 2026.10.25-r2.
-Equipment: 71 modifications and attachments.
+Equipment: 72 modifications and attachments.
 Equipment snapshot: 2026.10.26-mods-r1.
-Application fingerprint: 528a88b9d427.
+Application fingerprint: a3ca3778593c.
 
 Search, multi-select filters, comparisons, favorites and slot icons work offline.
 Mods: browse equipment effects, tiers, compatibility and acquisition.

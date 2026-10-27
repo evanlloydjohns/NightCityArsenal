@@ -6,7 +6,7 @@ The catalog includes **115 iconic weapons and 75 optional non-iconic weapons**. 
 
 ## Mods, planning and saved builds
 
-The **Mods** tab contains **71 distinct modifications/attachments**, including the four Chimera-core iconics, with **256 published tier variants**. Search by name or effect, combine category/class/technology/tier/content/acquisition filters, and inspect individual sources and supported weapons.
+The **Mods** tab contains **71 distinct modifications/attachments**, including the four Chimera-core iconics, with **257 published tier variants**. Search by name or effect, combine category/class/technology/tier/content/acquisition filters, and inspect individual sources and supported weapons.
 
 To plan equipment:
 
@@ -75,3 +75,7 @@ Unknown values are deliberately visible. No interpolation is used for missing in
 - `validation/` — canonical inventory, exact data-gap ledger, test results and headless screenshots.
 
 Normal use requires only `index.html`. The development build command is `python source/build.py`; see `source/UPDATE-DATA.md` for maintenance. Opening the unbuilt source template automatically redirects to the runnable application one folder up.
+
+## Equipment UX update
+
+All 72 current equipment items now show authentic source-linked in-game artwork. Click a mod name, image or card to inspect it. In the compact source-listed weapon browser, search/filter and choose the weapon tier; Plan build preselects the inspected modification only when its slot/tier fit is source-checked. Saved-build names and artwork open the plan; management actions remain available. Favorites explicitly distinguishes an empty collection, filters hiding saved weapons, and a search with no matches. Clearing Favorites filters includes standard weapons. Existing favorites, saved builds and notes retain their original storage keys. See MODIFICATIONS-DATA.md for reconciliation, imagery credits and source limits.

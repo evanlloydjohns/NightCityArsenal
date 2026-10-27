@@ -34,3 +34,38 @@
 @media(max-width:600px){.masthead nav{gap:3px}.masthead nav button{min-width:0;padding:10px 4px;font-size:11px;letter-spacing:0;gap:3px}.masthead nav button span{font-size:9px;padding:1px 2px;min-width:12px}.equipment-grid,.picker-equipment-grid{grid-template-columns:minmax(0,1fr)}.exp-toolbar{gap:9px}.exp-toolbar .search-box{min-width:100%;flex-basis:100%}.exp-filters{gap:12px}.exp-filters label{font-size:13px}.exp-filters select{font-size:13px;max-width:100%}.exp-filters button{font-size:12px;padding:8px}.exp-dialog{width:calc(100% - 18px);max-height:94dvh}.exp-dialog #equipment-content{max-height:calc(94dvh - 2px)}.exp-dialog-head{padding:18px}.exp-dialog h2{font-size:25px}.exp-dialog-body{padding:18px}.exp-dialog-foot{padding:12px 18px}.equipment-detail-identity{gap:16px}.equipment-detail-identity .equipment-icon{width:80px;flex-basis:80px}.equipment-slots{grid-template-columns:minmax(0,1fr)}.plan-identity{padding:18px;gap:12px}.plan-identity h2{font-size:27px}.plan-base-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.equipment-effect-detail{padding:18px}.equipment-effect-detail h3{font-size:21px}.confirm-dialog{padding:22px}.exp-inline-fields{gap:12px}.equipment-effect{min-height:0}.equipment-card h2{font-size:22px}}
 
 .detail-actions:has(.configure-weapon){flex-wrap:wrap}
+/* Targeted equipment usability pass. Palette and original weapon stylesheet are preserved. */
+.equipment-icon img{display:block;width:100%;height:100%;object-fit:contain}
+.equipment-card-head .equipment-icon{width:106px;height:96px;flex-basis:106px}
+.equipment-art-open,.equipment-name,.compatible-identity{appearance:none;border:0;background:transparent;color:inherit;padding:0;text-align:left;font:inherit;cursor:pointer;min-width:0}
+.expansion-panel .equipment-name,.exp-dialog .equipment-name{font:inherit;min-height:0;padding:0;color:inherit;line-height:inherit}
+.expansion-panel .equipment-art-open,.exp-dialog .equipment-art-open{padding:0;border:0;background:transparent;flex-shrink:0}
+.equipment-art-open:focus-visible,.equipment-name:focus-visible,.compatible-identity:focus-visible{outline:2px solid var(--yellow);outline-offset:4px}
+.equipment-name:hover{color:var(--cyan)}
+.browsable-card{cursor:pointer}.browsable-card:hover{background:#ac4b63}.browsable-card:focus-within{background:#ac4b63}
+.browsable-card label,.browsable-card select,.browsable-card details{cursor:auto}
+.equipment-card-head .equipment-art-open{background:radial-gradient(ellipse,#72304738,transparent 72%)}
+.compatible-filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.compatible-filters label,.mod-compatible-browser .exp-toolbar>label:not(.search-box){font-size:13px;color:var(--muted)}
+.compatible-filters select{display:block;width:100%;font-size:13px;margin-top:4px}
+.compact-weapon-list{border-top:1px solid #66313d;margin-bottom:14px}
+.compatible-weapon-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(125px,.5fr) auto;gap:14px;align-items:center;padding:9px 10px;border-bottom:1px solid #48202d;background:#160e15}
+.compatible-weapon-row:nth-child(even){background:#1d1019}
+.compatible-identity{display:flex;align-items:center;justify-content:flex-start;gap:12px;min-width:0}
+.compatible-identity>span:last-child{min-width:0}.compatible-identity strong{display:block;font-size:15px;overflow-wrap:anywhere}.compatible-identity small{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+.compatible-identity:hover strong{color:var(--cyan)}
+.compatible-identity .exp-weapon-thumb{display:block;flex:0 0 70px;width:70px;height:44px;padding:2px;background:radial-gradient(ellipse,#72304738,transparent 72%)}
+.compatible-status{min-width:0}.compatible-status .equipment-compat{font-size:12px}.compatible-status>small{display:block;font-size:11px;color:var(--muted);line-height:1.5;overflow-wrap:anywhere}
+.compatible-weapon-row>.chamfer{font-size:12px;padding:7px 10px}
+.mod-compatible-browser{margin-top:22px;padding-top:12px;border-top:1px solid #66313d}
+.mod-compatible-browser .exp-toolbar{margin:12px 0}.mod-compatible-browser .exp-toolbar .search-box{min-width:160px}
+.equipment-slot>.equipment-icon{width:88px;height:70px;flex:0 0 70px}
+.slot-effect-summary{font-size:14px;line-height:1.7;margin:3px 0;color:#d8c3cb}
+.equipment-effect-detail>.equipment-icon{float:right;width:76px;height:68px;margin:0 0 10px 15px}
+.equipment-effect-detail:after{content:'';display:block;clear:both}
+.build-selection-summary{list-style:none;padding:0}.build-selection-summary li{display:flex;gap:6px;align-items:center;margin:3px 0}.build-selection-summary .equipment-icon{width:28px;height:28px;flex:0 0 28px}.build-selection-summary .equipment-icon svg{width:24px;height:24px}
+.build-card .build-art{width:calc(100% - 40px);flex-shrink:0;text-align:center;background:radial-gradient(ellipse,#72304738,transparent 72%)}
+.build-actions .chamfer:not(.primary){color:var(--muted);--button-edge:#48202d;--button-fill:#190e15}.build-actions .chamfer:hover{color:var(--cyan);--button-edge:var(--cyan)}
+.compat-evidence{font-size:13px;margin-bottom:12px}.compat-evidence summary{font-size:13px}.compat-evidence p{font-size:13px;line-height:1.7;color:var(--muted)}
+@media(max-width:800px){.compatible-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.compatible-weapon-row{grid-template-columns:minmax(0,1fr) auto;gap:8px}.compatible-status{grid-column:1;grid-row:2}.compatible-weapon-row>.chamfer{grid-column:2;grid-row:1 / span 2}.compatible-identity .exp-weapon-thumb{flex-basis:52px;width:52px;height:38px}}
+@media(max-width:600px){.equipment-card-head .equipment-icon{width:88px;height:86px;flex-basis:88px}.equipment-card-head{gap:12px}.compatible-weapon-row{padding:8px 6px}.compatible-identity{gap:6px}.compatible-identity strong{font-size:14px}.compatible-status>small{font-size:11px}}

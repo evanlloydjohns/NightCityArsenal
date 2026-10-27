@@ -1,4 +1,16 @@
-# Current equipment expansion validation — October 26, 2026
+# Current Mods & Builds UX refinement validation — October 26, 2026
+
+**118 test groups pass, zero failures**, plus 12 DPR/zoom and 14 actual-control raster checks. All source-linked artwork decodes offline: 190 unchanged weapons and 72 distinct equipment images. The 72-record inventory contains 257 published tier variants, including newly cross-listed Disjunctor. The previous 71 records' effects, tiers, fits and acquisition rules remain unchanged. The 74/75 source footer discrepancy remains explicit; no phantom entries were added. See MODIFICATIONS-DATA.md for category totals and data limits.
+
+The targeted ten-group suite verifies Favorites in both views across navigation/reload and old persisted preferences; separate empty/hidden/search states; native mod title/image/card and Enter/Space behavior; compact paginated multi-filter compatibility rows; fixed-slot/tier rejection; exact mod/tier/slot preselection from inspection; occupied-slot artwork/effects; saved-build name/image opening and explicit updates; isolated file/HTTP origin persistence; and responsive layouts. Original tests retain full build CRUD, notes/tags/favorites, duplication/deletion confirmation, JSON portability, stale references, corrupt/quota storage, canonical weapon data and comparison math coverage.
+
+The original stylesheet, NC mark, weapon records and original artwork remain unchanged. New work reuses the approved burgundy/angular components. Existing localStorage keys and schema 1 remain compatible. No calculated modified weapon stats, runtime requests, backend, visible browser, desktop control or hosting configuration were added. Software-rendering profiles use GPU-disabled headless Edge with 4x CPU throttling; results and caveats appear in PERFORMANCE-REPORT.md.
+
+Current evidence: validation/equipment-ux/results.json and screenshots; original/expansion regression reports in their existing folders; validation/distribution-test.json for the stable shared HTML and a fresh ZIP extraction. Final production SHA256: `a3ca3778593c7365acf1b99a38cd6b014369f98a2856686e8be0c7218048636a`. The source/project archive and friend ZIP include current reports and identical tested HTML. Historical findings below remain historical and do not replace this current release's coverage.
+
+---
+
+# Previous equipment expansion validation (historical snapshot)
 
 **107 data/functional/UI groups pass** on the current production HTML: the original 73 plus 15 core/planner-data, 16 end-to-end Mods/Builds and 3 storage/filter groups. All browser tests are offline, headless and explicitly GPU-disabled. The 12 DPR/zoom raster combinations and 14 actual-control pixel audits also pass. Final distribution checks exercise both the stable shared HTML and a fresh ZIP extraction, including all 190 image decodes, 71 mod records, visual configuration and saved-build reload.
 
