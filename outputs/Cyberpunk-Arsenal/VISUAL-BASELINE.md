@@ -29,7 +29,7 @@ Lighting fades to transparency so each image blends into its surrounding burgund
 - The corrected path-based NC monogram is retained instead of the older distorted glyph.
 - Current card dimensions, stat/ability hierarchy, secondary slots, readable type and **Inspect** action are retained. These produce small spacing/height differences from the older cards.
 - The optional filter-rail toggle, consistent chamfered control geometry, wider two-column inspection, expandable acquisition routes, compact sticky comparison headers and simplified empty comparison remain.
-- Older per-image drop shadows and backdrop blur were not restored. Static gradients reproduce the surface atmosphere without reintroducing those CPU-rendering costs. There are no new animations, filters, masks, compositor hints or external assets.
+- The user subsequently requested restoration of shadows following each item’s transparent outline. One static alpha-aware `drop-shadow(0 9px 7px #000a)` now follows weapon, mod and attachment artwork; small thumbnails use 3px/2px and occupied-slot/effect icons use 5px/4px variants. This restores the recovered historical weapon shadow and applies it consistently to equipment. Existing burgundy lighting remains. This is an intentional narrow exception to the former image-filter prohibition. Backdrop blur, decorative animation, masks, compositor hints and external assets remain excluded.
 - Favorites, active filters and comparison selections in the user's screenshots are personal state, not bundled defaults.
 
 ## Visual evidence and checks

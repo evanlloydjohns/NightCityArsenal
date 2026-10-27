@@ -1,6 +1,6 @@
 {
   "method": "Offline production HTML in isolated headless Edge with --disable-gpu --disable-gpu-compositing",
-  "productionSHA256": "d1a75f656ca2ca1837121a5ddd3daf403f08a03557c3d61d34b6f4dd7675742f",
+  "productionSHA256": "d7d4af6111fda56e5ff42d175222433c6b0aa0c3ec7dd0cf6658717ed5859998",
   "passed": 10,
   "failed": 0,
   "results": [

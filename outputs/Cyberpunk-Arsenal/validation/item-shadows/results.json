@@ -1,0 +1,12 @@
+{
+  "productionSHA256": "d7d4af6111fda56e5ff42d175222433c6b0aa0c3ec7dd0cf6658717ed5859998",
+  "method": "Isolated offline GPU-disabled headless Edge; unchanged non-CSS payload and representative image workflows",
+  "passed": true,
+  "checks": [
+    "All markup, scripts, weapon/mod data and embedded art are byte-for-byte unchanged outside the stylesheet",
+    "Weapon cards, table thumbnails, inspection and comparison show scale-appropriate silhouette shadows",
+    "All 72 mod/attachment card images and equipment inspection retain genuine artwork with silhouette shadows",
+    "Visual picker, filled mod/scope/muzzle slots, saved-build artwork and component thumbnails have shadows; base stats unchanged",
+    "Narrow layout, offline operation and no page errors verified"
+  ]
+}

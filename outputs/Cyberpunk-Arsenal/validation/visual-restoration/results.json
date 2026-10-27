@@ -1,5 +1,5 @@
 {
-  "productionSHA256": "d1a75f656ca2ca1837121a5ddd3daf403f08a03557c3d61d34b6f4dd7675742f",
+  "productionSHA256": "d7d4af6111fda56e5ff42d175222433c6b0aa0c3ec7dd0cf6658717ed5859998",
   "method": "GPU-disabled offline headless Edge; actual historical colors with newer behavior",
   "expected": {
     "body": "radial-gradient(ellipse at 0 0,#631e2f30,transparent 40%),radial-gradient(ellipse at 100% 40%,#3e11221f,transparent 48%),var(--bg)",

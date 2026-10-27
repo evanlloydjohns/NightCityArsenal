@@ -1,7 +1,7 @@
 {
   "application": "Night City Arsenal",
-  "builtAtUtc": "2026-10-27T02:46:01+00:00",
-  "applicationFingerprint": "d1a75f656ca2",
+  "builtAtUtc": "2026-10-27T03:09:56+00:00",
+  "applicationFingerprint": "d7d4af6111fd",
   "dataVersion": "2026.10.25-r2",
   "targetPatch": "2.5",
   "iconicCount": 115,
@@ -9,12 +9,12 @@
   "delivery": "Self-contained offline HTML; ZIP contains the same application and instructions",
   "files": {
     "Night-City-Arsenal.html": {
-      "bytes": 9449273,
-      "sha256": "d1a75f656ca2ca1837121a5ddd3daf403f08a03557c3d61d34b6f4dd7675742f"
+      "bytes": 9449889,
+      "sha256": "d7d4af6111fda56e5ff42d175222433c6b0aa0c3ec7dd0cf6658717ed5859998"
     },
     "Night-City-Arsenal.zip": {
-      "bytes": 6587772,
-      "sha256": "1573747d667421c3b2533cc1ff4071d531b247a2ae432d85d4a39c8d6d3aea31"
+      "bytes": 6589324,
+      "sha256": "667824d6a5990351b343c440be2a6a76003627b1508497a38dc0fc107c3d93c2"
     }
   },
   "modificationCount": 72,

@@ -7,7 +7,7 @@
     "Share-with-friends: offline catalog, 190 image decodes, multi-select, favorites, 72 mods and artwork decodes, visual configuration, saved build reload, no sender preferences/builds and no page errors passed",
     "Night-City-Arsenal: offline catalog, 190 image decodes, multi-select, favorites, 72 mods and artwork decodes, visual configuration, saved build reload, no sender preferences/builds and no page errors passed"
   ],
-  "applicationFingerprint": "d1a75f656ca2",
-  "productionSHA256": "d1a75f656ca2ca1837121a5ddd3daf403f08a03557c3d61d34b6f4dd7675742f",
+  "applicationFingerprint": "d7d4af6111fd",
+  "productionSHA256": "d7d4af6111fda56e5ff42d175222433c6b0aa0c3ec7dd0cf6658717ed5859998",
   "passed": true
 }

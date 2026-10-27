@@ -1,4 +1,28 @@
-# Current modification detail refinement — October 26, 2026
+# Current item-artwork shadow restoration — October 26, 2026
+
+The user requested the original item-outline shadows again. One static alpha-aware image filter restores the recovered historical `drop-shadow(0 9px 7px #000a)` on weapon, mod and attachment artwork. Table/comparison/picker thumbnails and saved-build component icons use 3px/2px variants; occupied slots and effect icons use 5px/4px. The approved burgundy lighting is unchanged. No background panel blur, animation, compositor hint, image download or runtime dependency was introduced. The non-style HTML payload (all markup, scripts, data and embedded artwork) is byte-for-byte identical to the prior delivered file.
+
+Five targeted workflow checks and 22 existing regression/visual groups passed in isolated offline GPU-disabled headless Edge. The checks cover cards, table, weapon inspection, comparison, all 72 equipment-card images, equipment inspection, visual picker, occupied mod/scope/muzzle slots, saved-build images/components, unchanged base stats and narrow layout. Screenshots and raw evidence are in `validation/item-shadows/`. The final shared HTML and fresh ZIP extraction are also checked offline using the existing distribution suite. Earlier full functional/data runs below remain historical; unchanged scripts/data were not needlessly retested in full for this CSS-only restoration.
+
+Three alternating before/after pairs use 1920×1080, GPU/compositing disabled and CDP 4x CPU throttling, without another agent browser workload running concurrently. Response includes scripted activation and two animation frames; it is not physical input latency or monitor FPS. The scheduled scroll deliberately waits for 45 frames. OS/user load is uncontrolled, and these numbers are not a guarantee for every visible browser.
+
+| Interaction | Without item shadows (ms) | With restored shadows (ms) |
+|---|---:|---:|
+| Show all 190 weapons | 153.1 | 144.6 |
+| Scheduled 45-frame scroll | 1021.8 | 1093.1 |
+| First table | 533.9 | 521.3 |
+| Weapon search | 23.9 | 26.5 |
+| Weapon inspection | 222.4 | 214.3 |
+
+Scroll task work was 739.3 → 804.4 ms, a modest cost for restoring the requested visual effect. Other paired results show small differences, not a general speedup claim. Existing lazy/async image decoding, weapon-node reuse and measured native offscreen containment remain active. The narrow image-only filter exception is now recorded in VISUAL-BASELINE.md; other rendering safeguards remain.
+
+Asset limitation: 261 of the 262 existing weapon/equipment images have transparency. The legacy DB-2 Testera WebP contains an opaque background and source watermark, so its native shadow follows the image bounds rather than the weapon silhouette. Its original artwork was preserved; this restoration does not cut out or replace source images.
+
+Exact tested HTML SHA256: `d7d4af6111fda56e5ff42d175222433c6b0aa0c3ec7dd0cf6658717ed5859998`. All final delivery formats contain this identical application.
+
+---
+
+# Previous modification detail refinement (historical snapshot)
 
 The new detail hierarchy uses the existing approved surfaces and assets. Effects, category support, acquisition, restrictions and the compact source-listed browser are separate. Published numerical values use stat rows; the compact tier control is inline with the effects heading. General installation rules and technical source disclosures are collapsed. Important permanence, fixed/pre-installed equipment, one-core and unverified-replacement warnings remain visible. Catalog previews label their Reference Tier. The original weapon controller, base stylesheet, compatibility engine, weapon/equipment data and all artwork are unchanged.
 

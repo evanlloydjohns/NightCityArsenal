@@ -1,4 +1,12 @@
-# Current modification detail validation — October 26, 2026
+# Current item-shadow restoration validation — October 26, 2026
+
+The requested alpha-aware artwork shadows are restored across weapon/mod/attachment image surfaces, with smaller thumbnail variants. **22 existing visual/regression groups and five targeted workflow checks passed**, plus the final offline shared-file/fresh-ZIP distribution checks. The non-style HTML content is byte-for-byte unchanged from the preceding release, preserving all scripts, canonical data, embedded imagery, preferences and saved-build behavior. Main styling, layout and asset files were not changed. Only image styling and the intentional shadow allowance in rendering guards changed.
+
+Evidence: `validation/item-shadows/results.json`, software-rendering `performance.json`, desktop/narrow screenshots, the refreshed performance/atmosphere/visual-restoration results and `validation/distribution-test.json`. Performance shows modest additional scroll rendering work; full paired values and the existing opaque DB-2 Testera artwork limitation are documented at the top of PERFORMANCE-REPORT.md. Other 261 transparent item images support silhouette-shaped shadows. Final HTML SHA256: `d7d4af6111fda56e5ff42d175222433c6b0aa0c3ec7dd0cf6658717ed5859998`. Final packages contain the exact tested HTML and current reports. Older results below remain historical evidence for the unchanged functionality.
+
+---
+
+# Previous modification detail validation (historical snapshot)
 
 **126 test groups pass, zero failures**, plus 26 raster checks. The eight new groups verify all 257 equipment tier variants, exact signs/units, complete conditional prose, compact tier control/focus, inert compatibility chips, labeled slot glyphs, visible restrictions, collapsed general/raw/verification disclosures, concise card reference tiers, preserved filters/click behavior and responsive geometry. Known Big Mag/Gambiteer raw-field differences, Gaki's separate charge statement, E305's Wiki-only Tier 5 and Cetus's conditional headshot statement are retained without invented conversions.
 

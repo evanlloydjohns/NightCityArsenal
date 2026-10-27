@@ -13,7 +13,7 @@ Inventory target: Cyberpunk 2077 patch 2.5.
 Data snapshot: 2026.10.25-r2.
 Equipment: 72 modifications and attachments.
 Equipment snapshot: 2026.10.26-mods-r1.
-Application fingerprint: d1a75f656ca2.
+Application fingerprint: d7d4af6111fd.
 
 Search, multi-select filters, comparisons, favorites and slot icons work offline.
 Mods: browse equipment effects, tiers, compatibility and acquisition.

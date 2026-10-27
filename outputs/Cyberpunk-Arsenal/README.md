@@ -82,3 +82,5 @@ All 72 current equipment items now show authentic source-linked in-game artwork.
 
 
 Modification inspection now formats published numerical effects as separate stat rows, with a compact reference-tier selector alongside the effects heading. Class/technology tags and a labeled slot icon are separate from acquisition. Important warnings remain visible; general Installation Rules & Restrictions, raw source fields and verification details are collapsed below the compact weapon browser. Conditional effects remain descriptive, and no units or calculated bonuses are invented.
+
+Item artwork now has its original silhouette shadow again across weapons, mods, attachments and saved plans. Compact thumbnails use a smaller shadow. The burgundy lighting and all original imagery remain unchanged.

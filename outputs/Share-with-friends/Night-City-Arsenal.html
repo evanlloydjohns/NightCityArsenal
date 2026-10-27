@@ -246,6 +246,11 @@ body{background:radial-gradient(ellipse at 0 0,#631e2f30,transparent 40%),radial
 .equipment-card-body .equipment-reference{font-size:12px;padding-block:7px}.mod-card-compat,.mod-card-acquisition{font-size:13px;line-height:1.7;color:var(--muted);margin:7px 0}.compact-fact-label{font:10px var(--mono);color:var(--cyan);margin-right:8px;text-transform:uppercase;letter-spacing:.04em}
 @media(max-width:900px){.mod-info-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:'effects' 'compatibility' 'acquisition' 'restrictions';gap:22px}.mod-detail-identity{margin-bottom:14px}}
 @media(max-width:600px){.mod-info-grid h3{font-size:17px}.mod-primary-effects{padding:15px}.effect-stat-rows>div{padding:8px}.effect-stat-rows dt{font-size:13px}.effect-stat-rows dd{font-size:16px}.compatibility-tags li{font-size:12px}.mod-effects-heading{gap:8px}.mod-compatibility h4{margin-top:12px}}
+/* User-requested item silhouettes: restore the historical shadow on transparent art.
+   Keep it to one static alpha-aware shadow, scaled down for compact thumbnails. */
+.weapon-image,.equipment-icon img{filter:drop-shadow(var(--item-image-shadow,0 9px 7px #000a))}
+.table-art .weapon-image,.picker-art .weapon-image,.exp-weapon-thumb .weapon-image,.compare-identity .weapon-image,.empty-slot-art .weapon-image,.build-selection-summary .equipment-icon img{--item-image-shadow:0 3px 2px #000a}
+.equipment-slot .equipment-icon img,.equipment-effect-detail .equipment-icon img{--item-image-shadow:0 5px 4px #000a}
 </style>
 </head>
 <body>

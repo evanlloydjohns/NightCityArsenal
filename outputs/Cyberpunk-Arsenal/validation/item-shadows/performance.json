@@ -1,0 +1,560 @@
+{
+  "environment": {
+    "browser": "isolated offline headless Edge",
+    "gpu": "disabled via --disable-gpu --disable-gpu-compositing",
+    "cpuThrottle": 4,
+    "pairs": 3,
+    "viewport": "1920x1080",
+    "ordering": "alternates before/restored then restored/before"
+  },
+  "files": [
+    {
+      "file": "before.html",
+      "sha256": "d1a75f656ca2ca1837121a5ddd3daf403f08a03557c3d61d34b6f4dd7675742f"
+    },
+    {
+      "file": "index.html",
+      "sha256": "d7d4af6111fda56e5ff42d175222433c6b0aa0c3ec7dd0cf6658717ed5859998"
+    }
+  ],
+  "summary": {
+    "before": {
+      "all-190": {
+        "responseMs": 153.1000000005588,
+        "TaskDurationMs": 167.47500000000005,
+        "ScriptDurationMs": 96.524,
+        "LayoutDurationMs": 14.31900000000008,
+        "RecalcStyleDurationMs": 12.594999999999995
+      },
+      "scroll": {
+        "responseMs": 1021.7999999998137,
+        "TaskDurationMs": 739.2910000000002,
+        "ScriptDurationMs": 15.63199999999998,
+        "LayoutDurationMs": 118.76199999999993,
+        "RecalcStyleDurationMs": 83.23500000000003
+      },
+      "first-table": {
+        "responseMs": 533.8999999994412,
+        "TaskDurationMs": 534.7909999999998,
+        "ScriptDurationMs": 131.903,
+        "LayoutDurationMs": 190.22699999999992,
+        "RecalcStyleDurationMs": 107.20400000000002
+      },
+      "cached-cards": {
+        "responseMs": 87.29999999981374,
+        "TaskDurationMs": 88.88099999999977,
+        "ScriptDurationMs": 31.582,
+        "LayoutDurationMs": 14.232000000000022,
+        "RecalcStyleDurationMs": 11.996000000000006
+      },
+      "search-p": {
+        "responseMs": 23.90000000037253,
+        "TaskDurationMs": 22.943999999999853,
+        "ScriptDurationMs": 10.163000000000032,
+        "LayoutDurationMs": 1.578999999999997,
+        "RecalcStyleDurationMs": 0.6070000000000242
+      },
+      "clear-search": {
+        "responseMs": 22,
+        "TaskDurationMs": 21.316000000000113,
+        "ScriptDurationMs": 9.104000000000001,
+        "LayoutDurationMs": 1.2230000000000851,
+        "RecalcStyleDurationMs": 0.6379999999999719
+      },
+      "first-detail": {
+        "responseMs": 222.40000000037253,
+        "TaskDurationMs": 232.54900000000012,
+        "ScriptDurationMs": 17.457000000000058,
+        "LayoutDurationMs": 114.27599999999994,
+        "RecalcStyleDurationMs": 61.01400000000001
+      },
+      "close-detail": {
+        "responseMs": 61.39999999944121,
+        "TaskDurationMs": 99.95300000000017,
+        "ScriptDurationMs": 2.5399999999999867,
+        "LayoutDurationMs": 18.016000000000034,
+        "RecalcStyleDurationMs": 41.273
+      }
+    },
+    "restored": {
+      "all-190": {
+        "responseMs": 144.6000000005588,
+        "TaskDurationMs": 156.82700000000006,
+        "ScriptDurationMs": 91.43400000000001,
+        "LayoutDurationMs": 15.459,
+        "RecalcStyleDurationMs": 10.560000000000013
+      },
+      "scroll": {
+        "responseMs": 1093.0999999996275,
+        "TaskDurationMs": 804.4350000000001,
+        "ScriptDurationMs": 15.145999999999994,
+        "LayoutDurationMs": 125.14399999999992,
+        "RecalcStyleDurationMs": 83.932
+      },
+      "first-table": {
+        "responseMs": 521.2999999998137,
+        "TaskDurationMs": 522.2610000000003,
+        "ScriptDurationMs": 137.03899999999996,
+        "LayoutDurationMs": 187.457,
+        "RecalcStyleDurationMs": 119.62800000000001
+      },
+      "cached-cards": {
+        "responseMs": 81.29999999981374,
+        "TaskDurationMs": 82.74199999999965,
+        "ScriptDurationMs": 30.824999999999992,
+        "LayoutDurationMs": 14.46000000000003,
+        "RecalcStyleDurationMs": 13.367000000000019
+      },
+      "search-p": {
+        "responseMs": 26.5,
+        "TaskDurationMs": 23.941000000000212,
+        "ScriptDurationMs": 10.29200000000008,
+        "LayoutDurationMs": 1.6960000000000308,
+        "RecalcStyleDurationMs": 0.8039999999999714
+      },
+      "clear-search": {
+        "responseMs": 27.100000000558794,
+        "TaskDurationMs": 19.608000000000292,
+        "ScriptDurationMs": 7.538000000000045,
+        "LayoutDurationMs": 1.4250000000000096,
+        "RecalcStyleDurationMs": 0.6560000000000454
+      },
+      "first-detail": {
+        "responseMs": 214.29999999981374,
+        "TaskDurationMs": 225.89900000000006,
+        "ScriptDurationMs": 16.591999999999942,
+        "LayoutDurationMs": 109.63199999999995,
+        "RecalcStyleDurationMs": 59.22099999999997
+      },
+      "close-detail": {
+        "responseMs": 63.700000000186265,
+        "TaskDurationMs": 105.03600000000013,
+        "ScriptDurationMs": 3.2449999999999424,
+        "LayoutDurationMs": 21.275000000000155,
+        "RecalcStyleDurationMs": 42.86199999999995
+      }
+    }
+  },
+  "runs": [
+    {
+      "pair": 0,
+      "version": "before",
+      "actions": [
+        {
+          "name": "all-190",
+          "responseMs": 153.1000000005588,
+          "TaskDurationMs": 170.2830000000002,
+          "ScriptDurationMs": 95.89200000000004,
+          "LayoutDurationMs": 17.349999999999977,
+          "RecalcStyleDurationMs": 12.370999999999993
+        },
+        {
+          "name": "scroll",
+          "responseMs": 1096.8999999994412,
+          "TaskDurationMs": 791.5129999999997,
+          "ScriptDurationMs": 15.807000000000016,
+          "LayoutDurationMs": 122.87000000000003,
+          "RecalcStyleDurationMs": 83.76299999999998
+        },
+        {
+          "name": "first-table",
+          "responseMs": 534.6000000005588,
+          "TaskDurationMs": 536.708,
+          "ScriptDurationMs": 148.175,
+          "LayoutDurationMs": 190.22699999999992,
+          "RecalcStyleDurationMs": 107.20400000000002
+        },
+        {
+          "name": "cached-cards",
+          "responseMs": 87.29999999981374,
+          "TaskDurationMs": 88.88099999999977,
+          "ScriptDurationMs": 32.13399999999999,
+          "LayoutDurationMs": 14.232000000000022,
+          "RecalcStyleDurationMs": 11.996000000000006
+        },
+        {
+          "name": "search-p",
+          "responseMs": 23.90000000037253,
+          "TaskDurationMs": 26.295999999999875,
+          "ScriptDurationMs": 11.159000000000031,
+          "LayoutDurationMs": 1.7239999999999478,
+          "RecalcStyleDurationMs": 0.7699999999999929
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 19.5,
+          "TaskDurationMs": 21.316000000000113,
+          "ScriptDurationMs": 9.104000000000001,
+          "LayoutDurationMs": 1.8330000000000846,
+          "RecalcStyleDurationMs": 0.6379999999999719
+        },
+        {
+          "name": "first-detail",
+          "responseMs": 239.79999999981374,
+          "TaskDurationMs": 251.24900000000005,
+          "ScriptDurationMs": 17.39399999999991,
+          "LayoutDurationMs": 124.68099999999993,
+          "RecalcStyleDurationMs": 62.94500000000003
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 65.29999999981374,
+          "TaskDurationMs": 107.84199999999977,
+          "ScriptDurationMs": 2.5399999999999867,
+          "LayoutDurationMs": 19.16399999999996,
+          "RecalcStyleDurationMs": 43.46900000000004
+        }
+      ]
+    },
+    {
+      "pair": 0,
+      "version": "restored",
+      "actions": [
+        {
+          "name": "all-190",
+          "responseMs": 159.5,
+          "TaskDurationMs": 170.7160000000001,
+          "ScriptDurationMs": 101.72999999999999,
+          "LayoutDurationMs": 16.68399999999992,
+          "RecalcStyleDurationMs": 11.274000000000006
+        },
+        {
+          "name": "scroll",
+          "responseMs": 1093.0999999996275,
+          "TaskDurationMs": 805.8460000000001,
+          "ScriptDurationMs": 15.550000000000008,
+          "LayoutDurationMs": 128.12400000000002,
+          "RecalcStyleDurationMs": 86.56800000000001
+        },
+        {
+          "name": "first-table",
+          "responseMs": 553.2999999998137,
+          "TaskDurationMs": 555.005,
+          "ScriptDurationMs": 142.682,
+          "LayoutDurationMs": 195.488,
+          "RecalcStyleDurationMs": 131.82399999999998
+        },
+        {
+          "name": "cached-cards",
+          "responseMs": 81.29999999981374,
+          "TaskDurationMs": 82.74199999999965,
+          "ScriptDurationMs": 28.85900000000008,
+          "LayoutDurationMs": 15.127000000000113,
+          "RecalcStyleDurationMs": 13.367000000000019
+        },
+        {
+          "name": "search-p",
+          "responseMs": 27.800000000745058,
+          "TaskDurationMs": 28.247999999999607,
+          "ScriptDurationMs": 12.68899999999995,
+          "LayoutDurationMs": 1.8359999999999488,
+          "RecalcStyleDurationMs": 0.8380000000000054
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 29.200000000186265,
+          "TaskDurationMs": 23.57200000000015,
+          "ScriptDurationMs": 8.380999999999972,
+          "LayoutDurationMs": 1.4250000000000096,
+          "RecalcStyleDurationMs": 1.1929999999999996
+        },
+        {
+          "name": "first-detail",
+          "responseMs": 230.29999999981374,
+          "TaskDurationMs": 241.35700000000026,
+          "ScriptDurationMs": 19.944000000000074,
+          "LayoutDurationMs": 115.286,
+          "RecalcStyleDurationMs": 67.29199999999996
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 64.8999999994412,
+          "TaskDurationMs": 107.98799999999974,
+          "ScriptDurationMs": 2.1419999999999773,
+          "LayoutDurationMs": 22.61599999999997,
+          "RecalcStyleDurationMs": 47.43900000000001
+        }
+      ]
+    },
+    {
+      "pair": 1,
+      "version": "restored",
+      "actions": [
+        {
+          "name": "all-190",
+          "responseMs": 144.6000000005588,
+          "TaskDurationMs": 156.82700000000006,
+          "ScriptDurationMs": 89.90099999999995,
+          "LayoutDurationMs": 15.371000000000024,
+          "RecalcStyleDurationMs": 10.434
+        },
+        {
+          "name": "scroll",
+          "responseMs": 1064.4000000003725,
+          "TaskDurationMs": 768.8240000000002,
+          "ScriptDurationMs": 12.691000000000008,
+          "LayoutDurationMs": 117.65000000000003,
+          "RecalcStyleDurationMs": 82.196
+        },
+        {
+          "name": "first-table",
+          "responseMs": 515.5,
+          "TaskDurationMs": 516.8219999999999,
+          "ScriptDurationMs": 137.03899999999996,
+          "LayoutDurationMs": 183.55999999999995,
+          "RecalcStyleDurationMs": 110.25000000000001
+        },
+        {
+          "name": "cached-cards",
+          "responseMs": 79.40000000037253,
+          "TaskDurationMs": 80.64300000000024,
+          "ScriptDurationMs": 30.824999999999992,
+          "LayoutDurationMs": 14.199000000000073,
+          "RecalcStyleDurationMs": 10.245000000000005
+        },
+        {
+          "name": "search-p",
+          "responseMs": 26.5,
+          "TaskDurationMs": 23.735000000000284,
+          "ScriptDurationMs": 10.29200000000008,
+          "LayoutDurationMs": 1.4889999999999626,
+          "RecalcStyleDurationMs": 0.8039999999999714
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 27,
+          "TaskDurationMs": 18.62800000000009,
+          "ScriptDurationMs": 6.6869999999999985,
+          "LayoutDurationMs": 1.6599999999999948,
+          "RecalcStyleDurationMs": 0.6160000000000054
+        },
+        {
+          "name": "first-detail",
+          "responseMs": 200.3999999994412,
+          "TaskDurationMs": 212.056,
+          "ScriptDurationMs": 15.122999999999998,
+          "LayoutDurationMs": 102.89099999999995,
+          "RecalcStyleDurationMs": 58.37900000000001
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 59.59999999962747,
+          "TaskDurationMs": 98.03499999999987,
+          "ScriptDurationMs": 3.2449999999999424,
+          "LayoutDurationMs": 17.390999999999934,
+          "RecalcStyleDurationMs": 38.906
+        }
+      ]
+    },
+    {
+      "pair": 1,
+      "version": "before",
+      "actions": [
+        {
+          "name": "all-190",
+          "responseMs": 156.5,
+          "TaskDurationMs": 167.47500000000005,
+          "ScriptDurationMs": 99.46900000000002,
+          "LayoutDurationMs": 14.31900000000008,
+          "RecalcStyleDurationMs": 12.594999999999995
+        },
+        {
+          "name": "scroll",
+          "responseMs": 1019.5,
+          "TaskDurationMs": 739.2910000000002,
+          "ScriptDurationMs": 15.63199999999998,
+          "LayoutDurationMs": 118.76199999999993,
+          "RecalcStyleDurationMs": 83.23500000000003
+        },
+        {
+          "name": "first-table",
+          "responseMs": 533.8999999994412,
+          "TaskDurationMs": 534.7909999999998,
+          "ScriptDurationMs": 131.903,
+          "LayoutDurationMs": 208.53200000000004,
+          "RecalcStyleDurationMs": 116.43899999999996
+        },
+        {
+          "name": "cached-cards",
+          "responseMs": 88.09999999962747,
+          "TaskDurationMs": 89.69199999999988,
+          "ScriptDurationMs": 31.582,
+          "LayoutDurationMs": 14.595000000000024,
+          "RecalcStyleDurationMs": 15.765000000000029
+        },
+        {
+          "name": "search-p",
+          "responseMs": 22.199999999254942,
+          "TaskDurationMs": 22.943999999999853,
+          "ScriptDurationMs": 10.163000000000032,
+          "LayoutDurationMs": 1.578999999999997,
+          "RecalcStyleDurationMs": 0.6039999999999934
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 22,
+          "TaskDurationMs": 19.312999999999914,
+          "ScriptDurationMs": 7.522999999999946,
+          "LayoutDurationMs": 1.2119999999999909,
+          "RecalcStyleDurationMs": 0.6769999999999832
+        },
+        {
+          "name": "first-detail",
+          "responseMs": 218.90000000037253,
+          "TaskDurationMs": 227.72000000000014,
+          "ScriptDurationMs": 17.457000000000058,
+          "LayoutDurationMs": 114.27599999999994,
+          "RecalcStyleDurationMs": 57.82999999999999
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 61.39999999944121,
+          "TaskDurationMs": 99.95300000000017,
+          "ScriptDurationMs": 2.3569999999999425,
+          "LayoutDurationMs": 18.016000000000034,
+          "RecalcStyleDurationMs": 40.796000000000056
+        }
+      ]
+    },
+    {
+      "pair": 2,
+      "version": "before",
+      "actions": [
+        {
+          "name": "all-190",
+          "responseMs": 147.8999999994412,
+          "TaskDurationMs": 161.5899999999999,
+          "ScriptDurationMs": 96.524,
+          "LayoutDurationMs": 12.865999999999932,
+          "RecalcStyleDurationMs": 12.968000000000007
+        },
+        {
+          "name": "scroll",
+          "responseMs": 1021.7999999998137,
+          "TaskDurationMs": 722.1830000000002,
+          "ScriptDurationMs": 14.915000000000012,
+          "LayoutDurationMs": 115.47600000000003,
+          "RecalcStyleDurationMs": 77.11300000000001
+        },
+        {
+          "name": "first-table",
+          "responseMs": 491.59999999962747,
+          "TaskDurationMs": 492.4050000000002,
+          "ScriptDurationMs": 127.38300000000002,
+          "LayoutDurationMs": 188.73899999999998,
+          "RecalcStyleDurationMs": 102.53199999999995
+        },
+        {
+          "name": "cached-cards",
+          "responseMs": 78.09999999962747,
+          "TaskDurationMs": 79.41900000000012,
+          "ScriptDurationMs": 29.32800000000002,
+          "LayoutDurationMs": 13.210999999999974,
+          "RecalcStyleDurationMs": 11.699000000000016
+        },
+        {
+          "name": "search-p",
+          "responseMs": 38.200000000186265,
+          "TaskDurationMs": 19.971999999999657,
+          "ScriptDurationMs": 8.25599999999993,
+          "LayoutDurationMs": 1.1769999999999836,
+          "RecalcStyleDurationMs": 0.6070000000000242
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 29.700000000186265,
+          "TaskDurationMs": 21.847999999999868,
+          "ScriptDurationMs": 9.801000000000059,
+          "LayoutDurationMs": 1.2230000000000851,
+          "RecalcStyleDurationMs": 0.6009999999999627
+        },
+        {
+          "name": "first-detail",
+          "responseMs": 222.40000000037253,
+          "TaskDurationMs": 232.54900000000012,
+          "ScriptDurationMs": 18.364999999999966,
+          "LayoutDurationMs": 113.05599999999994,
+          "RecalcStyleDurationMs": 61.01400000000001
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 58.09999999962747,
+          "TaskDurationMs": 95.57600000000033,
+          "ScriptDurationMs": 2.626000000000017,
+          "LayoutDurationMs": 17.54699999999998,
+          "RecalcStyleDurationMs": 41.273
+        }
+      ]
+    },
+    {
+      "pair": 2,
+      "version": "restored",
+      "actions": [
+        {
+          "name": "all-190",
+          "responseMs": 141.70000000018626,
+          "TaskDurationMs": 155.57200000000003,
+          "ScriptDurationMs": 91.43400000000001,
+          "LayoutDurationMs": 15.459,
+          "RecalcStyleDurationMs": 10.560000000000013
+        },
+        {
+          "name": "scroll",
+          "responseMs": 1121.300000000745,
+          "TaskDurationMs": 804.4350000000001,
+          "ScriptDurationMs": 15.145999999999994,
+          "LayoutDurationMs": 125.14399999999992,
+          "RecalcStyleDurationMs": 83.932
+        },
+        {
+          "name": "first-table",
+          "responseMs": 521.2999999998137,
+          "TaskDurationMs": 522.2610000000003,
+          "ScriptDurationMs": 131.842,
+          "LayoutDurationMs": 187.457,
+          "RecalcStyleDurationMs": 119.62800000000001
+        },
+        {
+          "name": "cached-cards",
+          "responseMs": 88.09999999962747,
+          "TaskDurationMs": 91.20499999999998,
+          "ScriptDurationMs": 33.16200000000003,
+          "LayoutDurationMs": 14.46000000000003,
+          "RecalcStyleDurationMs": 13.529999999999987
+        },
+        {
+          "name": "search-p",
+          "responseMs": 23.899999999441206,
+          "TaskDurationMs": 23.941000000000212,
+          "ScriptDurationMs": 10.178999999999938,
+          "LayoutDurationMs": 1.6960000000000308,
+          "RecalcStyleDurationMs": 0.4969999999999697
+        },
+        {
+          "name": "clear-search",
+          "responseMs": 27.100000000558794,
+          "TaskDurationMs": 19.608000000000292,
+          "ScriptDurationMs": 7.538000000000045,
+          "LayoutDurationMs": 1.0329999999999506,
+          "RecalcStyleDurationMs": 0.6560000000000454
+        },
+        {
+          "name": "first-detail",
+          "responseMs": 214.29999999981374,
+          "TaskDurationMs": 225.89900000000006,
+          "ScriptDurationMs": 16.591999999999942,
+          "LayoutDurationMs": 109.63199999999995,
+          "RecalcStyleDurationMs": 59.22099999999997
+        },
+        {
+          "name": "close-detail",
+          "responseMs": 63.700000000186265,
+          "TaskDurationMs": 105.03600000000013,
+          "ScriptDurationMs": 3.295000000000048,
+          "LayoutDurationMs": 21.275000000000155,
+          "RecalcStyleDurationMs": 42.86199999999995
+        }
+      ]
+    }
+  ]
+}
