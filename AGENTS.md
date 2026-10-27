@@ -1,18 +1,15 @@
-# Night City Arsenal project workflow
+# Night City Arsenal
 
-The user shares this app with friends on Discord as an offline browser file.
+- The existing visual design is approved. Preserve styling unless the user explicitly requests a change; reuse established components. See `outputs/Cyberpunk-Arsenal/VISUAL-BASELINE.md`.
+- Prefer minimal, targeted changes for small tasks. Do not redesign/refactor unrelated code.
+- Keep the app self-contained, offline and runnable from `file://`: embed data, artwork, CSS, JavaScript and icons. No backend, CDN, account, installer or runtime development dependencies.
+- Optimize for browsers without hardware acceleration. Preserve lazy decoding, node reuse and offscreen containment. The requested static item shadows are intentional; avoid adding expensive effects.
+- Never use Computer Use, visible browsers or desktop automation. Use terminal tools and isolated headless browsers.
+- Edit maintained files in `outputs/Cyberpunk-Arsenal/source/`; never edit generated HTML directly.
+- Preserve storage keys, stable IDs and existing user data. Migrate deliberately; never drop favorites or builds. The planner is informational and must not recalculate weapon stats.
+- Run tests appropriate to the change. Do not automatically perform comprehensive visual/performance audits for small tasks; documentation-only work normally needs documentation/package checks, not browser tests.
+- After application updates, run `python outputs/Cyberpunk-Arsenal/source/build.py`. Keep all stable sharing filenames; see the app README. Check the changed production file offline with `source/tests/distribution.test.cjs`, finalize reports, then rebuild packages without changing the tested HTML.
+- Preserve unrelated working changes. Commit completed, validated work without destructive resets.
+- Deliver the updated friend-facing HTML and ZIP after application changes. Do not deploy, open ports or configure hosting without a separate request.
 
-- Keep the production application self-contained and runnable from `file://`. Embed all data, artwork, styles, scripts and icons. Do not add a backend, CDN, account requirement, installer, runtime development dependencies or auto-updater.
-- Do not use visible browsers, Computer Use or desktop automation. Use terminal tools and isolated headless browser testing.
-- Edit the maintained source under `outputs/Cyberpunk-Arsenal/source/`. Do not edit the generated HTML directly.
-- After every application update, run `python outputs/Cyberpunk-Arsenal/source/build.py`. This automatically regenerates all distribution formats:
-  - `outputs/Cyberpunk-Arsenal/index.html` — existing local working copy.
-  - `outputs/Share-with-friends/Night-City-Arsenal.html` — single file to send friends.
-  - `outputs/Share-with-friends/Night-City-Arsenal.zip` — compact Discord-friendly ZIP containing the same HTML, instructions and reports.
-  - `outputs/Share-with-friends/release.json` — content fingerprint and hashes.
-  - `outputs/Cyberpunk-Arsenal.zip` — complete source/project archive, for maintenance rather than ordinary sharing.
-- Keep these filenames stable so recipients can replace an older file. Preserve browser preference compatibility and the existing local-storage key; migrate state rather than dropping favorites and selections.
-- Run the relevant source tests and a headless offline distribution check after changes. After tests/reports are finalized, rerun the build so the packages contain current reports. The final HTML must remain byte-for-byte identical to the tested HTML.
-- Deliver links to the friend-facing HTML and ZIP after future changes. No user build steps should be necessary.
-- Hosting on the user's PC/server is a possible future option only. Do not deploy, open ports or configure hosting unless the user requests it.
-- The approved visual baseline is documented in `outputs/Cyberpunk-Arsenal/VISUAL-BASELINE.md`: subdued page/sidebar, cohesive burgundy cards and transparent static image lighting. Preserve it during future feature work; do not reinterpret the palette or restore older functional defects. The corrected NC logo, current inspection/comparison layouts and CPU rendering optimizations remain intentional.
+Start with `README.md`, then the linked app README and `STATUS.md` for architecture, commands and known limitations.

@@ -1,13 +1,13 @@
-# Maintaining this distributable project
+# Maintaining Night City Arsenal
 
-The user shares this application as a single offline HTML file with friends.
+- The visual design is approved. Preserve existing styling unless explicitly asked to change it; reuse existing components and follow `VISUAL-BASELINE.md`. Static item shadows are intentional.
+- Make minimal, targeted changes. Do not redesign or refactor unrelated functionality.
+- Keep everything embedded and functional offline from `file://`; no backend, CDN, account or runtime tooling.
+- Optimize for browsers without hardware acceleration; preserve lazy decoding, node reuse and offscreen containment.
+- Do not use Computer Use, visible browsers or desktop automation. Test through terminal tools and isolated headless browsers.
+- Edit `source/`, never generated HTML. Preserve stable IDs, existing storage keys, favorites and saved builds. Planning must not recalculate base weapon stats.
+- Choose tests appropriate to the scope. Do not automatically run comprehensive visual/performance audits; docs-only changes do not need browser tests.
+- After application changes run `python source/build.py`, check the changed production distribution offline, and rebuild after reports are finalized. The packaged HTML must match the tested file. Keep the stable HTML/ZIP filenames listed in README.
+- Preserve unrelated changes; do not deploy or configure hosting without user instruction.
 
-- Edit `source/`, then run `python source/build.py`. Do not edit generated `index.html` directly.
-- Every build must refresh `index.html`, `../Share-with-friends/Night-City-Arsenal.html`, `../Share-with-friends/Night-City-Arsenal.zip`, the release manifest and `../Cyberpunk-Arsenal.zip`. Preserve these stable names for updates.
-- Keep all runtime data and artwork embedded. No server, CDN, account or development dependency may become necessary for normal use.
-- Preserve the local-storage key and migrate existing preferences, favorites and comparisons when needed.
-- Use terminal tools and isolated headless browsers. Do not open visible windows or use desktop automation.
-- Run relevant application tests and `source/tests/distribution.test.cjs` after changes. Rebuild after finalizing reports so archives contain current evidence; verify the final HTML matches the tested HTML.
-- Final delivery should identify the friend-facing HTML and smaller ZIP. Keep the complete source archive available separately.
-- Do not deploy or configure hosting without a separate user request. See `SHARING.md` for the release workflow.
-- Preserve the approved appearance in `VISUAL-BASELINE.md` during future work. Burgundy card surfaces and transparent lighting use recovered historical CSS; subdued page/sidebar balance is deliberate. Keep the newer logo, inspection/comparison layouts, accessible controls and efficient rendering. Change this baseline only for a user request or a demonstrated defect.
+Read `README.md` for architecture/commands and `STATUS.md` for known issues and decisions. Repository-root instructions also apply when present.
