@@ -4,11 +4,28 @@
 
 The catalog includes **115 iconic weapons and 75 optional non-iconic weapons**. It targets **Cyberpunk 2077 Update 2.5**, released October 22, 2026. Coronation and Sihil are included alongside all 113 reconciled older iconics.
 
+## Mods, planning and saved builds
+
+The **Mods** tab contains **71 distinct modifications/attachments**, including the four Chimera-core iconics, with **256 published tier variants**. Search by name or effect, combine category/class/technology/tier/content/acquisition filters, and inspect individual sources and supported weapons.
+
+To plan equipment:
+
+1. Open a weapon's inspection and choose **Configure**, or use **Builds → New weapon build**.
+2. Click a real equipment slot to open the visual picker. Read the effect and acquisition, choose the mod tier, then select it. Unsupported or unknown fits cannot be installed as valid choices; fixed factory sights are labeled.
+3. Add a build name, freeform notes, optional comma-separated tags and an independent build favorite. **Save new build** creates a distinct record; **Update build** edits one explicitly; **Save as new** keeps both.
+4. Return through **Builds** to search notes/tags, review acquisition, edit, duplicate, rename, favorite, delete with confirmation, or compare two configurations without numerical predictions.
+
+**Planning never changes base weapon statistics.** No modified damage, DPS, magazine total or other simulated performance is calculated. Notes and planned selections remain separate from weapon data.
+
+**Back up builds with Builds → Export JSON.** Import adds validated copies and remaps duplicate IDs instead of overwriting existing records. Missing references survive with review warnings. Weapon preferences have their own **Data notes → Export preferences** backup; it does not include saved builds. Use both exports before changing file paths or browsers. Storage failures are reported and the session remains exportable.
+
+The source advertises 74 mods but exposes 71 distinct names, independently reconciled against the Wiki. Parallax's precise acquisition route remains unverified. Category SVGs are used where individual item imagery is unavailable. See [MODIFICATIONS-DATA.md](MODIFICATIONS-DATA.md) for coverage, quality gaps, compatibility exceptions and data schema.
+
 ## Send to friends
 
 The sibling `Share-with-friends` folder contains **`Night-City-Arsenal.html`**, the one-file app to send, and **`Night-City-Arsenal.zip`**, a smaller attachment with the same app and short instructions. Friends download the HTML and double-click it, or extract the ZIP and open the HTML inside. Nothing needs to be installed or hosted. See [SHARING.md](SHARING.md).
 
-Every future build automatically refreshes these same filenames and the full source archive. Each friend's favorites and settings remain in their own browser; the shared file contains no sender preferences.
+Every future build automatically refreshes these same filenames and the full source archive. Each friend's favorites, saved builds and settings remain in their own browser; the shared file contains no sender preferences or builds.
 
 ## Terminal interface
 

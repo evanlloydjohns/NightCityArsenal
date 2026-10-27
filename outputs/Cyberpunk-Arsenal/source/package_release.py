@@ -32,15 +32,22 @@ If Discord shows a preview or source text, download the file before opening it.
 {meta['iconicCount']} iconic weapons / {meta['totalCount']} total weapons.
 Inventory target: Cyberpunk 2077 patch {meta['targetPatch']}.
 Data snapshot: {meta['datasetVersion']}.
+Equipment: {meta.get('modificationCount',0)} modifications and attachments.
+Equipment snapshot: {meta.get('equipmentDataVersion','Not bundled')}.
 Application fingerprint: {app_hash[:12]}.
 
 Search, multi-select filters, comparisons, favorites and slot icons work offline.
+Mods: browse equipment effects, tiers, compatibility and acquisition.
+Builds: plan supported weapon slots, save names/notes/tags, duplicate and compare.
+Planning never recalculates base damage, DPS or other weapon statistics.
 Each person's favorites and preferences stay in their own browser; they are not
 included when this file is sent to another person. There is no tracking or sync.
+Saved builds are also personal browser data and are not included in this HTML.
 
 UPDATES: Replace the old HTML in the same folder with the same filename.
 Browser file-storage behavior varies. Before moving the file or changing browser,
 use Data notes > Export preferences; import that backup in the updated copy.
+Back up builds separately with Builds > Export JSON, then Builds > Import JSON.
 Updates arrive as a new file from the person sharing it; there is no auto-updater.
 
 DATA: Community-sourced weapon stats are not individually measured in patch 2.5.
@@ -57,13 +64,14 @@ inside the app. Shared free of charge for noncommercial fan use.
         # No source template or developer dependencies in the friend-facing ZIP.
         archive.writestr('Night-City-Arsenal/'+APP_FILENAME,html)
         archive.writestr('Night-City-Arsenal/START-HERE.txt',readme.encode('utf-8'))
-        for name in ['DATA-SOURCES.md','VALIDATION-REPORT.md','PERFORMANCE-REPORT.md','VISUAL-BASELINE.md']:
+        for name in ['DATA-SOURCES.md','VALIDATION-REPORT.md','PERFORMANCE-REPORT.md','VISUAL-BASELINE.md','MODIFICATIONS-DATA.md']:
             archive.write(project/name,'Night-City-Arsenal/'+name)
     with zipfile.ZipFile(friends_zip) as archive:
         if archive.testzip() is not None:raise ValueError('Friend ZIP integrity check failed.')
         if digest(archive.read('Night-City-Arsenal/'+APP_FILENAME))!=app_hash:
             raise ValueError('Friend ZIP contains a different application.')
     release={'application':'Night City Arsenal','builtAtUtc':datetime.now(timezone.utc).isoformat(timespec='seconds'),'applicationFingerprint':app_hash[:12],'dataVersion':meta['datasetVersion'],'targetPatch':meta['targetPatch'],'iconicCount':meta['iconicCount'],'totalWeapons':meta['totalCount'],'delivery':'Self-contained offline HTML; ZIP contains the same application and instructions','files':{APP_FILENAME:{'bytes':len(html),'sha256':app_hash},ZIP_FILENAME:{'bytes':friends_zip.stat().st_size,'sha256':digest(friends_zip.read_bytes())}}}
+    release.update(modificationCount=meta.get('modificationCount',0),equipmentDataVersion=meta.get('equipmentDataVersion'),buildSchemaVersion=meta.get('buildSchemaVersion'))
     (shared/'release.json').write_text(json.dumps(release,indent=2),encoding='utf-8')
     tracked=sorted(p for p in project.rglob('*') if p.is_file() and p.name!='SHA256SUMS.txt' and '__pycache__' not in p.parts and p.suffix!='.pyc')
     (project/'SHA256SUMS.txt').write_text('\n'.join(digest(p.read_bytes())+'  '+p.relative_to(project).as_posix() for p in tracked)+'\n',encoding='utf-8')

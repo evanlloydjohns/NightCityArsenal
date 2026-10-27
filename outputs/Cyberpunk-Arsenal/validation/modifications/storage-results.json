@@ -1,0 +1,19 @@
+{
+  "productionSHA256": "528a88b9d427b515a72cd09a2a4e8875043399eb5743a73197510ebe2531bea1",
+  "passed": 3,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Build quota failure keeps a usable exportable session and does not alter weapon preferences",
+      "passed": true
+    },
+    {
+      "name": "Corrupt build storage is reported and retained; ordinary weapon favorites still load",
+      "passed": true
+    },
+    {
+      "name": "Compatible-weapon filtering respects fixed sights and unknown slot data",
+      "passed": true
+    }
+  ]
+}

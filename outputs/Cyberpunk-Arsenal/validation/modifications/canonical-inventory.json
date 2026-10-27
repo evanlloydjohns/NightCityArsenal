@@ -1,0 +1,1793 @@
+{
+  "meta": {
+    "schemaVersion": 1,
+    "dataVersion": "2026.10.26-mods-r1",
+    "targetPatch": "2.5",
+    "researchedAt": "2026-10-26",
+    "recordCount": 71,
+    "advertisedSourceCount": 74,
+    "sourceInventoryCount": 71,
+    "status": "Community-reference coverage; no individual 2.5 in-game certification.",
+    "inventoryNote": "Nukes & Dragons advertises 74 but lists 31 ranged (including three throwable), 10 melee, 16 scopes and 14 muzzles: 71 distinct names. The Wiki navigation independently contains the same 71. Three additional named records could not be identified; no invented records are included.",
+    "rulesSource": "https://cyberpunk.fandom.com/wiki/Cyberpunk_2077_Attachments_and_Modifications",
+    "patchSource": "https://www.cyberpunk.net/en/news/52120/check-out-whats-coming-to-night-city-in-the-edgerunners-2-update-for-cyberpunk-2077/",
+    "knownWeaponIds": [
+      "Items.Common_Borg4a_HauntedGun",
+      "Items.Preset_Achilles_Collectible",
+      "Items.Preset_Achilles_Default",
+      "Items.Preset_Achilles_Nash",
+      "Items.Preset_Ajax_Amazon",
+      "Items.Preset_Ajax_Default",
+      "Items.Preset_Ajax_Moron",
+      "Items.Preset_Ashura_Default",
+      "Items.Preset_Ashura_Twitch",
+      "Items.Preset_Baseball_Bat_Default",
+      "Items.Preset_Baseball_Bat_Denny",
+      "Items.Preset_Baseball_Bat_Legendary",
+      "Items.Preset_Baseball_Bat_Malina",
+      "Items.Preset_Baton_Alpha",
+      "Items.Preset_Baton_Beta",
+      "Items.Preset_Baton_Gamma",
+      "Items.Preset_Baton_Murphy",
+      "Items.Preset_Baton_Tinker_Bell",
+      "Items.Preset_Burya_AirDrop",
+      "Items.Preset_Burya_Comrade",
+      "Items.Preset_Burya_Default",
+      "Items.Preset_Butchers_Knife_Iconic",
+      "Items.Preset_Cane_Fingers",
+      "Items.Preset_Carnage_Default",
+      "Items.Preset_Carnage_Edgerunners",
+      "Items.Preset_Carnage_Mox",
+      "Items.Preset_Chainsword_Default",
+      "Items.Preset_Chainsword_Legendary",
+      "Items.Preset_Chao_Default",
+      "Items.Preset_Chao_VooDoo",
+      "Items.Preset_Chefs_Knife_Default",
+      "Items.Preset_Copperhead_Default",
+      "Items.Preset_Copperhead_Genesis",
+      "Items.Preset_Crowbar_Bunker",
+      "Items.Preset_Crowbar_Default",
+      "Items.Preset_Crusher_Amazon",
+      "Items.Preset_Crusher_Default",
+      "Items.Preset_Defender_Default",
+      "Items.Preset_Defender_Kurt",
+      "Items.Preset_Dian_Default",
+      "Items.Preset_Dian_Yinglong",
+      "Items.Preset_Dildo_SexShop",
+      "Items.Preset_Dildo_Stout",
+      "Items.Preset_Fanged_Axe_Collectible",
+      "Items.Preset_Fanged_Axe_Default",
+      "Items.Preset_Grad_AirDrop",
+      "Items.Preset_Grad_Buck",
+      "Items.Preset_Grad_Default",
+      "Items.Preset_Grad_Panam",
+      "Items.Preset_Grad_Scav",
+      "Items.Preset_Grit_Amazon",
+      "Items.Preset_Grit_Default",
+      "Items.Preset_Guillotine_Collectible",
+      "Items.Preset_Guillotine_Default",
+      "Items.Preset_Hammer_Default",
+      "Items.Preset_Hammer_Sasquatch",
+      "Items.Preset_Hercules_Prototype",
+      "Items.Preset_Igla_Default",
+      "Items.Preset_Igla_Sovereign",
+      "Items.Preset_Iron_Pipe_Default",
+      "Items.Preset_Kanabo_Default",
+      "Items.Preset_Kappa_Default",
+      "Items.Preset_Kappa_George",
+      "Items.Preset_Kappa_Legendary",
+      "Items.Preset_Katana_Cocktail",
+      "Items.Preset_Katana_Default",
+      "Items.Preset_Katana_E3",
+      "Items.Preset_Katana_GoG",
+      "Items.Preset_Katana_Hiromi",
+      "Items.Preset_Katana_Saburo",
+      "Items.Preset_Katana_Surgeon",
+      "Items.Preset_Katana_Takemura",
+      "Items.Preset_Katana_Wakako",
+      "Items.Preset_Kenshin_Default",
+      "Items.Preset_Kenshin_Frank",
+      "Items.Preset_Kenshin_Royce",
+      "Items.Preset_Kenshin_Spy",
+      "Items.Preset_Knife_Default",
+      "Items.Preset_Knife_Kurtz_1",
+      "Items.Preset_Knife_Stinger",
+      "Items.Preset_Kolac_Default",
+      "Items.Preset_Kolac_Tiny_Mike",
+      "Items.Preset_Kukri_Default",
+      "Items.Preset_Kyubi_Amazon",
+      "Items.Preset_Kyubi_Default",
+      "Items.Preset_Kyubi_Legendary",
+      "Items.Preset_Kyubi_Myers",
+      "Items.Preset_Lexington_Default",
+      "Items.Preset_Lexington_Rook",
+      "Items.Preset_Lexington_Shooting_Competition",
+      "Items.Preset_Lexington_Wilson",
+      "Items.Preset_Liberty_Default",
+      "Items.Preset_Liberty_Dex",
+      "Items.Preset_Liberty_Padre",
+      "Items.Preset_Liberty_Rogue",
+      "Items.Preset_Liberty_Yorinobu",
+      "Items.Preset_MA70_Collectible",
+      "Items.Preset_MA70_Default",
+      "Items.Preset_Machete_Borg_AirDrop",
+      "Items.Preset_Machete_Borg_Default",
+      "Items.Preset_Machete_Default",
+      "Items.Preset_Masamune_Arasaka_2020",
+      "Items.Preset_Masamune_Default",
+      "Items.Preset_Masamune_Rogue",
+      "Items.Preset_Metel_AirDrop",
+      "Items.Preset_Metel_Default",
+      "Items.Preset_Metel_Kurt",
+      "Items.Preset_Nekomata_Amazon",
+      "Items.Preset_Nekomata_Breakthrough",
+      "Items.Preset_Nekomata_Default",
+      "Items.Preset_Neurotoxin_Knife_Default",
+      "Items.Preset_Neurotoxin_Knife_Iconic",
+      "Items.Preset_Nova_Default",
+      "Items.Preset_Nova_Doom_Doom",
+      "Items.Preset_Nova_Hitman",
+      "Items.Preset_Nue_Arasaka_2020",
+      "Items.Preset_Nue_Bree",
+      "Items.Preset_Nue_Default",
+      "Items.Preset_Nue_Jackie",
+      "Items.Preset_Nue_Maiko",
+      "Items.Preset_Omaha_Default",
+      "Items.Preset_Omaha_Suzie",
+      "Items.Preset_Osprey_Prototype",
+      "Items.Preset_Overture_Cassidy",
+      "Items.Preset_Overture_Dante",
+      "Items.Preset_Overture_Default",
+      "Items.Preset_Overture_Dodger",
+      "Items.Preset_Overture_Kerry",
+      "Items.Preset_Overture_River",
+      "Items.Preset_Palica_Default",
+      "Items.Preset_Pozhar_AirDrop",
+      "Items.Preset_Pozhar_Default",
+      "Items.Preset_Pozhar_Legendary",
+      "Items.Preset_Pulsar_Buzzsaw",
+      "Items.Preset_Pulsar_Default",
+      "Items.Preset_Punk_Knife_Default",
+      "Items.Preset_Punk_Knife_Iconic",
+      "Items.Preset_Quasar_Baron",
+      "Items.Preset_Quasar_Default",
+      "Items.Preset_Rasetsu_Prototype",
+      "Items.Preset_Saratoga_Arasaka_2020",
+      "Items.Preset_Saratoga_Default",
+      "Items.Preset_Saratoga_Maelstrom",
+      "Items.Preset_Saratoga_Raffen",
+      "Items.Preset_Satara_Brick",
+      "Items.Preset_Satara_Default",
+      "Items.Preset_Senkoh_Default",
+      "Items.Preset_Senkoh_Prototype",
+      "Items.Preset_Shingen_Default",
+      "Items.Preset_Shingen_Prototype",
+      "Items.Preset_Shovel_Caretaker",
+      "Items.Preset_Sidewinder_Default",
+      "Items.Preset_Sidewinder_Divided",
+      "Items.Preset_Silverhand_3516",
+      "Items.Preset_Sor22_Default",
+      "Items.Preset_Tactician_Default",
+      "Items.Preset_Tactician_Dino",
+      "Items.Preset_Tactician_Headsman",
+      "Items.Preset_Tanto_Default",
+      "Items.Preset_Tanto_Saburo",
+      "Items.Preset_Testera_Default",
+      "Items.Preset_Testera_Nicolas",
+      "Items.Preset_Ticon_Default",
+      "Items.Preset_Ticon_Gwent",
+      "Items.Preset_Ticon_Reed",
+      "Items.Preset_Tire_Iron_Default",
+      "Items.Preset_Tomahawk_Default",
+      "Items.Preset_Umbra_Bebe",
+      "Items.Preset_Umbra_Collectible",
+      "Items.Preset_Umbra_Default",
+      "Items.Preset_Unity_Agent",
+      "Items.Preset_Unity_Angelica",
+      "Items.Preset_Unity_Default",
+      "Items.Preset_VB_Axe",
+      "Items.Preset_Warden_Amazon",
+      "Items.Preset_Warden_Boris",
+      "Items.Preset_Warden_Default",
+      "Items.Preset_Yukimura_Default",
+      "Items.Preset_Yukimura_Kiji",
+      "Items.Preset_Yukimura_Skippy",
+      "Items.Preset_Zhuo_Default",
+      "Items.Preset_Zhuo_Eight_Star"
+    ],
+    "fixedAttachments": {
+      "Items.Preset_Lexington_Shooting_Competition": {
+        "scope": {
+          "name": "ClearVue Mk.8 factory scope",
+          "status": "fixed",
+          "source": "https://cyberpunk.fandom.com/wiki/Lexington_x-MOD2"
+        }
+      },
+      "Items.Preset_Overture_Dante": {
+        "scope": {
+          "name": "Type 2067 factory scope",
+          "status": "fixed",
+          "source": "https://cyberpunk.fandom.com/wiki/Ol%27_Reliable"
+        }
+      },
+      "Items.Preset_Kenshin_Spy": {
+        "scope": {
+          "name": "Unique Zetatech factory scope",
+          "status": "fixed",
+          "source": "https://cyberpunk.fandom.com/wiki/Ambition"
+        }
+      },
+      "Items.Preset_Lexington_Rook": {
+        "scope": {
+          "name": "Grandstand factory scope",
+          "status": "fixed",
+          "source": "https://cyberpunk.fandom.com/wiki/Rook"
+        },
+        "muzzle": {
+          "name": "XC-10 Strix factory silencer",
+          "status": "fixed",
+          "source": "https://cyberpunk.fandom.com/wiki/Rook"
+        }
+      },
+      "Items.Preset_Tactician_Headsman": {
+        "scope": {
+          "name": "Dedicated factory scope",
+          "status": "unverified",
+          "source": "https://nukesdragons.com/cyberpunk-2077/db/weapons/the-headsman"
+        }
+      }
+    }
+  },
+  "records": [
+    {
+      "id": "mod.add-vantage",
+      "name": "Add-Vantage",
+      "category": "Scope",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/add-vantage"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Add-Vantage"
+        }
+      ],
+      "compatibleWeaponCount": 58
+    },
+    {
+      "id": "mod.airstrike",
+      "name": "Airstrike",
+      "category": "Melee mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/airstrike"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Airstrike"
+        }
+      ],
+      "compatibleWeaponCount": 23
+    },
+    {
+      "id": "mod.barbarian",
+      "name": "Barbarian",
+      "category": "Melee mod",
+      "tiers": [
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/barbarian"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Barbarian"
+        }
+      ],
+      "compatibleWeaponCount": 9
+    },
+    {
+      "id": "mod.better-half",
+      "name": "Better Half",
+      "category": "Ranged mod",
+      "tiers": [
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/better-half"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Better_Half"
+        }
+      ],
+      "compatibleWeaponCount": 58
+    },
+    {
+      "id": "mod.big-mag",
+      "name": "Big Mag",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/big-mag"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Big_Mag"
+        }
+      ],
+      "compatibleWeaponCount": 21
+    },
+    {
+      "id": "mod.bleedout",
+      "name": "Bleedout",
+      "category": "Melee mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/bleedout"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Bleedout"
+        }
+      ],
+      "compatibleWeaponCount": 13
+    },
+    {
+      "id": "mod.bloodbruiser",
+      "name": "Bloodbruiser",
+      "category": "Melee mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/bloodbruiser"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Bloodbruiser"
+        }
+      ],
+      "compatibleWeaponCount": 9
+    },
+    {
+      "id": "mod.boomerang",
+      "name": "Boomerang",
+      "category": "Throwable mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/boomerang"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Boomerang"
+        }
+      ],
+      "compatibleWeaponCount": 8
+    },
+    {
+      "id": "mod.c-thru",
+      "name": "C-Thru",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/c-thru"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/C-Thru"
+        }
+      ],
+      "compatibleWeaponCount": 11
+    },
+    {
+      "id": "mod.clearvue-mk-8",
+      "name": "ClearVue Mk.8",
+      "category": "Scope",
+      "tiers": [
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/clear-vue-mk-8"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/ClearVue_Mk.8"
+        }
+      ],
+      "compatibleWeaponCount": 14
+    },
+    {
+      "id": "mod.condenser",
+      "name": "Condenser",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/condenser"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Condenser"
+        }
+      ],
+      "compatibleWeaponCount": 10
+    },
+    {
+      "id": "mod.cqo-kanone-mini-mk-72",
+      "name": "CQO Kanone MINI Mk.72",
+      "category": "Scope",
+      "tiers": [
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/cqo-kanone-mini-mk-72"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/CQO_Kanone_MINI_Mk.72"
+        }
+      ],
+      "compatibleWeaponCount": 58
+    },
+    {
+      "id": "mod.critochet",
+      "name": "Critochet",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/critochet"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Critochet"
+        }
+      ],
+      "compatibleWeaponCount": 35
+    },
+    {
+      "id": "mod.cs-1-taipan",
+      "name": "CS-1 Taipan",
+      "category": "Silencer",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/cs-1-taipan"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/CS-1_Taipan"
+        }
+      ],
+      "compatibleWeaponCount": 39
+    },
+    {
+      "id": "mod.cyclone",
+      "name": "Cyclone",
+      "category": "Melee mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/cyclone"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Cyclone"
+        }
+      ],
+      "compatibleWeaponCount": 23
+    },
+    {
+      "id": "mod.e255-percipient",
+      "name": "E255 Percipient",
+      "category": "Scope",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/e-255-percipient"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/E255_Percipient"
+        }
+      ],
+      "compatibleWeaponCount": 14
+    },
+    {
+      "id": "mod.e305-prospecta",
+      "name": "E305 Prospecta",
+      "category": "Scope",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/e-305-prospecta"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/E305_Prospecta"
+        }
+      ],
+      "compatibleWeaponCount": 3
+    },
+    {
+      "id": "mod.equalizer",
+      "name": "Equalizer",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/equalizer"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Equalizer"
+        }
+      ],
+      "compatibleWeaponCount": 58
+    },
+    {
+      "id": "mod.firecracker",
+      "name": "Firecracker",
+      "category": "Ranged mod",
+      "tiers": [
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/firecracker"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Firecracker"
+        },
+        {
+          "name": "Cyberpunk Wiki — Active Chimera Core",
+          "url": "https://cyberpunk.fandom.com/wiki/Active_Chimera_Core"
+        }
+      ],
+      "compatibleWeaponCount": 35
+    },
+    {
+      "id": "mod.fleetshot",
+      "name": "Fleetshot",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/fleetshot"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Fleetshot"
+        }
+      ],
+      "compatibleWeaponCount": 8
+    },
+    {
+      "id": "mod.focus-fire",
+      "name": "Focus Fire",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/focus-fire"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Focus_Fire"
+        }
+      ],
+      "compatibleWeaponCount": 21
+    },
+    {
+      "id": "mod.gaki",
+      "name": "Gaki",
+      "category": "Scope",
+      "tiers": [
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/gaki"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Gaki"
+        }
+      ],
+      "compatibleWeaponCount": 3
+    },
+    {
+      "id": "mod.gambiteer",
+      "name": "Gambiteer",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/gambiteer"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Gambiteer"
+        }
+      ],
+      "compatibleWeaponCount": 12
+    },
+    {
+      "id": "mod.grandstand-mk-2x",
+      "name": "Grandstand Mk.2x",
+      "category": "Scope",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/grandstand-mk-2-x"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Mk.2x_Grandstand"
+        }
+      ],
+      "compatibleWeaponCount": 14
+    },
+    {
+      "id": "mod.hackatomy",
+      "name": "Hackatomy",
+      "category": "Ranged mod",
+      "tiers": [
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/hackatomy"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Hackatomy"
+        },
+        {
+          "name": "Cyberpunk Wiki — Active Chimera Core",
+          "url": "https://cyberpunk.fandom.com/wiki/Active_Chimera_Core"
+        }
+      ],
+      "compatibleWeaponCount": 12
+    },
+    {
+      "id": "mod.haemocide",
+      "name": "Haemocide",
+      "category": "Melee mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/haemocide"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Haemocide"
+        }
+      ],
+      "compatibleWeaponCount": 13
+    },
+    {
+      "id": "mod.handyman",
+      "name": "Handyman",
+      "category": "Scope",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/handyman"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Handyman"
+        }
+      ],
+      "compatibleWeaponCount": 58
+    },
+    {
+      "id": "mod.headhopper",
+      "name": "Headhopper",
+      "category": "Ranged mod",
+      "tiers": [
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/headhopper"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Headhopper"
+        }
+      ],
+      "compatibleWeaponCount": 12
+    },
+    {
+      "id": "mod.headtoll",
+      "name": "Headtoll",
+      "category": "Ranged mod",
+      "tiers": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/headtoll"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Headtoll"
+        }
+      ],
+      "compatibleWeaponCount": 8
+    },
+    {
+      "id": "mod.hpo-kanone-max-mk-77",
+      "name": "HPO Kanone MAX Mk.77",
+      "category": "Scope",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/hpo-kanone-max-mk-77"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/HPO_Kanone_MAX_Mk.77"
+        }
+      ],
+      "compatibleWeaponCount": 5
+    },
+    {
+      "id": "mod.hyakume",
+      "name": "Hyakume",
+      "category": "Scope",
+      "tiers": [
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/hyakume"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Hyakume"
+        }
+      ],
+      "compatibleWeaponCount": 58
+    },
+    {
+      "id": "mod.javelin",
+      "name": "Javelin",
+      "category": "Throwable mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/javelin"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Javelin"
+        }
+      ],
+      "compatibleWeaponCount": 8
+    },
+    {
+      "id": "mod.jue",
+      "name": "Jue",
+      "category": "Scope",
+      "tiers": [
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/jue"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Jue"
+        }
+      ],
+      "compatibleWeaponCount": 14
+    },
+    {
+      "id": "mod.k-o",
+      "name": "K.O.",
+      "category": "Melee mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/k-o"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/K.O."
+        }
+      ],
+      "compatibleWeaponCount": 9
+    },
+    {
+      "id": "mod.kairo-sa-1",
+      "name": "Kairo SA-1",
+      "category": "Scope",
+      "tiers": [
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/kairo-sa-1"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Kairo_SA-1"
+        }
+      ],
+      "compatibleWeaponCount": 14
+    },
+    {
+      "id": "mod.kanetsugu",
+      "name": "Kanetsugu",
+      "category": "Scope",
+      "tiers": [
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/kanetsugu"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Kanetsugu?theme=false%29"
+        }
+      ],
+      "compatibleWeaponCount": 58
+    },
+    {
+      "id": "mod.kneel",
+      "name": "Kneel!",
+      "category": "Ranged mod",
+      "tiers": [
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/kneel"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Kneel%21"
+        }
+      ],
+      "compatibleWeaponCount": 10
+    },
+    {
+      "id": "mod.os-1-gimleteye",
+      "name": "OS-1 GimletEye",
+      "category": "Scope",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/os-1-gimlet-eye"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/OS-1_GimletEye"
+        }
+      ],
+      "compatibleWeaponCount": 58
+    },
+    {
+      "id": "mod.panorama",
+      "name": "Panorama",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/panorama"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Panorama"
+        }
+      ],
+      "compatibleWeaponCount": 12
+    },
+    {
+      "id": "mod.parallax",
+      "name": "Parallax",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/parallax"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Parallax"
+        }
+      ],
+      "compatibleWeaponCount": 19
+    },
+    {
+      "id": "mod.pax",
+      "name": "Pax",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/pax"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Pax"
+        }
+      ],
+      "compatibleWeaponCount": 81
+    },
+    {
+      "id": "mod.pinpoint",
+      "name": "Pinpoint",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/pinpoint"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Pinpoint"
+        }
+      ],
+      "compatibleWeaponCount": 19
+    },
+    {
+      "id": "mod.pyro",
+      "name": "Pyro",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/pyro"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Pyro"
+        }
+      ],
+      "compatibleWeaponCount": 35
+    },
+    {
+      "id": "mod.rc-7-aswang",
+      "name": "RC-7 Aswang",
+      "category": "Muzzle brake",
+      "tiers": [
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-aswang"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/RC-7_Aswang"
+        }
+      ],
+      "compatibleWeaponCount": 23
+    },
+    {
+      "id": "mod.rc-7-babaroga",
+      "name": "RC-7 Babaroga",
+      "category": "Muzzle brake",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-babaroga"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/RC-7_Babaroga"
+        }
+      ],
+      "compatibleWeaponCount": 16
+    },
+    {
+      "id": "mod.rc-7-dybbuk",
+      "name": "RC-7 Dybbuk",
+      "category": "Muzzle brake",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-dybbuk"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/RC-7_Dybbuk"
+        }
+      ],
+      "compatibleWeaponCount": 16
+    },
+    {
+      "id": "mod.rc-7-ifrit",
+      "name": "RC-7 Ifrit",
+      "category": "Muzzle brake",
+      "tiers": [
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-ifrit"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/RC-7_Ifrit"
+        }
+      ],
+      "compatibleWeaponCount": 23
+    },
+    {
+      "id": "mod.rc-7-kutrub",
+      "name": "RC-7 Kutrub",
+      "category": "Muzzle brake",
+      "tiers": [
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-kutrub"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/RC-7_Kutrub"
+        }
+      ],
+      "compatibleWeaponCount": 16
+    },
+    {
+      "id": "mod.rc-7-liger",
+      "name": "RC-7 Liger",
+      "category": "Muzzle brake",
+      "tiers": [
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-liger"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/RC-7_Liger"
+        }
+      ],
+      "compatibleWeaponCount": 16
+    },
+    {
+      "id": "mod.rc-7-strigoi",
+      "name": "RC-7 Strigoi",
+      "category": "Muzzle brake",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-strigoi"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/RC-7_Strigoi"
+        }
+      ],
+      "compatibleWeaponCount": 23
+    },
+    {
+      "id": "mod.rc-7-varkolak",
+      "name": "RC-7 Varkolak",
+      "category": "Muzzle brake",
+      "tiers": [
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-varkolak"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/RC-7_Varkolak"
+        }
+      ],
+      "compatibleWeaponCount": 23
+    },
+    {
+      "id": "mod.rc-7-yokai",
+      "name": "RC-7 Yokai",
+      "category": "Muzzle brake",
+      "tiers": [
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-yokai"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/RC-7_Yokai"
+        }
+      ],
+      "compatibleWeaponCount": 16
+    },
+    {
+      "id": "mod.rc-7-zaar",
+      "name": "RC-7 Zaar",
+      "category": "Muzzle brake",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/rc-7-zaar"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/RC-7_Zaar"
+        }
+      ],
+      "compatibleWeaponCount": 23
+    },
+    {
+      "id": "mod.ready-steady",
+      "name": "Ready Steady",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/ready-steady"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Ready_Steady"
+        }
+      ],
+      "compatibleWeaponCount": 21
+    },
+    {
+      "id": "mod.severance",
+      "name": "Severance",
+      "category": "Melee mod",
+      "tiers": [
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/severance"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Severance"
+        },
+        {
+          "name": "Cyberpunk Wiki — Active Chimera Core",
+          "url": "https://cyberpunk.fandom.com/wiki/Active_Chimera_Core"
+        }
+      ],
+      "compatibleWeaponCount": 23
+    },
+    {
+      "id": "mod.shuffler",
+      "name": "Shuffler",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/shuffler"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Shuffler"
+        }
+      ],
+      "compatibleWeaponCount": 58
+    },
+    {
+      "id": "mod.silencio",
+      "name": "Silencio",
+      "category": "Melee mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/silencio"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Silencio"
+        }
+      ],
+      "compatibleWeaponCount": 23
+    },
+    {
+      "id": "mod.slice-em-up",
+      "name": "Slice 'Em Up",
+      "category": "Melee mod",
+      "tiers": [
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/slice-em-up"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Slice_%27Em_Up"
+        }
+      ],
+      "compatibleWeaponCount": 13
+    },
+    {
+      "id": "mod.so-21-saika",
+      "name": "SO-21 Saika",
+      "category": "Scope",
+      "tiers": [
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/so-21-saika"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/SO-21_Saika"
+        }
+      ],
+      "compatibleWeaponCount": 14
+    },
+    {
+      "id": "mod.spinetickler",
+      "name": "Spinetickler",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/spinetickler"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Spinetickler"
+        }
+      ],
+      "compatibleWeaponCount": 11
+    },
+    {
+      "id": "mod.stabilizer",
+      "name": "Stabilizer",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/stabilizer"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Stabilizer"
+        }
+      ],
+      "compatibleWeaponCount": 8
+    },
+    {
+      "id": "mod.supercharger",
+      "name": "Supercharger",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/supercharger"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Supercharger"
+        }
+      ],
+      "compatibleWeaponCount": 11
+    },
+    {
+      "id": "mod.swiss-cheese",
+      "name": "Swiss Cheese",
+      "category": "Ranged mod",
+      "tiers": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/swiss-cheese"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Swiss_Cheese"
+        }
+      ],
+      "compatibleWeaponCount": 35
+    },
+    {
+      "id": "mod.tsx-tocororo",
+      "name": "TSX Tocororo",
+      "category": "Silencer",
+      "tiers": [
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/tsx-tocororo"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/TSX_Tocororo"
+        }
+      ],
+      "compatibleWeaponCount": 39
+    },
+    {
+      "id": "mod.type-2067",
+      "name": "Type 2067",
+      "category": "Scope",
+      "tiers": [
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/type-2067"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Type_2067"
+        }
+      ],
+      "compatibleWeaponCount": 58
+    },
+    {
+      "id": "mod.vivisector",
+      "name": "Vivisector",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/vivisector"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Vivisector"
+        }
+      ],
+      "compatibleWeaponCount": 10
+    },
+    {
+      "id": "mod.wallpuncher",
+      "name": "Wallpuncher",
+      "category": "Ranged mod",
+      "tiers": [
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/wallpuncher"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Wallpuncher"
+        },
+        {
+          "name": "Cyberpunk Wiki — Active Chimera Core",
+          "url": "https://cyberpunk.fandom.com/wiki/Active_Chimera_Core"
+        }
+      ],
+      "compatibleWeaponCount": 11
+    },
+    {
+      "id": "mod.xc-10-cetus",
+      "name": "XC-10 Cetus",
+      "category": "Silencer",
+      "tiers": [
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/xc-10-cetus"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/XC-10_Cetus"
+        }
+      ],
+      "compatibleWeaponCount": 39
+    },
+    {
+      "id": "mod.xc-10-strix",
+      "name": "XC-10 Strix",
+      "category": "Silencer",
+      "tiers": [
+        "3",
+        "4"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/xc-10-strix"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/XC-10_Strix"
+        }
+      ],
+      "compatibleWeaponCount": 39
+    },
+    {
+      "id": "mod.zenith",
+      "name": "Zenith",
+      "category": "Ranged mod",
+      "tiers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/zenith"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Zenith"
+        }
+      ],
+      "compatibleWeaponCount": 19
+    },
+    {
+      "id": "mod.zero-g",
+      "name": "Zero-G",
+      "category": "Throwable mod",
+      "tiers": [
+        "3",
+        "4",
+        "5"
+      ],
+      "sources": [
+        {
+          "name": "Nukes & Dragons — tiers and individual compatibility",
+          "url": "https://nukesdragons.com/cyberpunk-2077/db/mods/zero-g"
+        },
+        {
+          "name": "Cyberpunk Wiki — acquisition and cross-check",
+          "url": "https://cyberpunk.fandom.com/wiki/Zero-G"
+        }
+      ],
+      "compatibleWeaponCount": 8
+    }
+  ]
+}

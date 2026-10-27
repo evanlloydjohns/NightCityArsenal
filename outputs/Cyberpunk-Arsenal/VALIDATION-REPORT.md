@@ -1,3 +1,15 @@
+# Current equipment expansion validation — October 26, 2026
+
+**107 data/functional/UI groups pass** on the current production HTML: the original 73 plus 15 core/planner-data, 16 end-to-end Mods/Builds and 3 storage/filter groups. All browser tests are offline, headless and explicitly GPU-disabled. The 12 DPR/zoom raster combinations and 14 actual-control pixel audits also pass. Final distribution checks exercise both the stable shared HTML and a fresh ZIP extraction, including all 190 image decodes, 71 mod records, visual configuration and saved-build reload.
+
+The expansion includes 71 distinct equipment records and 256 published tier variants, source-linked effects/acquisition and strict positive-evidence compatibility. Tests cover slot/tier/type restrictions, fixed factory optics, x-MOD2/iconic exceptions and the single Chimera core. Four equipped components do not change base weapon statistics or canonical weapon JSON. Saved builds retain stable IDs, notes, tags, independent favorites and dates. Update/save-as-new/duplicate/rename/delete, confirmation cancellation, JSON export/import, duplicate-ID remapping, unsafe imports, missing references, quota errors and corrupt storage are verified.
+
+The approved source stylesheet, original weapons JSON, image manifest and artwork bytes remain exact. The existing controller/template only gains navigation/configuration integration. Current screenshots cover all new views at 1920, 2560 and 390px, with existing Arsenal 4K coverage retained. Performance measurements compare the final app against Git checkpoint 736742b with alternating GPU-disabled/4x CPU contexts; results and limits are in the current section of PERFORMANCE-REPORT.md. Canonical equipment inventory and new test evidence are in validation/modifications/.
+
+Data completeness is explicitly bounded: the sources reconcile 71 named items despite the 74 banner, Parallax's exact acquisition remains unverified, and source age/tier/charge-field conflicts remain visible. Equipment uses category SVG fallbacks. MODIFICATIONS-DATA.md provides sources, per-category totals, installation restrictions and portability details. Historical weapon/research reports below remain available; they do not supersede this current release's tests or equipment coverage.
+
+---
+
 # Completeness and validation report
 
 Research snapshot: **October 25, 2026**. Target: **Cyberpunk 2077 Update 2.5**. Deliverable: `index.html`, a single self-contained offline application. The source project is in `source/`.

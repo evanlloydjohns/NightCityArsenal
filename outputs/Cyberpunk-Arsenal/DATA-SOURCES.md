@@ -76,3 +76,8 @@ The current shell uses original CSS-based frames, angular geometry and the exist
 ## Visual/performance refinement assets
 
 The corrected NC mark is original inline SVG path geometry; it does not depend on a logo font or copied game artwork. Existing weapon PNG/WebP bytes and mappings are unchanged. DOM image hydration assigns the same bundled data URLs rather than repeatedly serializing them into markup. The software-rendering performance report describes local development profiling only; the application contains no performance telemetry or network reporting.
+
+
+## Equipment expansion — October 26, 2026
+
+The offline bundle now also includes 71 individually sourced weapon modifications/attachments and 256 tier variants. Equipment facts and positive compatibility lists are normalized from individual Nukes & Dragons pages and cross-checked with individual Cyberpunk Wiki acquisition/install references. All record-level URLs are in source/modifications.json and accessible in the app. MODIFICATIONS-DATA.md provides the reconciled inventory, source links, known omissions/conflicts and attribution. Official 2.5 announcements were rechecked; individual equipment behavior is not independently game-certified. No weapon data or original image bytes were changed. New equipment uses existing original category SVGs rather than unlicensed/invented item renders. No live request is needed for Mods or Builds.

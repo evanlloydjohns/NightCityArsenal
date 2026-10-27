@@ -1,4 +1,59 @@
-# Current approved-style restoration: performance and validation
+# Current Mods and Builds expansion: performance and validation
+
+The approved application was captured before development in Git commit **736742b**. Existing `source/styles.css`, weapon data, image mappings and artwork remain unchanged. Only integration changes were made to the existing controller/template; equipment/UI/core logic lives in separate new source files. New Mods/Builds panels use the established palette, SVG slot glyphs, typography and shared chamfer geometry. There is no modified-stat simulation, backend, remote asset, visible browser automation or personal-browser setting change.
+
+## Current measurements
+
+Measurements use isolated offline headless Microsoft Edge at 1920x1080 with `--disable-gpu --disable-gpu-compositing`, reduced motion and CDP 4x CPU throttling. Responses span scripted activation through two animation frames, rather than physical input latency. The user continued using the computer; OS scheduling is uncontrolled. No other agent-launched browser test ran concurrently with either profiling workload. Headless/throttled results do not guarantee timings in the user's visible browser.
+
+The comparison alternates before/expanded contexts (reversing order in the second pair) within one browser for three observations each. Before is the approved Git checkpoint. Git text newline normalization changes that blob's byte hash relative to the original working HTML, while preserving its browser content. The workload starts with the default 115 iconics and then switches to all 190; it is not a cold-page-load claim.
+
+| Arsenal interaction | Approved checkpoint (ms) | Expanded app (ms) |
+|---|---:|---:|
+| Show all 190 weapons | 161.8 | 166.4 |
+| Broad weapon search: p | 37.5 | 37.0 |
+| First weapon table construction | 711.2 | 728.7 |
+| Return to cached Cards | 119.0 | 119.8 |
+| First weapon inspection | 305.6 | 310.9 |
+
+The fixed 45-frame catalog scroll used **916.8 -> 911.9 ms of browser task work**. Total scheduled workload duration was 1446.1 -> 1548.1 ms; it intentionally contains frame waits and is not monitor FPS or input latency. Most response medians were close, with small overhead rather than a claimed speedup. Cold table construction and native inspection remain relatively costly at artificial 4x throttling.
+
+The new feature workload uses three fresh offline contexts at the same GPU-disabled/4x settings:
+
+| New-feature interaction | Median response (ms) |
+|---|---:|
+| open mods | 245.0 |
+| search recoil | 31.2 |
+| clear mod search | 104.3 |
+| open planner | 110.8 |
+| open slot picker | 113.8 |
+| picker search | 53.6 |
+| select equipment | 64.1 |
+| save build | 35.8 |
+| open builds | 43.3 |
+| search build notes | 25.3 |
+
+Idle task work over a one-second observation was **1.30 ms**. No continuous animation or polling loop was added. New equipment search uses a precomputed text index; only the active equipment/picker list is rendered. The build library renders at most 60 cards before Show more. All record combinations are not materialized. Existing weapon node/image reuse, one numeric formatter, lazy image loading, scoped rail sizing and measured native offscreen containment remain active and regression-tested. No filter, blur, mask, large shadow or compositor hint was added. Raw evidence is in `validation/modifications/arsenal-performance.json` and `performance.json`; development harnesses are `theme-profile.cjs` and `expansion-profile.cjs`.
+
+## Current validation
+
+**107 groups passed:** 73 existing regression/visual groups plus 15 planner/data/core groups, 16 end-to-end expansion groups and 3 storage/fixed-sight-filter groups. All browser groups use offline GPU-disabled headless Edge. Twelve DPR/zoom outline checks and fourteen actual-button-family pixel audits also pass. Friend-file and fresh-ZIP extraction checks exercise the original Arsenal plus all 71 Mods, visual selection, saved-build persistence, and empty recipient personal data.
+
+The tests verify all 71 stable IDs, 256 tier variants, source links, acquisition categories, tier/slot gates, positive individual compatibility, iconic/x-MOD2 exceptions, fixed sights and one-core restrictions. Actual four-slot planning leaves the canonical weapon JSON and displayed base stats unchanged. Long plain-text notes, tags, independent favorites, explicit updates/save-as-new, duplicate/rename/delete, JSON portability, duplicate-ID remapping, unsafe/malformed imports, missing references, quota failures and corrupt storage are covered. Existing weapon data/source confidence, comparison math, images, favorites, filter persistence and offline launch remain covered.
+
+Screenshots were inspected for Mods, equipment detail, empty/filled planner slots, visual picker, notes editor, saved library/review, stale references and informational build comparison. New screens cover 1920x1080, 2560x1440 and 390px; the existing Arsenal suite additionally checks 4K. Evidence is under `validation/modifications/`; the approved base CSS hash remains exact. No major overflow, broken icon or clipping defect was found in these tested views.
+
+## Remaining limits
+
+The bundled inventory reconciles 71 named items rather than padding the source's unexplained 74 banner. Parallax's precise acquisition is unverified; some scope tier/charge and internal-field conventions disagree across community sources. Category SVGs are used for equipment where individual item imagery was unavailable. Conservative fit rules can leave plausible new-weapon matches unverified. These limits are explicit in `MODIFICATIONS-DATA.md` and the app. No individual mod was game-tested in 2.5. Independent Firefox/Safari profiling, a physical touch-device run and a manual screen-reader audit were not performed. Browser file-storage behavior can vary; builds and weapon preferences have separate JSON backups.
+
+- Approved Git checkpoint HTML SHA-256: `b84e888c148cd7fdd33ef911d494286e53573cfd1424a0b5541c30f84f56a25b`
+- Expanded, tested HTML SHA-256: `528a88b9d427b515a72cd09a2a4e8875043399eb5743a73197510ebe2531bea1`
+- Equipment snapshot: `2026.10.26-mods-r1`; saved-build schema: `1`.
+
+---
+
+# Previous approved-style restoration (historical evidence)
 
 ## Scope and recovery
 

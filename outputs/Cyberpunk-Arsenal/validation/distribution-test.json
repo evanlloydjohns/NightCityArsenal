@@ -4,10 +4,10 @@
     "Shared HTML is byte-for-byte identical to production; hashes, sizes and release manifest match",
     "No original installation path or unbuilt template is embedded",
     "ZIP integrity passes; fresh extraction contains the identical app and no development template",
-    "Share-with-friends: offline catalog, 190 image decodes, multi-select, local favorites, no sender preferences and no page errors passed",
-    "Night-City-Arsenal: offline catalog, 190 image decodes, multi-select, local favorites, no sender preferences and no page errors passed"
+    "Share-with-friends: offline catalog, 190 image decodes, multi-select, favorites, 71 mods, visual configuration, saved build reload, no sender preferences/builds and no page errors passed",
+    "Night-City-Arsenal: offline catalog, 190 image decodes, multi-select, favorites, 71 mods, visual configuration, saved build reload, no sender preferences/builds and no page errors passed"
   ],
-  "applicationFingerprint": "87b057d73a3c",
-  "productionSHA256": "87b057d73a3cf269818bc03e6b27b2ae98832c1f915e11b19b3e2ddd6680d6be",
+  "applicationFingerprint": "528a88b9d427",
+  "productionSHA256": "528a88b9d427b515a72cd09a2a4e8875043399eb5743a73197510ebe2531bea1",
   "passed": true
 }

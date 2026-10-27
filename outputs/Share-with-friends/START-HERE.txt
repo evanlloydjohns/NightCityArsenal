@@ -11,15 +11,22 @@ If Discord shows a preview or source text, download the file before opening it.
 115 iconic weapons / 190 total weapons.
 Inventory target: Cyberpunk 2077 patch 2.5.
 Data snapshot: 2026.10.25-r2.
-Application fingerprint: 87b057d73a3c.
+Equipment: 71 modifications and attachments.
+Equipment snapshot: 2026.10.26-mods-r1.
+Application fingerprint: 528a88b9d427.
 
 Search, multi-select filters, comparisons, favorites and slot icons work offline.
+Mods: browse equipment effects, tiers, compatibility and acquisition.
+Builds: plan supported weapon slots, save names/notes/tags, duplicate and compare.
+Planning never recalculates base damage, DPS or other weapon statistics.
 Each person's favorites and preferences stay in their own browser; they are not
 included when this file is sent to another person. There is no tracking or sync.
+Saved builds are also personal browser data and are not included in this HTML.
 
 UPDATES: Replace the old HTML in the same folder with the same filename.
 Browser file-storage behavior varies. Before moving the file or changing browser,
 use Data notes > Export preferences; import that backup in the updated copy.
+Back up builds separately with Builds > Export JSON, then Builds > Import JSON.
 Updates arrive as a new file from the person sharing it; there is no auto-updater.
 
 DATA: Community-sourced weapon stats are not individually measured in patch 2.5.

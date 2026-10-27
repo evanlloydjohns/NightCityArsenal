@@ -1,5 +1,5 @@
 {
-  "productionSHA256": "87b057d73a3cf269818bc03e6b27b2ae98832c1f915e11b19b3e2ddd6680d6be",
+  "productionSHA256": "528a88b9d427b515a72cd09a2a4e8875043399eb5743a73197510ebe2531bea1",
   "method": "GPU-disabled offline headless Edge; actual historical colors with newer behavior",
   "expected": {
     "body": "radial-gradient(ellipse at 0 0,#631e2f30,transparent 40%),radial-gradient(ellipse at 100% 40%,#3e11221f,transparent 48%),var(--bg)",
@@ -16,7 +16,7 @@
       "passed": true
     },
     {
-      "name": "CSS-only production change; exact scripts, data, markup and NC monogram retained",
+      "name": "Approved base stylesheet, weapon data and original NC monogram retained",
       "passed": true
     },
     {

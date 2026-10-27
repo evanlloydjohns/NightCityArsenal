@@ -16,7 +16,7 @@
 <header class="masthead">
   <a class="brand" href="#arsenal" aria-label="Night City Arsenal home"><svg class="brand-mark" viewBox="0 0 64 48" role="img" aria-label="NC monogram"><path fill="#fcee0a" d="M8 0h56v40l-8 8H0V8Z"/><path fill="#111014" d="M10 12h6l12 17V12h6v24h-6L16 19v17h-6ZM44 12h12v6H46l-4 4v4l4 4h10v6H44l-8-8v-8Z"/></svg><span>NIGHT CITY <b>ARSENAL</b><small>WEAPON INTELLIGENCE // NC.2077</small></span></a>
   <nav aria-label="Main navigation">
-    <button data-nav="arsenal" class="active">Arsenal</button><button data-nav="compare">Compare <span id="compare-count">0</span></button><button data-nav="favorites">Favorites <span id="favorite-count">0</span></button><button data-nav="data">Data notes</button>
+    <button data-nav="arsenal" class="active">Arsenal</button><button data-nav="compare">Compare <span id="compare-count">0</span></button><button data-nav="favorites">Favorites <span id="favorite-count">0</span></button><button data-nav="mods">Mods</button><button data-nav="builds">Builds</button><button data-nav="data">Data notes</button>
   </nav>
 </header>
 <div class="frame">
@@ -52,6 +52,9 @@
  </section>
  <section id="compare-panel" hidden></section>
  <section id="data-panel" hidden></section>
+ <section id="mods-panel" class="expansion-panel" hidden></section>
+ <section id="builds-panel" class="expansion-panel" hidden></section>
+ <section id="planner-panel" class="expansion-panel" hidden></section>
  <footer class="main-footer"><span>Unofficial fan work · not endorsed by CD PROJEKT RED</span><span>Weapon inventory artwork © CD PROJEKT RED · bundled offline</span></footer>
 </main>
 </div>
@@ -60,7 +63,12 @@
 <dialog id="weapon-picker" aria-labelledby="picker-title"><div class="picker-head"><div><span class="eyebrow cyan">COMPARISON / LOADOUT</span><h2 id="picker-title">Add a weapon</h2></div><button data-action="close-picker" class="square" aria-label="Close weapon picker">×</button></div><label class="picker-search"><span class="sr-only">Search comparison weapons</span><input id="picker-query" type="search" placeholder="Search weapons, class, technology…" role="combobox" aria-autocomplete="list" aria-controls="picker-results" aria-expanded="true"><span class="picker-shortcut">↑ ↓ Navigate · Enter Select</span></label><p id="picker-status" class="muted" role="status"></p><div id="picker-results" role="listbox" aria-label="Available weapons"></div></dialog>
 <div id="ui-tooltip" role="tooltip" hidden></div>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="equipment-dialog" class="exp-dialog" aria-labelledby="equipment-title"><div id="equipment-content"></div></dialog>
+<dialog id="plan-confirm" class="exp-dialog confirm-dialog" aria-labelledby="plan-confirm-title"><h2 id="plan-confirm-title">Confirm</h2><p id="plan-confirm-message"></p><div class="exp-actions"><button id="plan-confirm-cancel" class="chamfer">Cancel</button><button id="plan-confirm-accept" class="chamfer primary">Confirm</button></div></dialog>
 <script id="weapon-data" type="application/json">/*__DATA__*/</script>
+<script id="modification-data" type="application/json">/*__MOD_DATA__*/</script>
 <script>/*__LOGIC__*/</script>
+<script>/*__PLANNER_CORE__*/</script>
+<script>/*__EXPANSION__*/</script>
 </body>
 </html>

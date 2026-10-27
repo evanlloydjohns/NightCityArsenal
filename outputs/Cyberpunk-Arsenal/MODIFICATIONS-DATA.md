@@ -1,0 +1,71 @@
+# Weapon equipment and saved builds
+
+Research snapshot: October 26, 2026. Target: Cyberpunk 2077 Update 2.5. The official release announcement and news listing were checked; no newer released update was found. The published 2.5 notes identify no in-game weapon-mod/attachment changes. Their cross-platform mod.io support concerns third-party game mods and is separate from this equipment planner.
+
+## Inventory and sources
+
+The bundle contains **71 distinct equipment records and 256 directly sourced tier variants**:
+
+| Category | Records |
+|---|---:|
+| Ranged weapon mods | 28 |
+| Melee weapon mods | 10 |
+| Throwable weapon mods | 3 |
+| Scopes | 16 |
+| Silencers | 4 |
+| Muzzle brakes | 10 |
+
+Four iconic Chimera-core mods are included within these categories: Firecracker, Wallpuncher, Hackatomy and Severance. They are not counted again as additional records.
+
+[Nukes & Dragons' catalog](https://nukesdragons.com/cyberpunk-2077/db/mods) advertises 74 records, but its visible categories contain 31 ranged (including three throwable mods), 10 melee, 16 scopes and 14 muzzles, totaling 71 distinct names. The [Cyberpunk Wiki equipment navigation](https://cyberpunk.fandom.com/wiki/Cyberpunk_2077_Attachments_and_Modifications) independently lists the same named inventory. The three extra entries implied by the banner could not be identified as named items. The bundle is complete against the reconciled 71-name lists; it does not pretend that 74 named records were verified or fill the difference with legacy/fictional items.
+
+Every equipment record includes its own source URLs, published tiers/effects, acquisition leads, individual compatibility IDs and confidence notes. Source facts were collected through public indexed page extracts. Direct HTTP retrieval was refused; access challenges were not bypassed. Source designs, code and site layouts were not copied. Factual equipment summaries retain numeric conditions; flavor prose was not used as a replacement for effects.
+
+Primary references:
+
+- [Nukes & Dragons Mods](https://nukesdragons.com/cyberpunk-2077/db/mods): individual tier tables, structured values, effect descriptions and complete Used by/Fits lists. Canonical URLs are stored per record.
+- [Cyberpunk Wiki Attachments and Modifications](https://cyberpunk.fandom.com/wiki/Cyberpunk_2077_Attachments_and_Modifications): independent inventory, classes, installation, crafting, scope families and exceptions. Individual pages provide acquisition and source cross-checks. Wiki community content is credited to its contributors under its [CC BY-SA terms](https://www.fandom.com/licensing).
+- [Official 2.5 notes](https://www.cyberpunk.net/en/news/52120/check-out-whats-coming-to-night-city-in-the-edgerunners-2-update-for-cyberpunk-2077/) and [release announcement](https://www.cyberpunk.net/en/news/52125/cyberpunk-2077s-edgerunners-2-update-2-5-is-out-now): target version verification, not per-item game certification.
+- [Active Chimera Core](https://cyberpunk.fandom.com/wiki/Active_Chimera_Core): one-core/four-alternative crafting choice. Individual mod pages document removability.
+
+## Compatibility policy
+
+The planner requires **both** published slot capacity from the preserved weapon archive **and** positive individual equipment support. Slot, class/technology restrictions expressed by the source lists, weapon/mod quality, iconic variants, x-MOD2 capacities and known exceptions all apply. Conventional quality 1–5 is stored independently of weapon tiers; a modification cannot exceed its host weapon's quality. No automatic quality upgrade or scaling is invented. Intermediate weapon + tiers with no published slot capacity remain unverified rather than borrowing another tier's capacity.
+
+Most iconics expose only their documented attachments. x-MOD2 and explicitly source-listed exceptions such as Yasha retain supported mod slots; the engine does not impose an inaccurate blanket ban on every iconic. No-slot weapons still support notes-only reference builds. The source-listed Slaught-O-Matic lies outside the preserved 190-weapon catalog and cannot be configured here; no weapon record was added or altered to resolve that mismatch.
+
+Fixed-attachment overlays correct broad fit lists without changing existing weapon statistics/slot-capacity records:
+
+- Lexington x-MOD2: fixed ClearVue Mk.8 scope ([source](https://cyberpunk.fandom.com/wiki/Lexington_x-MOD2)).
+- Ol' Reliable: fixed Type 2067 scope ([source](https://cyberpunk.fandom.com/wiki/Ol%27_Reliable)).
+- Ambition: fixed unique Zetatech scope ([source](https://cyberpunk.fandom.com/wiki/Ambition)).
+- Rook: fixed Grandstand scope and XC-10 Strix silencer ([source](https://cyberpunk.fandom.com/wiki/Rook)).
+- The Headsman: dedicated sight; replacement has not been verified and is blocked as unknown.
+
+One normal-playthrough Active Chimera Core crafts one iconic mod. Alternative builds may explore different choices; a single plan cannot equip two core-crafted choices. Conventional mods are normally permanent after installation in the game; x-MOD2 replacement and removable Chimera mods are documented exceptions. Attachments are generally removable, with fixed sights as above. Snipers require a scope in game. Empty planner slots represent undecided choices, not simulated removal from a game save.
+
+## Data limits and conflicts
+
+- Item-specific acquisition leads were verified for **70 of 71** records. **Parallax** retains Unknown for its exact route, plus the independently documented general mod-upgrade recipe. Random loot/vendor stock is never labeled guaranteed.
+- E305 Prospecta and HPO Kanone MAX Mk.77 are marked **Pre-installed**, not purchasable/lootable, following their acquisition descriptions. Dogtown airdrops and Just Another Story routes require Phantom Liberty; this does not make every lower tier of an item expansion-exclusive.
+- Modification tiers are published subsets, not an assertion that other qualities cannot exist. E305 Prospecta's explicit Wiki Tier 5 zoom/sway/full-charge effect is included separately because N&D stops at Tier 4. Additional scope-quality variants without an unambiguous tier record are not guessed.
+- Gaki's Wiki Tier 5 charge-time description and N&D's internal charge field differ. Both statements remain identified; there is no inferred conversion. N&D structured reload-time fields can also disagree with prose about reload speed, and some fields are rounded. Primary descriptions and raw source fields remain separate.
+- Conservative individual-evidence rules can leave plausible fits unverified when a weapon is absent from the equipment source, such as Coronation; class resemblance alone does not silently validate them.
+- No individual equipment effect or fit was tested in a live 2.5 game. Source-verified means support in the cited community reference, not universal patch certification. Unknown compatibility is never selectable as valid; imported stale references remain stored and flagged.
+- Accessible primary pages did not supply reusable individual equipment imagery. All 71 use the existing original category SVG glyphs, clearly identified as category icons. No invented item render, broken image or fetched-at-runtime asset is used. The original 190 weapon renders remain unchanged.
+
+## Planning and saved data
+
+This is an information-only planner. Selected equipment never mutates base weapons, recalculates damage/DPS/speed/magazine values, or adds bonuses into totals. Saved-build comparison presents identity, selected components, effects, acquisition, tags and notes; it is not a predicted-performance comparison.
+
+Build schema **1** uses stable weapon IDs and `mod.*` equipment IDs. Each record stores name, weapon tier/reference, slot/modification IDs and modification tiers, plain-text notes, tags, independent favorite flag, creation/edit dates, patch target and equipment-data version. Several builds can refer to the same weapon. Updating a build is explicit; Save as new and Duplicate create new IDs. Deletion requires confirmation. Unsaved drafts can be resumed during the session.
+
+Builds use `night-city-arsenal.builds.v1`; original weapon preferences retain `night-city-arsenal.v1`. The app stores no personal builds in the shared HTML. **Builds → Export JSON** backs up builds, notes, tags and favorites; **Data notes → Export preferences** is a separate weapon-preferences backup. Use both before moving the file or changing browsers. File-origin storage behavior varies by browser. There is no account, cloud synchronization, game-save connection or automatic update service.
+
+Imports validate schema, types, dates, array sizes and unsafe object keys. Duplicate IDs are remapped instead of silently overwriting existing records. Missing weapon/mod references, orphan slots and older data versions are preserved with review flags. Unsupported future schemas are rejected without changing existing data; a future schema change must add an explicit migration. Notes support up to one million characters per build; imports are capped at 20 MB and 1000 builds for bounded validation. A storage/quota failure is reported; the current session remains exportable. Corrupt stored bytes are reported and retained until an explicit save/import changes the library.
+
+## Source maintenance
+
+The approved appearance was checkpointed before development in Git commit `736742b`. `source/styles.css`, `source/weapons.json`, `source/weapon-images.json` and the original weapon artwork are unchanged. New UI lives in `expansion.css`/`expansion.js`; compatibility/portability logic lives in `planner-core.js`; equipment data is in `modifications.json`. The existing controller has only integration changes for new navigation/actions. No backend or runtime dependency was added.
+
+`source/tools/normalize-modifications.py` regenerates equipment data from cached public research extracts. Its input format is the preserved source-page text with line labels, canonical `index.json` category slugs, and individual Wiki acquisition extracts. The task's development cache remains in `work/mods-research/`, with existing weapon-page inverse links used to cross-check Grandstand. Raw third-party pages are research inputs, not bundled redistributions of entire websites. Future refreshes should recheck official patches, reconcile item names/tiers across independent sources, update explicit exceptions with linked evidence, preserve canonical IDs, run the new data/UI tests, and rebuild the same stable HTML/ZIP outputs. Never interpolate unknown tiers or turn absent evidence into a valid fit.

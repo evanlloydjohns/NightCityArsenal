@@ -24,3 +24,8 @@ The complete `Cyberpunk-Arsenal.zip` is the maintenance/source package. Send the
 The same static HTML could be hosted later, letting friends use a URL and receive the latest version whenever they reload. Hosting would add server availability and setup requirements. This release stays an offline browser app, as requested; no hosting or server settings have been changed.
 
 The share ZIP also includes `PERFORMANCE-REPORT.md` with measured software-rendering results and their limitations. All screenshots, raw profiling data and development tests remain in the complete source archive.
+
+
+## Mods and personal builds
+
+The same stable single HTML now includes the equipment reference and saved-build planner. The friend ZIP also includes MODIFICATIONS-DATA.md. Personal builds are stored only in the recipient's browser and are never baked into the shared HTML or ZIP. To share or back up actual configurations, use Builds > Export JSON separately; friends can import that file without silently overwriting matching IDs. Keep a weapon-preferences export as well before moving the app, because the two exports cover separate stores. No server or account is required.

@@ -1,5 +1,5 @@
 {
-  "productionSHA256": "87b057d73a3cf269818bc03e6b27b2ae98832c1f915e11b19b3e2ddd6680d6be",
+  "productionSHA256": "528a88b9d427b515a72cd09a2a4e8875043399eb5743a73197510ebe2531bea1",
   "method": "GPU-disabled offline headless Edge; preservation against preceding release",
   "passed": 6,
   "failed": 0,
