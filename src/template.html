@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <title>Night City Arsenal · Cyberpunk 2077 Weapon Reference</title>
+    <style>/*__STYLES__*/</style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to weapons</a>
+    <header class="masthead">
+      <a class="brand" href="#arsenal" aria-label="Night City Arsenal home"
+        ><svg
+          class="brand-mark"
+          viewBox="0 0 64 48"
+          role="img"
+          aria-label="NC monogram"
+        >
+          <path fill="#fcee0a" d="M8 0h56v40l-8 8H0V8Z" />
+          <path
+            fill="#111014"
+            d="M10 12h6l12 17V12h6v24h-6L16 19v17h-6ZM44 12h12v6H46l-4 4v4l4 4h10v6H44l-8-8v-8Z"
+          /></svg
+        ><span
+          >NIGHT CITY <b>ARSENAL</b
+          ><small>WEAPON INTELLIGENCE // NC.2077</small></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <button data-nav="arsenal" class="active">Arsenal</button
+        ><button data-nav="compare">
+          Compare <span id="compare-count">0</span></button
+        ><button data-nav="favorites">
+          Favorites <span id="favorite-count">0</span></button
+        ><button data-nav="mods">Mods</button
+        ><button data-nav="builds">Builds</button
+        ><button data-nav="data">Data notes</button>
+      </nav>
+    </header>
+    <div class="frame">
+      <button
+        id="mobile-filters"
+        class="mobile-filter-toggle"
+        aria-expanded="false"
+        aria-controls="catalog-filters"
+      >
+        Catalog filters <span>＋</span>
+      </button>
+      <aside id="catalog-filters" class="sidebar" aria-label="Weapon filters">
+        <div class="sidebar-head">
+          <span class="eyebrow">CATALOG FILTERS <b id="filter-count">0</b></span
+          ><button id="reset" class="text-button destructive">Clear all</button>
+        </div>
+        <p class="filter-hint">Expand categories. Select any combination.</p>
+        <label class="filter"
+          >Collection<select id="filter-iconic">
+            <option value="iconic">Iconic weapons</option>
+            <option value="all">All weapons</option>
+            <option value="normal">Non-iconic weapons</option>
+          </select></label
+        >
+        <div class="filter accordion-filter">
+          <details
+            class="multi-filter"
+            id="filter-content"
+            aria-labelledby="label-content"
+          ></details>
+        </div>
+        <div class="filter accordion-filter">
+          <details
+            class="multi-filter"
+            id="filter-group"
+            aria-labelledby="label-group"
+          ></details>
+        </div>
+        <div class="filter accordion-filter">
+          <details
+            class="multi-filter"
+            id="filter-class"
+            aria-labelledby="label-class"
+          ></details>
+        </div>
+        <div class="filter accordion-filter">
+          <details
+            class="multi-filter"
+            id="filter-technology"
+            aria-labelledby="label-technology"
+          ></details>
+        </div>
+        <div class="filter accordion-filter">
+          <details
+            class="multi-filter"
+            id="filter-manufacturer"
+            aria-labelledby="label-manufacturer"
+          ></details>
+        </div>
+        <div class="filter accordion-filter">
+          <details
+            class="multi-filter"
+            id="filter-damageType"
+            aria-labelledby="label-damageType"
+          ></details>
+        </div>
+        <div class="filter accordion-filter">
+          <details
+            class="multi-filter"
+            id="filter-missable"
+            aria-labelledby="label-missable"
+          ></details>
+        </div>
+        <label class="check"
+          ><input id="filter-dual" type="checkbox" /> Dual-wield eligible class
+          <span class="mini">2.5</span></label
+        >
+        <label class="check"
+          ><input id="filter-new" type="checkbox" /> Added in 2.5</label
+        >
+        <div class="sidebar-note">
+          <button data-nav="data" class="text-button">
+            Archive / data notes ↗
+          </button>
+        </div>
+        <div class="sidebar-foot">
+          FAN PROJECT · NO AFFILIATION<br />DATA SNAPSHOT / 25 OCT 2026
+        </div>
+      </aside>
+      <main id="main" tabindex="-1">
+        <div id="reference-storage" hidden>
+          <section
+            class="reference-controls"
+            aria-label="Comparison reference settings"
+          >
+            <label
+              >Reference<select id="profile">
+                <option value="records">
+                  Detailed game records · Gamestegy
+                </option>
+                <option value="nd">Published stats · Nukes & Dragons</option>
+              </select></label
+            >
+            <label>Tier<select id="tier"></select></label>
+            <details class="reference-info">
+              <summary>Reference notes</summary>
+              <p id="reference-hint"></p>
+              <button class="text-button" data-nav="data">
+                Full data notes ↗
+              </button>
+            </details>
+          </section>
+        </div>
+        <section id="arsenal-panel">
+          <div class="catalog-title">
+            <button
+              id="sidebar-toggle"
+              class="sidebar-toggle"
+              aria-controls="catalog-filters"
+              aria-expanded="true"
+              aria-label="Hide filters"
+              title="Show / hide filters"
+            >
+              ☰ <span>Filters</span>
+            </button>
+            <div class="catalog-identity">
+              <span class="eyebrow" id="catalog-kicker">NC / INVENTORY</span>
+              <h1 id="catalog-heading">
+                Iconic arsenal <span id="result-count"></span>
+              </h1>
+            </div>
+            <button
+              class="patch-indicator"
+              data-nav="data"
+              aria-label="Patch 2.5 target — data verification notes"
+            >
+              2.5 TARGET <span aria-hidden="true">↗</span>
+            </button>
+            <div class="view-switch" role="group" aria-label="Catalog view">
+              <button id="view-cards" aria-pressed="true" title="Card view">
+                ▦ <span>Cards</span></button
+              ><button id="view-table" aria-pressed="false" title="Table view">
+                ☷ <span>Table</span>
+              </button>
+            </div>
+          </div>
+          <div class="toolbar">
+            <label class="search-box"
+              ><span aria-hidden="true">⌕</span
+              ><input
+                id="search"
+                type="search"
+                placeholder="Search weapons, effects, models…"
+                aria-label="Search weapons"
+              /><kbd>/</kbd></label
+            ><label class="sort-control"
+              ><span class="sr-only">Sort by</span
+              ><select id="sort">
+                <option value="name">Name</option>
+                <option value="itemType">Item type</option>
+                <option value="damage">Damage</option>
+                <option value="dps">DPS (source)</option>
+                <option value="speed">Attack speed</option>
+                <option value="magazine">Magazine</option>
+                <option value="reload">Reload time</option>
+                <option value="range">Effective range</option>
+                <option value="stamina">Stamina cost</option>
+                <option value="returnTime">Return time</option>
+              </select></label
+            ><button
+              id="direction"
+              class="square"
+              aria-label="Reverse sort direction"
+              title="Reverse sort direction"
+            >
+              ↑
+            </button>
+          </div>
+          <div class="catalog-reference-row">
+            <div id="catalog-reference"></div>
+            <div id="slot-legend"></div>
+          </div>
+          <div id="active-filters"></div>
+          <div
+            id="results-announcement"
+            class="sr-only"
+            aria-live="polite"
+          ></div>
+          <div id="catalog"></div>
+        </section>
+        <section id="compare-panel" hidden></section>
+        <section id="data-panel" hidden></section>
+        <section id="mods-panel" class="expansion-panel" hidden></section>
+        <section id="builds-panel" class="expansion-panel" hidden></section>
+        <section id="planner-panel" class="expansion-panel" hidden></section>
+        <footer class="main-footer">
+          <span>Unofficial fan work · not endorsed by CD PROJEKT RED</span
+          ><span
+            >Weapon inventory artwork © CD PROJEKT RED · bundled offline</span
+          >
+        </footer>
+      </main>
+    </div>
+    <section
+      id="tray"
+      class="compare-tray"
+      aria-label="Selected weapons"
+      hidden
+    ></section>
+    <dialog id="details" aria-labelledby="detail-title">
+      <div id="detail-content"></div>
+    </dialog>
+    <dialog id="weapon-picker" aria-labelledby="picker-title">
+      <div class="picker-head">
+        <div>
+          <span class="eyebrow cyan">COMPARISON / LOADOUT</span>
+          <h2 id="picker-title">Add a weapon</h2>
+        </div>
+        <button
+          data-action="close-picker"
+          class="square"
+          aria-label="Close weapon picker"
+        >
+          ×
+        </button>
+      </div>
+      <label class="picker-search"
+        ><span class="sr-only">Search comparison weapons</span
+        ><input
+          id="picker-query"
+          type="search"
+          placeholder="Search weapons, class, technology…"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-controls="picker-results"
+          aria-expanded="true"
+        /><span class="picker-shortcut"
+          >↑ ↓ Navigate · Enter Select</span
+        ></label
+      >
+      <p id="picker-status" class="muted" role="status"></p>
+      <div
+        id="picker-results"
+        role="listbox"
+        aria-label="Available weapons"
+      ></div>
+    </dialog>
+    <div id="ui-tooltip" role="tooltip" hidden></div>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <dialog
+      id="equipment-dialog"
+      class="exp-dialog"
+      aria-labelledby="equipment-title"
+    >
+      <div id="equipment-content"></div>
+    </dialog>
+    <dialog
+      id="plan-confirm"
+      class="exp-dialog confirm-dialog"
+      aria-labelledby="plan-confirm-title"
+    >
+      <h2 id="plan-confirm-title">Confirm</h2>
+      <p id="plan-confirm-message"></p>
+      <div class="exp-actions">
+        <button id="plan-confirm-cancel" class="chamfer">Cancel</button
+        ><button id="plan-confirm-accept" class="chamfer primary">
+          Confirm
+        </button>
+      </div>
+    </dialog>
+    <script id="weapon-data" type="application/json">/*__DATA__*/</script>
+    <script id="modification-data" type="application/json">/*__MOD_DATA__*/</script>
+    <script>/*__LOGIC__*/</script>
+    <script>/*__PLANNER_CORE__*/</script>
+    <script>/*__EXPANSION__*/</script>
+  </body>
+</html>

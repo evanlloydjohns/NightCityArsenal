@@ -1,0 +1,11 @@
+{
+  "name": "night-city-arsenal",
+  "private": true,
+  "scripts": {
+    "build": "python tools/build.py",
+    "test": "node tests/run.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

@@ -1,0 +1,351 @@
+const assert = require("node:assert/strict"),
+  fs = require("node:fs"),
+  path = require("node:path"),
+  crypto = require("node:crypto");
+const root = path.resolve(__dirname, ".."),
+  W = JSON.parse(fs.readFileSync(path.join(root, "src/data/weapons.json"))),
+  D = JSON.parse(fs.readFileSync(path.join(root, "src/data/modifications.json"))),
+  { createEngine } = require("../src/planner-core.js"),
+  E = createEngine(W, D),
+  results = [];
+function test(name, fn) {
+  try {
+    fn();
+    results.push({ name, passed: true });
+    console.log("PASS", name);
+  } catch (e) {
+    results.push({ name, passed: false, error: e.stack });
+    console.error("FAIL", name, e.message);
+  }
+}
+const weapon = (n) => W.weapons.find((w) => w.name === n),
+  mod = (n) => D.modifications.find((m) => m.name === n),
+  compat = (m, w, t = "5++", slot = "normal-mod:1", mt = "5", s = []) =>
+    E.compatibility(mod(m).id, weapon(w).id, t, slot, mt, s);
+test("Canonical 72 equipment records, 257 tier variants, categories, sources and IDs", () => {
+  assert.equal(D.modifications.length, 72);
+  assert.equal(new Set(D.modifications.map((m) => m.id)).size, 72);
+  assert.equal(
+    D.modifications.reduce((n, m) => n + m.tiers.length, 0),
+    257,
+  );
+  assert.deepEqual(
+    Object.fromEntries(
+      [
+        "Ranged mod",
+        "Melee mod",
+        "Throwable mod",
+        "Scope",
+        "Silencer",
+        "Muzzle brake",
+      ].map((c) => [c, D.modifications.filter((m) => m.category === c).length]),
+    ),
+    {
+      "Ranged mod": 29,
+      "Melee mod": 10,
+      "Throwable mod": 3,
+      Scope: 16,
+      Silencer: 4,
+      "Muzzle brake": 10,
+    },
+  );
+  for (const m of D.modifications) {
+    assert.match(m.id, /^mod\.[a-z0-9-]+$/);
+    assert.ok(m.compatibilityComplete);
+    assert.ok(m.sources.length >= 2);
+    assert.ok(m.sources.every((s) => /^https:\/\//.test(s.url)));
+    assert.ok(m.compatibleWeaponIds.every((id) => E.weapons.has(id)));
+    for (const t of m.tiers) {
+      assert.ok(["1", "2", "3", "4", "5"].includes(t));
+      assert.ok(m.tierEffects[t].summary.length > 8);
+      for (const f of m.tierEffects[t].fields) {
+        assert.equal(typeof f.value, "string");
+        assert.ok(f.label);
+      }
+    }
+  }
+});
+test("Acquisition does not classify random rewards as guaranteed; 71 item-specific routes", () => {
+  assert.equal(
+    D.modifications.filter((m) => m.acquisition[0].methods.includes("Unknown"))
+      .length,
+    1,
+  );
+  assert.equal(
+    D.modifications.find((m) => m.acquisition[0].methods.includes("Unknown"))
+      .name,
+    "Parallax",
+  );
+  for (const m of D.modifications)
+    for (const a of m.acquisition) {
+      assert.ok(
+        a.methods.every((k) =>
+          [
+            "Vendor",
+            "Random",
+            "Crafting",
+            "Guaranteed",
+            "Unknown",
+            "Pre-installed",
+          ].includes(k),
+        ),
+      );
+      assert.ok(
+        !(a.methods.includes("Random") && a.methods.includes("Guaranteed")),
+      );
+      assert.ok(!/Sign In|History|^#/.test(a.text));
+    }
+  assert.match(
+    mod("XC-10 Cetus")
+      .acquisition.map((x) => x.text)
+      .join(" "),
+    /level 40/,
+  );
+});
+test("Tier capacity: no fictional slots, exact standard unlocks and x-MOD2 capacities", () => {
+  const u = weapon("Unity").id;
+  assert.equal(
+    E.slotsFor(u, "1").slots.filter((s) => s.kind.includes("mod")).length,
+    0,
+  );
+  assert.equal(
+    E.slotsFor(u, "2").slots.filter((s) => s.kind.includes("mod")).length,
+    1,
+  );
+  assert.equal(
+    E.slotsFor(u, "3").slots.filter((s) => s.kind.includes("mod")).length,
+    2,
+  );
+  assert.ok(E.slotsFor(u, "4+").unknown.length);
+  assert.equal(E.slotsFor(weapon("Satori").id, "5++").slots.length, 0);
+  assert.equal(
+    E.slotsFor(weapon("Kyubi x-MOD2").id, "5++").slots.filter((s) =>
+      s.kind.includes("mod"),
+    ).length,
+    2,
+  );
+});
+test("Class, technology, individual support and quality gates all apply", () => {
+  assert.equal(compat("Big Mag", "Kyubi x-MOD2").status, "compatible");
+  assert.equal(compat("Big Mag", "Unity").status, "incompatible");
+  assert.equal(compat("Firecracker", "Unity").status, "compatible");
+  assert.equal(compat("Wallpuncher", "Unity").status, "incompatible");
+  assert.equal(
+    compat("Firecracker", "Kyubi x-MOD2", "4", "normal-mod:1", "5").status,
+    "incompatible",
+  );
+  assert.equal(
+    compat("Big Mag", "Unity", "2", "normal-mod:1", "2").status,
+    "incompatible",
+  );
+  assert.equal(
+    compat("Pax", "Unity", "2", "normal-mod:1", "2").status,
+    "compatible",
+  );
+  assert.equal(
+    compat("Pax", "Unity", "1", "normal-mod:1", "1").status,
+    "incompatible",
+  );
+});
+test("Most iconics lack mod slots; explicit Yasha and x-MOD2 exceptions remain", () => {
+  assert.equal(compat("Firecracker", "Her Majesty").status, "incompatible");
+  assert.equal(
+    compat("Hackatomy", "Yasha", "5++", "smart-mod:1").status,
+    "compatible",
+  );
+  assert.equal(compat("Big Mag", "Kyubi x-MOD2").status, "compatible");
+  assert.equal(
+    compat("Silencio", "Satori", "5++", "melee-mod:1").status,
+    "incompatible",
+  );
+});
+test("Scopes, silencers and fixed factory sights are distinguished", () => {
+  assert.equal(
+    compat("XC-10 Cetus", "Unity", "5++", "muzzle:1").status,
+    "compatible",
+  );
+  assert.equal(
+    compat("XC-10 Cetus", "Overture", "5++", "muzzle:1").status,
+    "incompatible",
+  );
+  assert.equal(
+    compat("OS-1 GimletEye", "Unity", "5++", "scope:1", "4").status,
+    "compatible",
+  );
+  assert.equal(
+    compat("OS-1 GimletEye", "Lexington x-MOD2", "5++", "scope:1", "4").status,
+    "incompatible",
+  );
+  assert.equal(
+    compat("Type 2067", "Ol' Reliable", "5++", "scope:1", "4").status,
+    "incompatible",
+  );
+  assert.equal(
+    compat("OS-1 GimletEye", "The Headsman", "5++", "scope:1", "4").status,
+    "unknown",
+  );
+});
+test("Throwable and melee restrictions are not confused with ranged mods", () => {
+  const w = W.weapons.find(
+    (w) =>
+      !w.iconic &&
+      w.group === "Throwable" &&
+      mod("Boomerang").compatibleWeaponIds.includes(w.id) &&
+      w.slots.some((s) => s.kind === "throwable-mod"),
+  );
+  assert.ok(w);
+  assert.equal(
+    E.compatibility(mod("Boomerang").id, w.id, "5++", "throwable-mod:1", "5")
+      .status,
+    "compatible",
+  );
+  assert.notEqual(
+    E.compatibility(mod("Big Mag").id, w.id, "5++", "throwable-mod:1", "5")
+      .status,
+    "compatible",
+  );
+});
+test("One Chimera core per configuration; alternative builds are independent", () => {
+  const selected = [
+    { slotId: "normal-mod:1", modId: mod("Firecracker").id, tier: "5" },
+  ];
+  assert.equal(
+    compat("Firecracker", "Kyubi x-MOD2", "5++", "normal-mod:2", "5", selected)
+      .status,
+    "incompatible",
+  );
+  assert.equal(
+    compat("Firecracker", "Kyubi x-MOD2", "5++", "normal-mod:1", "5", selected)
+      .status,
+    "compatible",
+  );
+  assert.equal(
+    compat("Firecracker", "Kyubi x-MOD2", "5++", "normal-mod:2", "5", [])
+      .status,
+    "compatible",
+  );
+});
+test("Unknown references, unknown tier capacities and unavailable mod tiers never validate", () => {
+  assert.equal(
+    E.compatibility("missing", weapon("Unity").id, "5++", "normal-mod:1", "5")
+      .status,
+    "unknown",
+  );
+  assert.equal(
+    E.compatibility(mod("Pax").id, "missing", "5++", "normal-mod:1", "5")
+      .status,
+    "unknown",
+  );
+  assert.equal(
+    compat("Pax", "Unity", "4+", "normal-mod:1", "4").status,
+    "unknown",
+  );
+  assert.equal(
+    compat("Pax", "Unity", "5++", "normal-mod:1", "99").status,
+    "incompatible",
+  );
+});
+test("Build creation and configuration never mutate weapon data or stats", () => {
+  const before = JSON.stringify(W);
+  const b = E.newBuild(weapon("Kyubi x-MOD2").id);
+  b.selections.push({
+    slotId: "normal-mod:1",
+    modId: mod("Big Mag").id,
+    tier: "5",
+  });
+  b.notes = "Planning only";
+  E.issues(b);
+  assert.equal(JSON.stringify(W), before);
+  assert.equal(E.issues(b).length, 0);
+});
+test("Export/import retains long notes, tags, favorite and IDs with explicit schema", () => {
+  const b = E.newBuild(weapon("Unity").id);
+  b.name = "Stealth";
+  b.notes =
+    "<script>unsafe text remains text</script>\n" + "Long note. ".repeat(15000);
+  b.tags = ["Stealth", "Experimental"];
+  b.favorite = true;
+  const data = E.exportBundle([b]);
+  assert.equal(data.schemaVersion, 1);
+  assert.deepEqual(E.sanitizeBundle(JSON.parse(JSON.stringify(data))), [b]);
+});
+test("Duplicate IDs import as copies without overwriting existing or same-file duplicates", () => {
+  const b = E.newBuild(weapon("Unity").id);
+  b.notes = "Preserve original";
+  const r = E.importBundle(E.exportBundle([b, b]), [b]);
+  assert.equal(r.builds.length, 3);
+  assert.equal(r.duplicates, 2);
+  assert.equal(new Set(r.builds.map((x) => x.id)).size, 3);
+  assert.equal(r.builds[0].id, b.id);
+  assert.ok(r.builds.every((x) => x.notes === b.notes));
+});
+test("Malformed structures, future schemas and prototype-pollution keys are rejected safely", () => {
+  assert.throws(() => E.sanitizeBundle({ schemaVersion: 99, builds: [] }));
+  assert.throws(() =>
+    E.sanitizeBundle(
+      JSON.parse(
+        '{"schemaVersion":1,"builds":[],"__proto__":{"polluted":true}}',
+      ),
+    ),
+  );
+  assert.equal({}.polluted, undefined);
+  const b = E.newBuild(weapon("Unity").id);
+  for (const bad of [
+    { ...b, tags: "wrong" },
+    { ...b, selections: {} },
+    { ...b, notes: 42 },
+    { ...b, tier: "99" },
+    { ...b, createdAt: "nonsense" },
+  ])
+    assert.throws(() => E.sanitizeBundle({ schemaVersion: 1, builds: [bad] }));
+});
+test("Missing/stale references and orphan slots survive import with explicit review flags", () => {
+  const b = E.newBuild("Items.Does_Not_Exist");
+  b.selections = [{ slotId: "muzzle:1", modId: "mod.missing", tier: "5" }];
+  b.dataVersion = "older";
+  b.patchTarget = "2.31";
+  const r = E.importBundle(E.exportBundle([b]), []);
+  assert.equal(r.builds[0].selections[0].modId, "mod.missing");
+  assert.ok(r.warnings.length >= 3);
+  assert.ok(E.issues(r.builds[0]).some((s) => s.includes("Missing weapon")));
+});
+test("Approved surfaces and all original artwork checksums are retained", () => {
+  const styles = fs.readFileSync(path.join(root, "src/styles.css"), "utf8");
+  assert.ok(styles.includes("#231117") && styles.includes("#100c0f"));
+  for (const name of ["weapon-images.json", "modification-images.json"]) {
+    const manifest = JSON.parse(fs.readFileSync(path.join(root, "src/data", name)));
+    for (const asset of Object.values(manifest.images)) {
+      const actual = crypto.createHash("sha256").update(fs.readFileSync(path.join(root, "src", asset.file))).digest("hex");
+      assert.equal(actual, asset.sha256, asset.file);
+    }
+  }
+});
+
+test("New Disjunctor is tier 5, source-cross-checked, and separate from the Chimera core", () => {
+  const m = mod("Disjunctor");
+  assert.deepEqual(m.tiers, ["5"]);
+  assert.equal(m.uniqueGroup, null);
+  assert.equal(m.addedIn, "2.5");
+  assert.equal(m.sources.length, 3);
+  assert.match(m.tierEffects["5"].summary, /Bolt/);
+  assert.equal(
+    compat("Disjunctor", "Achilles x-MOD2", "5++", "tech-mod:1").status,
+    "compatible",
+  );
+  assert.notEqual(
+    compat("Disjunctor", "Achilles x-MOD2", "4", "tech-mod:1").status,
+    "compatible",
+  );
+});
+const report = {
+  passed: results.filter((r) => r.passed).length,
+  failed: results.filter((r) => !r.passed).length,
+  results,
+};
+fs.mkdirSync(path.join(root, ".tmp/tests/modifications"), { recursive: true });
+fs.writeFileSync(
+  path.join(root, ".tmp/tests/modifications/core-results.json"),
+  JSON.stringify(report, null, 2),
+);
+console.log("RESULT", report.passed, "passed", report.failed, "failed");
+if (report.failed) process.exitCode = 1;

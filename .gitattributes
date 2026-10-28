@@ -1,1 +1,5 @@
-outputs/** -text
+* text=auto eol=lf
+*.png binary
+*.webp binary
+*.zip binary
+dist/** -text
