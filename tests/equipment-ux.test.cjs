@@ -296,6 +296,50 @@ async function test(name, fn) {
     );
     await c.close();
   });
+  await test("Planner uses catalog labels, units and applicable stats at its own reference and tier", async () => {
+    const { c, p } = await fixture();
+    try {
+      await p.goto(url);
+      const original = await p.evaluate(() => JSON.stringify(Arsenal.data.weapons));
+      for (const name of ["Her Majesty", "Satori", "Nehan", "Gwynbleidd"]) {
+        await p.evaluate((name) => { void NCAExpansion.startPlan(Arsenal.data.weapons.find((w) => w.iconic && w.name === name).id); }, name);
+        if (await p.locator("#plan-confirm").evaluate((n) => n.open))
+          await p.locator("#plan-confirm-accept").click();
+        await p.waitForFunction((name) => document.querySelector(".plan-identity h2")?.textContent === name, name);
+        for (const profile of ["records", "nd"]) {
+          await p.locator("#plan-profile").selectOption(profile);
+          for (const tier of ["5++", "1+"]) {
+            await p.locator("#plan-tier").selectOption(tier);
+            const draft = await p.evaluate(() => NCAExpansion.getDraft());
+            assert.equal(draft.profile, profile, `${name}: selected reference`);
+            assert.equal(draft.tier, tier, `${name}: selected tier`);
+            // Inspect the same published reference separately through the catalog UI.
+            await p.evaluate(({ profile, tier }) => {
+              for (const [id, value] of [["profile", profile], ["tier", tier]]) {
+                const input = document.getElementById(id);
+                input.value = value;
+                input.dispatchEvent(new Event("change", { bubbles: true }));
+              }
+              Arsenal.openDetail(NCAExpansion.getDraft().weaponId);
+            }, { profile, tier });
+            const catalog = await p.locator(".detail-stat").evaluateAll((nodes) => Object.fromEntries(nodes.map((n) => [n.querySelector("span").textContent, n.querySelector("strong").textContent])));
+            const planned = await p.locator(".plan-base-stats > div").evaluateAll((nodes) => Object.fromEntries(nodes.map((n) => [n.querySelector("span").textContent, n.querySelector("strong").textContent])));
+            for (const [label, value] of Object.entries(planned)) assert.equal(value, catalog[label], `${name} ${profile} ${tier}: ${label}`);
+            assert.ok(Object.keys(planned).includes(profile === "records" ? "DPS · game record" : "DPS · published"));
+            assert.equal("Throw return time" in planned, name === "Nehan");
+            assert.equal("Magazine" in planned, name === "Her Majesty");
+            assert.equal("Attack stamina" in planned, name !== "Her Majesty");
+            if ((profile === "records" && tier === "1+") || (profile === "nd" && name === "Gwynbleidd"))
+              assert.ok(Object.values(planned).every((value) => value === "Unknown"));
+            await p.evaluate(() => Arsenal.closeDetail());
+          }
+        }
+      }
+      assert.equal(await p.evaluate(() => JSON.stringify(Arsenal.data.weapons)), original);
+    } finally {
+      await c.close();
+    }
+  });
   await test("Picker displays imagery, exact selected tier, concise badges and expandable evidence without recalculating stats", async () => {
     const { c, p } = await fixture();
     await p.goto(url);

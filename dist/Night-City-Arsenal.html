@@ -60046,6 +60046,118 @@
       }
     </script>
     <script>
+/* Shared presentation only: no state, storage or equipment calculations. */
+window.NCAPresentation = (() => {
+  "use strict";
+  const escape = (value) =>
+    String(value ?? "").replace(
+      /[&<>"']/g,
+      (ch) =>
+        ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[ch],
+    );
+  const normalize = (text) =>
+    String(text ?? "")
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  const validNumber = (value) =>
+    typeof value === "number" && Number.isFinite(value);
+  const numberFormatter = new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: 2,
+  });
+  const formatNumber = (n) => numberFormatter.format(n);
+  function stats(w, s) {
+    return w.profiles[s.profile]?.tiers[s.tier] || {};
+  }
+  function applicable(w, key) {
+    if (
+      [
+        "magazine",
+        "reload",
+        "projectiles",
+        "charge",
+        "chargeMultiplier",
+      ].includes(key)
+    )
+      return (
+        w.group === "Firearm" &&
+        (!["charge", "chargeMultiplier"].includes(key) ||
+          w.technology === "Tech")
+      );
+    if (["stamina", "blockStamina"].includes(key))
+      return w.group !== "Firearm";
+    if (key === "returnTime") return w.group === "Throwable";
+    if (key === "headshot") return w.group !== "Melee";
+    return true;
+  }
+  const statDefs = [
+    ["damage", "Damage", "", true],
+    ["dps", "DPS (source)", "", true],
+    ["speed", "Attack speed", "/s", true],
+    ["magazine", "Magazine", "", true],
+    ["reload", "Reload time", " s", false],
+    ["range", "Effective range", " m", true],
+    ["headshot", "Headshot bonus", "%", true],
+    ["armor", "Armor penetration", "%", true],
+    ["critChance", "Critical-hit chance", "%", true],
+    ["critDamage", "Critical damage", "%", true],
+    ["stamina", "Attack stamina", "", false],
+    ["blockStamina", "Block stamina", "", false],
+    ["returnTime", "Throw return time", " s", false],
+    ["projectiles", "Projectiles / shot", "", true],
+    ["charge", "Charge time", " s", false],
+    ["chargeMultiplier", "Charge multiplier", "×", true],
+    ["bleed", "Bleed chance", "%", true],
+    ["poison", "Poison chance", "%", true],
+    ["burn", "Burn chance", "%", true],
+    ["shock", "Shock chance", "%", true],
+  ];
+  const statMap = new Map(statDefs.map((x) => [x[0], x]));
+  function statLabel(key, profile) {
+    if (key === "damage")
+      return profile === "records"
+        ? "Damage / projectile or hit"
+        : "Damage (source)";
+    if (key === "dps")
+      return profile === "records"
+        ? "DPS · game record"
+        : "DPS · published";
+    return statMap.get(key)?.[1] || key;
+  }
+  function valueText(w, key, s) {
+    if (!applicable(w, key)) return "N/A";
+    const n = stats(w, s)[key];
+    if (!validNumber(n)) return "Unknown";
+    return (
+      (key === "headshot" && n >= 0 ? "+" : "") +
+      formatNumber(n) +
+      (statMap.get(key)?.[2] || "")
+    );
+  }
+  function download(name, value) {
+    const blob = new Blob([JSON.stringify(value, null, 2)], {
+        type: "application/json",
+      }),
+      url = URL.createObjectURL(blob),
+      a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  return Object.freeze({
+    escape, normalize, validNumber, formatNumber, stats, applicable,
+    statDefs, statLabel, valueText, download,
+  });
+})();
+    </script>
+    <script>
 /* Guard each existing storage key without replacing unreadable or newer data. */
 (() => {
   "use strict";
@@ -60163,29 +60275,8 @@
         const BY_ID = new Map(WEAPONS.map((w) => [w.id, w]));
         const KEY = "night-city-arsenal.v1";
         const $ = (id) => document.getElementById(id);
-        const escape = (value) =>
-          String(value ?? "").replace(
-            /[&<>"']/g,
-            (ch) =>
-              ({
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#39;",
-              })[ch],
-          );
-        const normalize = (text) =>
-          String(text ?? "")
-            .normalize("NFKD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .toLowerCase();
-        const validNumber = (value) =>
-          typeof value === "number" && Number.isFinite(value);
-        const numberFormatter = new Intl.NumberFormat("en-US", {
-          maximumFractionDigits: 2,
-        });
-        const formatNumber = (n) => numberFormatter.format(n);
+        const P = window.NCAPresentation;
+        const { escape, normalize, validNumber, formatNumber, applicable, statDefs, download } = P;
         const formatDate = (value) =>
           new Intl.DateTimeFormat("en-US", {
             dateStyle: "long",
@@ -60349,74 +60440,10 @@
             $("toast").hidden = true;
           }, 4000);
         }
-        function stats(w, s = state) {
-          return w.profiles[s.profile]?.tiers[s.tier] || {};
-        }
-        function applicable(w, key) {
-          if (
-            [
-              "magazine",
-              "reload",
-              "projectiles",
-              "charge",
-              "chargeMultiplier",
-            ].includes(key)
-          )
-            return (
-              w.group === "Firearm" &&
-              (!["charge", "chargeMultiplier"].includes(key) ||
-                w.technology === "Tech")
-            );
-          if (["stamina", "blockStamina"].includes(key))
-            return w.group !== "Firearm";
-          if (key === "returnTime") return w.group === "Throwable";
-          if (key === "headshot") return w.group !== "Melee";
-          return true;
-        }
-        const statDefs = [
-          ["damage", "Damage", "", true],
-          ["dps", "DPS (source)", "", true],
-          ["speed", "Attack speed", "/s", true],
-          ["magazine", "Magazine", "", true],
-          ["reload", "Reload time", " s", false],
-          ["range", "Effective range", " m", true],
-          ["headshot", "Headshot bonus", "%", true],
-          ["armor", "Armor penetration", "%", true],
-          ["critChance", "Critical-hit chance", "%", true],
-          ["critDamage", "Critical damage", "%", true],
-          ["stamina", "Attack stamina", "", false],
-          ["blockStamina", "Block stamina", "", false],
-          ["returnTime", "Throw return time", " s", false],
-          ["projectiles", "Projectiles / shot", "", true],
-          ["charge", "Charge time", " s", false],
-          ["chargeMultiplier", "Charge multiplier", "×", true],
-          ["bleed", "Bleed chance", "%", true],
-          ["poison", "Poison chance", "%", true],
-          ["burn", "Burn chance", "%", true],
-          ["shock", "Shock chance", "%", true],
-        ];
+        const stats = (w, s = state) => P.stats(w, s);
+        const statLabel = (key) => P.statLabel(key, state.profile);
+        const valueText = (w, key, s = state) => P.valueText(w, key, s);
         const statMap = new Map(statDefs.map((x) => [x[0], x]));
-        function statLabel(key) {
-          if (key === "damage")
-            return state.profile === "records"
-              ? "Damage / projectile or hit"
-              : "Damage (source)";
-          if (key === "dps")
-            return state.profile === "records"
-              ? "DPS · game record"
-              : "DPS · published";
-          return statMap.get(key)?.[1] || key;
-        }
-        function valueText(w, key, s = state) {
-          if (!applicable(w, key)) return "N/A";
-          const n = stats(w, s)[key];
-          if (!validNumber(n)) return "Unknown";
-          return (
-            (key === "headshot" && n >= 0 ? "+" : "") +
-            formatNumber(n) +
-            (statMap.get(key)?.[2] || "")
-          );
-        }
         const slotLabels = {
           "normal-mod": "Weapon mod",
           "tech-mod": "Tech mod",
@@ -61192,7 +61219,7 @@
             .join("");
           const noTier = !w.profiles[state.profile]?.tiers[state.tier];
           $("detail-content").innerHTML =
-            `<div class="detail-head"><button class="detail-close" data-action="close-detail" aria-label="Close weapon details">×</button><div class="badges">${badges(w)}</div><h2 id="detail-title">${escape(w.name)}</h2><div class="classification"><span class="technology">${escape(w.technology)}</span> / ${escape(w.class)} / ${escape(w.baseModel)}</div>${w.image ? `<div class="detail-art">${artwork(w)}</div>` : ""}<div class="detail-actions">${compareButton(w)}${favoriteButton(w)}<button class="configure-weapon chamfer" data-plan-action="configure" data-weapon-id="${escape(w.id)}">Configure ↗</button></div></div><div class="detail-body">${w.iconic ? `<section class="detail-ability"><h3>◆ ICONIC ABILITY</h3><p>${escape(w.effect)}</p><small>${escape(w.effectStatus)}. Separate numerical modifiers are included only when supported by the source.</small></section>` : ""}<div class="detail-reference"><strong>${escape(state.profile === "records" ? "Gamestegy detailed records" : "Nukes & Dragons published stats")}</strong><label>Tier <select id="detail-tier" aria-label="Weapon detail tier" style="width:95px;display:inline-block;margin-left:5px">${META.tiers.map((t) => `<option ${t === state.tier ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>${noTier ? `<div class="notice">No Tier ${escape(state.tier)} data in this reference. ${state.profile === "records" && state.tier.endsWith("+") && !["5+", "5++"].includes(state.tier) ? "Intermediate + tiers are not published by this source; the Nukes & Dragons reference has 11-tier tables for its covered weapons." : "Try the other reference if this weapon is covered."} No fallback or interpolation is applied.</div>` : ""}<div class="detail-stats">${statTiles}</div><p class="muted" style="font-size:11px">${escape(w.profiles[state.profile]?.damageBasis || "No data")}. ${escape(w.profiles[state.profile]?.dpsBasis || "")}. Values exclude player builds and conditional iconic effects. Headshot bonus retains the selected source's convention; source conventions differ.</p><section class="detail-slots"><h3>Mod & attachment slots</h3>${slotIcons(w)}<p>One icon per supported slot at Tier ${escape(state.tier)}. Capacity from the detailed source; fitted attachments and occupied slots are not simulated.</p></section><div class="detail-columns"><section><h3>Weapon identity</h3>${facts(
+            `<div class="detail-head"><button class="detail-close" data-action="close-detail" aria-label="Close weapon details">×</button><div class="badges">${badges(w)}</div><h2 id="detail-title">${escape(w.name)}</h2><div class="classification"><span class="technology">${escape(w.technology)}</span> / ${escape(w.class)} / ${escape(w.baseModel)}</div>${w.image ? `<div class="detail-art">${artwork(w)}</div>` : ""}<div class="detail-actions">${compareButton(w)}${favoriteButton(w)}<button class="configure-weapon chamfer" data-plan-action="configure" data-weapon-id="${escape(w.id)}">Configure ↗</button></div></div><div class="detail-body">${w.iconic ? `<section class="detail-ability"><h3>◆ ICONIC ABILITY</h3><p>${escape(w.effect)}</p><details class="ability-provenance"><summary>Effect verification</summary><small>${escape(w.effectStatus)}. Separate numerical modifiers are included only when supported by the source.</small></details></section>` : ""}<div class="detail-reference"><strong>${escape(state.profile === "records" ? "Gamestegy detailed records" : "Nukes & Dragons published stats")}</strong><label>Tier <select id="detail-tier" aria-label="Weapon detail tier" style="width:95px;display:inline-block;margin-left:5px">${META.tiers.map((t) => `<option ${t === state.tier ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>${noTier ? `<div class="notice">No Tier ${escape(state.tier)} data in this reference. ${state.profile === "records" && state.tier.endsWith("+") && !["5+", "5++"].includes(state.tier) ? "Intermediate + tiers are not published by this source; the Nukes & Dragons reference has 11-tier tables for its covered weapons." : "Try the other reference if this weapon is covered."} No fallback or interpolation is applied.</div>` : ""}<div class="detail-stats">${statTiles}</div><p class="muted" style="font-size:11px">${escape(w.profiles[state.profile]?.damageBasis || "No data")}. ${escape(w.profiles[state.profile]?.dpsBasis || "")}. Values exclude player builds and conditional iconic effects. Headshot bonus retains the selected source's convention; source conventions differ.</p><section class="detail-slots"><h3>Mod & attachment slots</h3>${slotIcons(w)}<p>One icon per supported slot at Tier ${escape(state.tier)}. Capacity from the detailed source; fitted attachments and occupied slots are not simulated.</p></section><div class="detail-columns"><details class="identity-details disclosure"><summary>${icon("info")}Technical details &amp; identity</summary>${facts(
               [
                 ["Class", w.class],
                 ["Subclass", w.subclass],
@@ -61208,27 +61235,25 @@
                 ],
                 ["Dual wield", w.dualWield],
               ],
-            )}<p class="muted" style="font-size:10px;margin-top:12px">${escape(w.dualWieldStatus)}. Eligibility never modifies the displayed base stats. Slot icons use published tier counts where available; unverified tier counts are labeled.</p></section><section><h3>Acquisition <span class="quality-tag">${escape(a.missRisk || "Unknown")}</span></h3><p class="acquisition-hint">${escape(a.hint)}</p>${facts(
+            )}<p class="muted" style="font-size:10px;margin-top:12px">${escape(w.dualWieldStatus)}. Eligibility never modifies the displayed base stats. Slot icons use published tier counts where available; unverified tier counts are labeled.</p></details><section><h3>${icon("location")}Acquisition <span class="quality-tag">${escape(a.missRisk || "Unknown")}</span></h3><p class="acquisition-hint">${escape(a.hint)}</p>${facts(
               [
                 ["Quest / activity", a.quest],
                 ["Location", a.district],
-                ["Method", a.sourceType],
                 ["Requires", a.needs],
-                ["Story phase", a.storyPhase],
-                ["Lifepath", a.lifepath],
                 [
                   "Choices / exclusivity",
                   a.eitherOr || "No branch restriction recorded",
                 ],
                 ["Ending route", a.endingRoute],
                 ["Deadline", a.pickUpBefore],
-                ["If missed", a.ifMissed],
-                [
-                  "Black Market fallback",
-                  a.blackMarketBackup || "Not verified",
-                ],
               ],
-            )}<p class="muted" style="font-size:10px;margin-top:12px">Acquisition leads are from published guides. Most existing routes target 2.31 and have not been walked in game for ${escape(META.targetPatch)}. Exact choices matter; consult the source for quest spoilers.</p></section></div><div class="detail-warnings"><strong>Verification notes</strong><ul>${w.warnings.map((x) => `<li>${escape(x)}</li>`).join("")}</ul></div><section class="detail-sources"><h3>Sources & provenance</h3>${w.image ? `<div class="source-item"><a href="${escape(w.image.sourceUrl)}" target="_blank" rel="noopener noreferrer">Weapon inventory image ↗</a><small>${escape(w.image.attribution)}. Bundled locally; original image unchanged.${w.image.sharedWith?.length ? `<br>Source inventory artwork is shared with ${escape(w.image.sharedWith.join(", "))}. Equipped models and skins may differ.` : ""}</small></div>` : ""}${sourceList(w)}</section><div class="detail-id">CANONICAL GAME RECORD / ${escape(w.id)}<br>SNAPSHOT / ${META.datasetVersion} · RETRIEVED / ${META.researchedOn}</div><div class="detail-bottom"><button data-action="detail-prev">← Previous weapon</button><button data-action="detail-next">Next weapon →</button></div></div>`;
+            )}<details class="acquisition-context"><summary>Route details &amp; fallback</summary>${facts([
+              ["Method", a.sourceType],
+              ["Story phase", a.storyPhase],
+              ["Lifepath", a.lifepath],
+              ["If missed", a.ifMissed],
+              ["Black Market fallback", a.blackMarketBackup || "Not verified"],
+            ])}<p class="muted" style="font-size:10px;margin-top:12px">Acquisition leads are from published guides. Most existing routes target 2.31 and have not been walked in game for ${escape(META.targetPatch)}. Exact choices matter; consult the source for quest spoilers.</p></details></section></div><details class="detail-warnings disclosure"><summary>${icon("info")}Verification notes</summary><strong>Verification notes</strong><ul>${w.warnings.map((x) => `<li>${escape(x)}</li>`).join("")}</ul></details><details class="detail-sources disclosure"><summary>${icon("info")}Sources &amp; verification</summary>${w.image ? `<div class="source-item"><a href="${escape(w.image.sourceUrl)}" target="_blank" rel="noopener noreferrer">Weapon inventory image ↗</a><small>${escape(w.image.attribution)}. Bundled locally; original image unchanged.${w.image.sharedWith?.length ? `<br>Source inventory artwork is shared with ${escape(w.image.sharedWith.join(", "))}. Equipped models and skins may differ.` : ""}</small></div>` : ""}${sourceList(w)}</details><div class="detail-id">CANONICAL GAME RECORD / ${escape(w.id)}<br>SNAPSHOT / ${META.datasetVersion} · RETRIEVED / ${META.researchedOn}</div><div class="detail-bottom"><button data-action="detail-prev">← Previous weapon</button><button data-action="detail-next">Next weapon →</button></div></div>`;
           refineDetail();
           root.dataset.weapon = detailId;
           root.querySelectorAll("details").forEach((n) => {
@@ -61263,8 +61288,7 @@
                 (w) => w.profiles[profile]?.tiers[state.tier]?.damage != null,
               ).length;
           $("data-panel").innerHTML =
-            `<div class="section-intro"><div><div class="eyebrow cyan">PROVENANCE / COVERAGE / LIMITATIONS</div><h1>Archive / data notes</h1><p>Dataset ${META.datasetVersion}. Researched on ${escape(formatDate(META.researchedOn))}. The inventory targets the released PC Update ${escape(META.targetPatch)}; per-weapon game verification remains limited.</p></div></div><div class="data-overview"><div><strong>${META.iconicCount}</strong><span>Iconic weapons</span></div><div><strong id="all-total">${META.totalCount}</strong><span>Total records</span></div><div><strong>LOCAL</strong><span>All data & artwork bundled offline</span></div><div><strong>${escape(META.targetPatch)}</strong><span>Inventory target · community-sourced stats</span></div></div>${!storageAvailable ? `<div class="inapp-storage">${escape(preferenceStore.message("Preferences"))}</div>` : ""}<div class="data-grid"><article class="data-card"><h3>${META.iconicCount} iconics, reconciled by identity.</h3><p>All 113 weapons in Vaexil’s 2.31 inventory match the canonical inventory. Nukes & Dragons covers 112 of those, omitting Gwynbleidd. Coronation and Sihil are new in 2.5; Gamestegy independently lists the resulting 115 iconics.</p><p>All x-MOD2 variants, melee weapons, throwables, Phantom Liberty weapons, account rewards and former promotional rewards are represented. Boar Carver is included among ${META.totalCount - META.iconicCount} optional non-iconics; it is not counted as iconic.</p><p>Alias changes such as “Rasetsu (Prototype),” “Crowbar (Bunker)” and capitalization differences are merged by record identity. Standard and iconic versions remain distinct records.</p></article><article class="data-card"><h3>Patch target is not a blanket certification.</h3><p>The official release announcement confirms ${escape(META.targetPatch)} on ${escape(formatDate(META.patchRelease))}. New content references identify Coronation and Sihil. No newer released update was found in the official news check for this snapshot.</p><p>Older entries are not silently certified for 2.5. Vaexil declares 2.31; Games Lantern declares 2.3; Nukes & Dragons does not declare a per-record patch. Gamestegy has 2.5 additions but its older numerical records do not independently establish current in-game behavior.</p><p>No local game files or player-build measurements were used.</p></article><article class="data-card"><h3>Two references. No hidden mixing.</h3><p><b>Detailed game records:</b> Gamestegy’s published structured records. Damage is per projectile or melee hit. DPS is the source’s raw base-DPS record, not sustained DPS and not necessarily damage × firing speed. Other fields include range, armor penetration, stamina and return time where sourced.</p><p><b>Published stats:</b> Nukes & Dragons’ displayed damage and DPS tables. Damage can use a different projectile basis. The source’s DPS formula is not recreated. Source differences are preserved, not averaged.</p><p>The same reference and tier apply to every comparison column. Iconic ability summaries and acquisition remain separately attributed.</p></article><article class="data-card"><h3>Tier coverage & unknown values.</h3><p>Both references include Tier 1–5, 5+ and 5++ where published. Detailed records have no 1+, 2+, 3+ or 4+ samples; those tiers show Unknown. Nukes & Dragons publishes all 11 steps for 112 iconics. Gwynbleidd, Coronation and Sihil are absent there.</p><p>At selected Tier ${escape(state.tier)}: detailed damage exists for ${profileCounts("records")} / ${META.iconicCount} iconics; published-reference damage exists for ${profileCounts("nd")} / ${META.iconicCount}.</p><p>No interpolation or guessed tier multipliers. A published upgrade table does not establish that every weapon naturally drops at every tier.</p></article><article class="data-card"><h3>Effects, comparisons & dual wield.</h3><p>Ability text is an original factual paraphrase of individually linked sources. Numeric conditions are retained when available; there is no invented effect name. Crowbar and Caretaker’s Spade have no separately verified combat ability.</p><p>Best-value highlights are a numeric aid. Lower reload, stamina and return times are favored; other rows favor higher values. Mixed families disable rankings. Different projectile counts disable damage ranking. Charge, bursts, target armor, headshots and ability activation can change actual performance.</p><p>Official 2.5 notes limit Double Trouble to Power pistols and revolvers. The eligibility label is a class-level inference, not an individual compatibility test. Dual-wield penalties and perks never alter these base values.</p></article><article class="data-card"><h3>Known conflicts & missing metadata.</h3><p>Widow Maker’s detailed record reports five projectiles and Physical base damage while its ability describes two chemical projectiles. Both facts are kept with a warning. La Chingona Dorada’s dual-wield effect and Yasha’s effect differ from the older reference; the newer detailed wording is summarized and marked untested.</p><p>Headshot conventions differ between sources. The detailed source’s value is normalized to a percentage bonus; the published reference retains its displayed bonus. They are never compared across references.</p><p>${missingMaker.length} / ${WEAPONS.length} manufacturers are Unknown. Generic “Street” or “Corporation” data labels were not converted into a guessed manufacturer. Unknown crit modifiers and other absent fields remain Unknown.</p></article><article class="data-card wide"><h3>Source ledger</h3><p>Each weapon has individual provenance links. Source links open online only when you click them. The application itself makes no network requests.</p><div class="source-list">${META.sources.map((s) => `<div class="source-item"><a href="${escape(s.url)}" target="_blank" rel="noopener noreferrer">${escape(s.name)} ↗</a></div>`).join("")}</div><p style="margin-top:15px">Cyberpunk Wiki’s category could not be retrieved through the available access methods. Games Lantern’s public pages were cross-checked, but its declared 104-iconic total could not be reconciled record-by-record from an accessible complete export. It is an older count, not the canonical inventory. Access challenges were not bypassed.</p></article><article class="data-card wide"><h3>Your local data</h3><p>Favorites, comparison selections, search, filters, sort order, view and tier are saved in this browser at this file location when local storage is available. Moving the file or changing browser can create a separate preference store. Export a backup before moving it. No account, tracking or cloud storage.</p><div class="data-actions"><button id="export-preferences">Export preferences</button><button id="import-preferences">Import preferences</button>${preferenceStore.hasRecovery ? '<button id="export-preference-recovery">Export storage recovery</button>' : ""}<button id="export-dataset">Export bundled dataset</button></div><input type="file" id="preference-file" accept="application/json,.json" hidden><details><summary>View all ${META.iconicCount} canonical iconic names</summary><ul class="coverage-list">${iconic.map((w) => `<li>${escape(w.name)}</li>`).join("")}</ul></details></article><article class="data-card wide"><h3>Attribution</h3><p>Cyberpunk 2077 and Phantom Liberty belong to CD PROJEKT RED and their respective rights holders. This is an independent, unofficial fan reference. Numerical facts and acquisition references are attributed to Gamestegy, Nukes & Dragons, Vaexil and Games Lantern. Their site designs, source prose and artwork are not licensed as this project’s code. All ${META.weaponImageCount} weapons display weapon-specific in-game inventory artwork, sourced via Gamestegy and Games Atlas and embedded for offline use. Game artwork belongs to CD PROJEKT RED; see each weapon’s image source link. Individual source links and verification notes are included in this application.</p></article></div>`;
-          refineData();
+            `<div class="section-intro"><div><div class="eyebrow cyan">PROVENANCE / COVERAGE / LIMITATIONS</div><h1>Archive / data notes</h1><p>Dataset ${META.datasetVersion}. Researched on ${escape(formatDate(META.researchedOn))}. The inventory targets the released PC Update ${escape(META.targetPatch)}; per-weapon game verification remains limited.</p></div></div><div class="data-overview"><div><strong>${META.iconicCount}</strong><span>Iconic weapons</span></div><div><strong id="all-total">${META.totalCount}</strong><span>Total records</span></div><div><strong>LOCAL</strong><span>All data & artwork bundled offline</span></div><div><strong>${escape(META.targetPatch)}</strong><span>Inventory target · community-sourced stats</span></div></div>${!storageAvailable ? `<div class="inapp-storage">${escape(preferenceStore.message("Preferences"))}</div>` : ""}<div class="data-grid">${dataCard(`${META.iconicCount} iconics, reconciled by identity.`, "Identity-reconciled inventory, including expansion weapons and rewards.", `<p>All 113 weapons in Vaexil’s 2.31 inventory match the canonical inventory. Nukes & Dragons covers 112 of those, omitting Gwynbleidd. Coronation and Sihil are new in 2.5; Gamestegy independently lists the resulting 115 iconics.</p><p>All x-MOD2 variants, melee weapons, throwables, Phantom Liberty weapons, account rewards and former promotional rewards are represented. Boar Carver is included among ${META.totalCount - META.iconicCount} optional non-iconics; it is not counted as iconic.</p><p>Alias changes such as “Rasetsu (Prototype),” “Crowbar (Bunker)” and capitalization differences are merged by record identity. Standard and iconic versions remain distinct records.</p>`, { open: true })}${dataCard(`Patch target is not a blanket certification.`, "Patch target, source age and the limits of verification.", `<p>The official release announcement confirms ${escape(META.targetPatch)} on ${escape(formatDate(META.patchRelease))}. New content references identify Coronation and Sihil. No newer released update was found in the official news check for this snapshot.</p><p>Older entries are not silently certified for 2.5. Vaexil declares 2.31; Games Lantern declares 2.3; Nukes & Dragons does not declare a per-record patch. Gamestegy has 2.5 additions but its older numerical records do not independently establish current in-game behavior.</p><p>No local game files or player-build measurements were used.</p>`)}${dataCard(`Two references. No hidden mixing.`, "Damage and DPS definitions for each shared reference.", `<p><b>Detailed game records:</b> Gamestegy’s published structured records. Damage is per projectile or melee hit. DPS is the source’s raw base-DPS record, not sustained DPS and not necessarily damage × firing speed. Other fields include range, armor penetration, stamina and return time where sourced.</p><p><b>Published stats:</b> Nukes & Dragons’ displayed damage and DPS tables. Damage can use a different projectile basis. The source’s DPS formula is not recreated. Source differences are preserved, not averaged.</p><p>The same reference and tier apply to every comparison column. Iconic ability summaries and acquisition remain separately attributed.</p>`)}${dataCard(`Tier coverage & unknown values.`, "Published tiers, unsupported steps and absent measurements.", `<p>Both references include Tier 1–5, 5+ and 5++ where published. Detailed records have no 1+, 2+, 3+ or 4+ samples; those tiers show Unknown. Nukes & Dragons publishes all 11 steps for 112 iconics. Gwynbleidd, Coronation and Sihil are absent there.</p><p>At selected Tier ${escape(state.tier)}: detailed damage exists for ${profileCounts("records")} / ${META.iconicCount} iconics; published-reference damage exists for ${profileCounts("nd")} / ${META.iconicCount}.</p><p>No interpolation or guessed tier multipliers. A published upgrade table does not establish that every weapon naturally drops at every tier.</p>`)}${dataCard(`Effects, comparisons & dual wield.`, "How effects and weapon families change comparisons.", `<p>Ability text is an original factual paraphrase of individually linked sources. Numeric conditions are retained when available; there is no invented effect name. Crowbar and Caretaker’s Spade have no separately verified combat ability.</p><p>Best-value highlights are a numeric aid. Lower reload, stamina and return times are favored; other rows favor higher values. Mixed families disable rankings. Different projectile counts disable damage ranking. Charge, bursts, target armor, headshots and ability activation can change actual performance.</p><p>Official 2.5 notes limit Double Trouble to Power pistols and revolvers. The eligibility label is a class-level inference, not an individual compatibility test. Dual-wield penalties and perks never alter these base values.</p>`)}${dataCard(`Known conflicts & missing metadata.`, "Preserved discrepancies and fields that remain unknown.", `<p>Widow Maker’s detailed record reports five projectiles and Physical base damage while its ability describes two chemical projectiles. Both facts are kept with a warning. La Chingona Dorada’s dual-wield effect and Yasha’s effect differ from the older reference; the newer detailed wording is summarized and marked untested.</p><p>Headshot conventions differ between sources. The detailed source’s value is normalized to a percentage bonus; the published reference retains its displayed bonus. They are never compared across references.</p><p>${missingMaker.length} / ${WEAPONS.length} manufacturers are Unknown. Generic “Street” or “Corporation” data labels were not converted into a guessed manufacturer. Unknown crit modifiers and other absent fields remain Unknown.</p>`)}${dataCard(`Source ledger`, "Individual source links, access limits and attribution.", `<p>Each weapon has individual provenance links. Source links open online only when you click them. The application itself makes no network requests.</p><div class="source-list">${META.sources.map((s) => `<div class="source-item"><a href="${escape(s.url)}" target="_blank" rel="noopener noreferrer">${escape(s.name)} ↗</a></div>`).join("")}</div><p style="margin-top:15px">Cyberpunk Wiki’s category could not be retrieved through the available access methods. Games Lantern’s public pages were cross-checked, but its declared 104-iconic total could not be reconciled record-by-record from an accessible complete export. It is an older count, not the canonical inventory. Access challenges were not bypassed.</p>`, { wide: true })}${dataCard(`Your local data`, "Back up your preferences or export the bundled database.", `<p>Favorites, comparison selections, search, filters, sort order, view and tier are saved in this browser at this file location when local storage is available. Moving the file or changing browser can create a separate preference store. Export a backup before moving it. No account, tracking or cloud storage.</p><div class="data-actions"><button id="export-preferences">Export preferences</button><button id="import-preferences">Import preferences</button>${preferenceStore.hasRecovery ? '<button id="export-preference-recovery">Export storage recovery</button>' : ""}<button id="export-dataset">Export bundled dataset</button></div><input type="file" id="preference-file" accept="application/json,.json" hidden><details><summary>View all ${META.iconicCount} canonical iconic names</summary><ul class="coverage-list">${iconic.map((w) => `<li>${escape(w.name)}</li>`).join("")}</ul></details>`, { open: true, wide: true })}${dataCard(`Attribution`, "Fan project, game artwork and third-party sources.", `<p>Cyberpunk 2077 and Phantom Liberty belong to CD PROJEKT RED and their respective rights holders. This is an independent, unofficial fan reference. Numerical facts and acquisition references are attributed to Gamestegy, Nukes & Dragons, Vaexil and Games Lantern. Their site designs, source prose and artwork are not licensed as this project’s code. All ${META.weaponImageCount} weapons display weapon-specific in-game inventory artwork, sourced via Gamestegy and Games Atlas and embedded for offline use. Game artwork belongs to CD PROJEKT RED; see each weapon’s image source link. Individual source links and verification notes are included in this application.</p>`, { wide: true })}</div>`;
         }
         function renderReference() {
           $("reference-hint").textContent =
@@ -61462,17 +61486,6 @@
           updateWeaponSelection(id);
           if (currentView === "compare") render();
           else renderTray();
-        }
-        function download(name, value) {
-          const blob = new Blob([JSON.stringify(value, null, 2)], {
-              type: "application/json",
-            }),
-            url = URL.createObjectURL(blob),
-            a = document.createElement("a");
-          a.href = url;
-          a.download = name;
-          a.click();
-          setTimeout(() => URL.revokeObjectURL(url), 1000);
         }
         // All event handlers are delegated so rerendered cards and dialogs stay functional.
         document.addEventListener("click", (event) => {
@@ -61763,39 +61776,9 @@
           iconCache.set(name, markup);
           return markup;
         }
-        function disclosure(node, label, open = false) {
-          if (!node) return;
-          const details = document.createElement("details");
-          details.className = node.className + " disclosure";
-          details.open = open;
-          const summary = document.createElement("summary");
-          summary.innerHTML = icon("info") + escape(label);
-          details.append(summary);
-          while (node.firstChild) details.append(node.firstChild);
-          node.replaceWith(details);
-          return details;
-        }
         function refineDetail() {
           const root = $("detail-content");
-          const identity = root.querySelector(".detail-columns>section");
-          const identityDetails = identity
-            ? disclosure(identity, "Technical details & identity")
-            : null;
-          if (identityDetails) {
-            identityDetails.className = "identity-details disclosure";
-            identityDetails.querySelector("h3")?.remove();
-          }
-          const source = root.querySelector(".detail-sources");
-          source?.querySelector("h3")?.remove();
-          disclosure(source, "Sources & verification");
-          const note = root.querySelector(".detail-ability small");
-          if (note) {
-            const details = document.createElement("details");
-            details.className = "ability-provenance";
-            details.innerHTML = "<summary>Effect verification</summary>";
-            note.before(details);
-            details.append(note);
-          }
+          const identityDetails = root.querySelector(".identity-details");
           root.querySelectorAll(".detail-bottom button").forEach((b, i) => {
             const rows = filtered(),
               list = rows.some((w) => w.id === detailId) ? rows : WEAPONS,
@@ -61804,40 +61787,10 @@
               list[(at + (i ? 1 : -1) + list.length) % list.length];
             b.dataset.tip = adjacent?.name || "";
           });
-          const acquire = root.querySelector(".detail-columns>section");
-          if (acquire) {
-            acquire
-              .querySelector("h3")
-              .insertAdjacentHTML("afterbegin", icon("location"));
-            const facts = acquire.querySelector(".facts"),
-              extra = document.createElement("details");
-            extra.className = "acquisition-context";
-            const summary = document.createElement("summary");
-            summary.textContent = "Route details & fallback";
-            extra.append(summary);
-            const extraFacts = document.createElement("dl");
-            extraFacts.className = "facts";
-            const secondaryLabels = new Set([
-              "Method",
-              "Story phase",
-              "Lifepath",
-              "If missed",
-              "Black Market fallback",
-            ]);
-            for (const row of [...facts.children])
-              if (secondaryLabels.has(row.querySelector("dt").textContent))
-                extraFacts.append(row);
-            extra.append(extraFacts);
-            facts.after(extra);
-            const note = acquire.querySelector("p.muted");
-            if (note) extra.append(note);
-          }
           const body = root.querySelector(".detail-body"),
             secondary = root.querySelector(".detail-columns"),
-            warnings = root.querySelector(".detail-warnings"),
             sources = root.querySelector(".detail-sources"),
             record = root.querySelector(".detail-id");
-          disclosure(warnings, "Verification notes");
           const verification = root.querySelector(".detail-warnings"),
             advanced = document.createElement("div");
           advanced.className = "inspection-advanced";
@@ -61861,30 +61814,8 @@
           hydrateArtwork(root);
           decorateControls(root);
         }
-        function refineData() {
-          const summaries = [
-            "Identity-reconciled inventory, including expansion weapons and rewards.",
-            "Patch target, source age and the limits of verification.",
-            "Damage and DPS definitions for each shared reference.",
-            "Published tiers, unsupported steps and absent measurements.",
-            "How effects and weapon families change comparisons.",
-            "Preserved discrepancies and fields that remain unknown.",
-            "Individual source links, access limits and attribution.",
-            "Back up your preferences or export the bundled database.",
-            "Fan project, game artwork and third-party sources.",
-          ];
-          [...$("data-panel").querySelectorAll(".data-card")].forEach(
-            (node, i) => {
-              const h = node.querySelector("h3"),
-                label = h.textContent;
-              h.remove();
-              const d = disclosure(node, label, i === 0 || i === 7);
-              d.querySelector("summary").insertAdjacentHTML(
-                "beforeend",
-                `<span class="disclosure-hint">${summaries[i]}</span>`,
-              );
-            },
-          );
+        function dataCard(label, hint, content, { open = false, wide = false } = {}) {
+          return `<details class="data-card${wide ? " wide" : ""} disclosure"${open ? " open" : ""}><summary>${icon("info")}${escape(label)}<span class="disclosure-hint">${escape(hint)}</span></summary>${content}</details>`;
         }
         function decorateControls(scope = document) {
           if (scope === document) {
@@ -62506,24 +62437,9 @@
           E = NCAPlannerCore.createEngine(A.data, DB),
           M = DB.modifications,
           DISPLAY = DB.meta.display;
-        const $ = (id) => document.getElementById(id),
-          esc = (v) =>
-            String(v ?? "").replace(
-              /[&<>"']/g,
-              (c) =>
-                ({
-                  "&": "&amp;",
-                  "<": "&lt;",
-                  ">": "&gt;",
-                  '"': "&quot;",
-                  "'": "&#39;",
-                })[c],
-            ),
-          norm = (v) =>
-            String(v ?? "")
-              .normalize("NFKD")
-              .replace(/[\u0300-\u036f]/g, "")
-              .toLowerCase();
+        const $ = (id) => document.getElementById(id);
+        const P = window.NCAPresentation;
+        const { escape: esc, normalize: norm, download } = P;
         const KEY = "night-city-arsenal.builds.v1",
           DRAFT_KEY = "night-city-arsenal.draft.v1";
         let builds = [],
@@ -63061,22 +62977,12 @@
         function planBase(w) {
           if (!w)
             return '<p class="notice">The original weapon is missing from this data snapshot. Its ID and all selections are preserved.</p>';
-          const s = A.stats(w, { tier: draft.tier, profile: draft.profile }),
-            keys =
-              w.group === "Firearm"
-                ? ["damage", "dps", "speed", "magazine", "reload", "range"]
-                : ["damage", "dps", "speed", "stamina", "returnTime", "range"];
-          const labels = {
-            damage: "Damage / source",
-            dps: "DPS / source",
-            speed: "Attack speed",
-            magazine: "Magazine",
-            reload: "Reload time",
-            range: "Effective range",
-            stamina: "Stamina cost",
-            returnTime: "Return time",
-          };
-          return `<details class="base-reference" open><summary>Base weapon statistics · unmodified</summary><div class="plan-base-stats">${keys.map((k) => `<div><strong>${typeof s[k] === "number" ? esc(Math.round(s[k] * 100) / 100) + ({ speed: "/s", reload: " s", range: " m", returnTime: " s" }[k] || "") : "Unknown"}</strong><span>${labels[k]}</span></div>`).join("")}</div><p class="muted">${esc(draft.profile === "records" ? "Gamestegy detailed records" : "Nukes & Dragons published stats")} · Tier ${esc(draft.tier)}. Selected equipment never changes these values.</p></details>`;
+          const reference = { tier: draft.tier, profile: draft.profile },
+            keys = (w.group === "Firearm"
+              ? ["damage", "dps", "speed", "magazine", "reload", "range"]
+              : ["damage", "dps", "speed", "stamina", "returnTime", "range"]
+            ).filter((key) => P.applicable(w, key));
+          return `<details class="base-reference" open><summary>Base weapon statistics · unmodified</summary><div class="plan-base-stats">${keys.map((k) => `<div><strong>${esc(P.valueText(w, k, reference))}</strong><span>${esc(P.statLabel(k, reference.profile))}</span></div>`).join("")}</div><p class="muted">${esc(draft.profile === "records" ? "Gamestegy detailed records" : "Nukes & Dragons published stats")} · Tier ${esc(draft.tier)}. Selected equipment never changes these values.</p></details>`;
         }
         function selectedEffect(s) {
           const m = E.mods.get(s.modId);
@@ -63456,15 +63362,7 @@
           A.hydrateArtwork($("equipment-weapons"));
         }
         function exportBuilds() {
-          const json = JSON.stringify(E.exportBundle(builds), null, 2),
-            url = URL.createObjectURL(
-              new Blob([json], { type: "application/json" }),
-            ),
-            a = document.createElement("a");
-          a.href = url;
-          a.download = "Night-City-Arsenal-Builds.json";
-          a.click();
-          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          download("Night-City-Arsenal-Builds.json", E.exportBundle(builds));
         }
         async function importBuilds(file) {
           if (!file) return;

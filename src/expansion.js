@@ -8,24 +8,9 @@
           E = NCAPlannerCore.createEngine(A.data, DB),
           M = DB.modifications,
           DISPLAY = DB.meta.display;
-        const $ = (id) => document.getElementById(id),
-          esc = (v) =>
-            String(v ?? "").replace(
-              /[&<>"']/g,
-              (c) =>
-                ({
-                  "&": "&amp;",
-                  "<": "&lt;",
-                  ">": "&gt;",
-                  '"': "&quot;",
-                  "'": "&#39;",
-                })[c],
-            ),
-          norm = (v) =>
-            String(v ?? "")
-              .normalize("NFKD")
-              .replace(/[\u0300-\u036f]/g, "")
-              .toLowerCase();
+        const $ = (id) => document.getElementById(id);
+        const P = window.NCAPresentation;
+        const { escape: esc, normalize: norm, download } = P;
         const KEY = "night-city-arsenal.builds.v1",
           DRAFT_KEY = "night-city-arsenal.draft.v1";
         let builds = [],
@@ -563,22 +548,12 @@
         function planBase(w) {
           if (!w)
             return '<p class="notice">The original weapon is missing from this data snapshot. Its ID and all selections are preserved.</p>';
-          const s = A.stats(w, { tier: draft.tier, profile: draft.profile }),
-            keys =
-              w.group === "Firearm"
-                ? ["damage", "dps", "speed", "magazine", "reload", "range"]
-                : ["damage", "dps", "speed", "stamina", "returnTime", "range"];
-          const labels = {
-            damage: "Damage / source",
-            dps: "DPS / source",
-            speed: "Attack speed",
-            magazine: "Magazine",
-            reload: "Reload time",
-            range: "Effective range",
-            stamina: "Stamina cost",
-            returnTime: "Return time",
-          };
-          return `<details class="base-reference" open><summary>Base weapon statistics · unmodified</summary><div class="plan-base-stats">${keys.map((k) => `<div><strong>${typeof s[k] === "number" ? esc(Math.round(s[k] * 100) / 100) + ({ speed: "/s", reload: " s", range: " m", returnTime: " s" }[k] || "") : "Unknown"}</strong><span>${labels[k]}</span></div>`).join("")}</div><p class="muted">${esc(draft.profile === "records" ? "Gamestegy detailed records" : "Nukes & Dragons published stats")} · Tier ${esc(draft.tier)}. Selected equipment never changes these values.</p></details>`;
+          const reference = { tier: draft.tier, profile: draft.profile },
+            keys = (w.group === "Firearm"
+              ? ["damage", "dps", "speed", "magazine", "reload", "range"]
+              : ["damage", "dps", "speed", "stamina", "returnTime", "range"]
+            ).filter((key) => P.applicable(w, key));
+          return `<details class="base-reference" open><summary>Base weapon statistics · unmodified</summary><div class="plan-base-stats">${keys.map((k) => `<div><strong>${esc(P.valueText(w, k, reference))}</strong><span>${esc(P.statLabel(k, reference.profile))}</span></div>`).join("")}</div><p class="muted">${esc(draft.profile === "records" ? "Gamestegy detailed records" : "Nukes & Dragons published stats")} · Tier ${esc(draft.tier)}. Selected equipment never changes these values.</p></details>`;
         }
         function selectedEffect(s) {
           const m = E.mods.get(s.modId);
@@ -958,15 +933,7 @@
           A.hydrateArtwork($("equipment-weapons"));
         }
         function exportBuilds() {
-          const json = JSON.stringify(E.exportBundle(builds), null, 2),
-            url = URL.createObjectURL(
-              new Blob([json], { type: "application/json" }),
-            ),
-            a = document.createElement("a");
-          a.href = url;
-          a.download = "Night-City-Arsenal-Builds.json";
-          a.click();
-          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          download("Night-City-Arsenal-Builds.json", E.exportBundle(builds));
         }
         async function importBuilds(file) {
           if (!file) return;

@@ -93,6 +93,7 @@ def build(output):
         "STYLES": block(SOURCE / "styles.css"),
         "DATA": embedded_data("weapons.json", "weapons", "weapon-images.json"),
         "MOD_DATA": embedded_data("modifications.json", "modifications", "modification-images.json"),
+        "PRESENTATION": block(SOURCE / "presentation.js"),
         "LOGIC": block(SOURCE / "app.js"),
         "STORAGE": block(SOURCE / "storage.js"),
         "PLANNER_CORE": block(SOURCE / "planner-core.js"),

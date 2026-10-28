@@ -280,6 +280,7 @@ async function select(slot, name, tier) {
     const downloadPromise = p.waitForEvent("download");
     await p.locator("[data-plan-action=export-builds]").click();
     const dl = await downloadPromise;
+    assert.equal(dl.suggestedFilename(), "Night-City-Arsenal-Builds.json");
     exported = JSON.parse(fs.readFileSync(await dl.path(), "utf8"));
     assert.equal(exported.schemaVersion, 1);
     assert.equal(exported.builds.length, 3);

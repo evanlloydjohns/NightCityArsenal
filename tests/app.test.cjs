@@ -668,6 +668,66 @@ async function setFilter(key, values) {
     await page.keyboard.press("Escape");
     assert.equal(await page.locator("#details").evaluate((d) => d.open), false);
   });
+  await test("Detail disclosures, scroll, keyboard tooltips, focus and catalog nodes survive updates", async () => {
+    const isolated = await browser.newContext({ offline: true, viewport: { width: 1440, height: 1000 } });
+    const p = await isolated.newPage();
+    try {
+      await p.goto(pathToFileURL(path.join(ROOT, "dist/Night-City-Arsenal.html")).href);
+      const id = weapon("Her Majesty").id;
+      const opener = p.locator(`[data-weapon="${id}"] .details-small`);
+      await opener.click();
+      const image = p.locator("#details .weapon-image");
+      assert.equal(await image.getAttribute("loading"), "lazy");
+      assert.equal(await image.getAttribute("decoding"), "async");
+      await image.evaluate((n) => n.decode());
+      await p.keyboard.press("Escape");
+      await p.waitForFunction(() => document.activeElement?.classList.contains("details-small"));
+      assert.equal(await opener.evaluate((n) => n === document.activeElement), true);
+      await opener.click();
+      const disclosures = ["ability-provenance", "identity-details", "acquisition-context", "detail-warnings", "detail-sources"];
+      for (const name of disclosures) {
+        const summary = p.locator(`.${name} > summary`);
+        await summary.focus();
+        await p.keyboard.press("Enter");
+        assert.equal(await summary.evaluate((n) => n.parentElement.open), true);
+      }
+      await p.locator("#detail-tier").scrollIntoViewIfNeeded();
+      await p.locator(".detail-scroll").evaluate((n) => { n.scrollTop = 150; });
+      const scroll = await p.locator(".detail-scroll").evaluate((n) => n.scrollTop);
+      await p.locator("#detail-tier").selectOption("5+");
+      for (const name of disclosures)
+        assert.equal(await p.locator(`.${name}`).evaluate((n) => n.open), true);
+      assert.equal(await p.locator(".detail-scroll").evaluate((n) => n.scrollTop), scroll);
+
+      await p.locator(".detail-bottom [data-action=detail-next]").focus();
+      assert.equal(await p.locator("#ui-tooltip").isVisible(), true);
+      assert.equal(await p.locator("#ui-tooltip").textContent(), await p.locator("[data-action=detail-next]").getAttribute("data-tip"));
+      await p.keyboard.press("Escape");
+      // Changing tier replaces the catalog nodes; the existing fallback is search.
+      await p.waitForFunction(() => document.activeElement?.id === "search");
+
+      const card = p.locator(`.weapon-card[data-weapon="${id}"]`);
+      await card.evaluate((n) => { window.__presentationCard = n; window.__presentationArt = n.querySelector("img"); });
+      const favorite = card.locator(".star");
+      await favorite.focus();
+      await p.keyboard.press("Enter");
+      assert.equal(await favorite.evaluate((n) => n === document.activeElement), true);
+      assert.equal(await card.evaluate((n) => n === window.__presentationCard && n.querySelector("img") === window.__presentationArt), true);
+      await p.locator("#search").fill("Her Májesty");
+      assert.equal(await p.locator(".weapon-card").count(), 1);
+      assert.equal(await card.evaluate((n) => n === window.__presentationCard), true);
+
+      await p.evaluate(() => Arsenal.navigate("data"));
+      assert.deepEqual(await p.locator(".data-card").evaluateAll((nodes) => nodes.map((n) => n.open)),
+        [true, false, false, false, false, false, false, true, false]);
+      const summary = p.locator(".data-card").nth(1).locator(":scope > summary");
+      await summary.focus();
+      await p.keyboard.press("Enter");
+      assert.equal(await summary.evaluate((n) => n.parentElement.open), true);
+    } finally {
+      await isolated.close();
+    }
+  });
   await test("Cards/table view, favorites, preference persistence and keyboard search", async () => {
     await page
       .getByRole("button", { name: "Favorite Her Majesty", exact: true })
@@ -834,6 +894,7 @@ async function setFilter(key, values) {
     let pending = page.waitForEvent("download");
     await page.locator("#export-dataset").click();
     let download = await pending;
+    assert.equal(download.suggestedFilename(), "night-city-arsenal-weapons.json");
     const datasetPath = path.join(validation, "export-check.json");
     await download.saveAs(datasetPath);
     assert.equal(
@@ -844,6 +905,7 @@ async function setFilter(key, values) {
     pending = page.waitForEvent("download");
     await page.locator("#export-preferences").click();
     download = await pending;
+    assert.equal(download.suggestedFilename(), "night-city-arsenal-preferences.json");
     const preferencesPath = path.join(validation, "preferences-check.json");
     await download.saveAs(preferencesPath);
     const backup = JSON.parse(fs.readFileSync(preferencesPath, "utf8"));
