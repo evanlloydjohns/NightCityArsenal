@@ -94,9 +94,11 @@ def build(output):
         "DATA": embedded_data("weapons.json", "weapons", "weapon-images.json"),
         "MOD_DATA": embedded_data("modifications.json", "modifications", "modification-images.json"),
         "PRESENTATION": block(SOURCE / "presentation.js"),
+        "CATALOG": block(SOURCE / "catalog.js"),
         "LOGIC": block(SOURCE / "app.js"),
         "STORAGE": block(SOURCE / "storage.js"),
         "PLANNER_CORE": block(SOURCE / "planner-core.js"),
+        "BUILD_LIBRARY": block(SOURCE / "build-library.js"),
         "EXPANSION": block(SOURCE / "expansion.js"),
     }
     html = read(SOURCE / "template.html")

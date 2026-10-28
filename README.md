@@ -34,6 +34,10 @@ Python 3.9+ and its standard library are sufficient. The command also works from
 
 `src/data/weapons.json` and `modifications.json` contain the reviewed application data. Their `image.src` values reference `src/assets/`; the build verifies image-manifest checksums and embeds the bytes. Equipment presentation rules are in `modifications.json` under `meta.display`. Preserve IDs, storage keys and source uncertainty. Planning never recalculates weapon statistics.
 
+JavaScript stays in small inline scripts embedded by the Python build. `presentation.js` supplies shared formatting and `storage.js` guards the existing storage keys. `catalog.js` owns pooled catalog nodes, reconciliation and offscreen containment; `app.js` supplies live state, templates and selection patches, and coordinates navigation, inspection and delegated events. `planner-core.js` supplies equipment rules. `build-library.js` owns the saved-build session, validation, partial recovery and filtering; `expansion.js` coordinates equipment UI, draft revisions and delegated build actions.
+
+The template loads presentation/storage/catalog before running `app.js`, then planner core/build library before running `expansion.js`. Module factories declare their dependencies explicitly and initialize only when the entry point calls them. State getters keep the catalog current when preferences are replaced by import/reset; build-library reads always use its current session. `window.Arsenal` and `window.NCAExpansion` retain the public inspection helpers used by the checks and PWA update guards.
+
 For local PWA development, run `python tools/preview.py` and visit `http://localhost:8765/`. It serves only `dist/pwa/` on loopback; Ctrl+C stops it. Keep the same origin/port to preserve its storage and installation identity. Installed offline caches can be evicted; retain JSON backups. Headless checks do not establish Windows Start/taskbar integration.
 
 ## Checks

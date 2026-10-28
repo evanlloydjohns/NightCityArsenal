@@ -11,10 +11,8 @@
         const $ = (id) => document.getElementById(id);
         const P = window.NCAPresentation;
         const { escape: esc, normalize: norm, download } = P;
-        const KEY = "night-city-arsenal.builds.v1",
-          DRAFT_KEY = "night-city-arsenal.draft.v1";
-        let builds = [],
-          storageProblem = "",
+        const DRAFT_KEY = "night-city-arsenal.draft.v1";
+        let storageProblem = "",
           draft = null,
           draftMode = "new",
           readOnly = false,
@@ -51,31 +49,12 @@
             ),
           ]),
         );
-        const buildStore = NCAStorage.create(
-          KEY,
-          (raw) => E.sanitizeBundle(JSON.parse(raw)),
-          (raw) => {
-            const bundle = JSON.parse(raw);
-            if (bundle?.schemaVersion !== 1 || !Array.isArray(bundle.builds)) return [];
-            // Keep individually valid records usable; the full original remains
-            // untouched and exportable, including rejected records and duplicates.
-            const recovered = [], ids = new Set();
-            for (const build of bundle.builds) {
-              try {
-                const [clean] = E.sanitizeBundle({ schemaVersion: 1, builds: [build] });
-                if (!ids.has(clean.id) && recovered.length < 1000) {
-                  recovered.push(clean);
-                  ids.add(clean.id);
-                }
-              } catch {}
-            }
-            return recovered;
-          },
-        );
-        builds = buildStore.value || [];
-        let draftRevision = buildStore.revision;
-        storageProblem = buildStore.message("Saved-build");
-        buildStore.subscribe(updateStorageWarning);
+        const library = NCABuildLibrary.create({
+          engine: E, storage: NCAStorage, normalize: norm, onInvalid: A.toast,
+        });
+        let draftRevision = library.revision;
+        storageProblem = library.message();
+        library.subscribe(updateStorageWarning);
         try {
           const raw = JSON.parse(sessionStorage.getItem(DRAFT_KEY));
           if (raw?.build) {
@@ -85,12 +64,12 @@
             if (draftMode === "edit") {
               if (Object.hasOwn(raw, "libraryRevision"))
                 draftRevision = raw.libraryRevision;
-              else if (JSON.stringify(draft) !== JSON.stringify(builds.find((b) => b.id === draft.id)))
+              else if (JSON.stringify(draft) !== JSON.stringify(library.builds.find((b) => b.id === draft.id)))
                 draftRevision = undefined;
             }
           }
         } catch {}
-        storageProblem = buildStore.message("Saved-build");
+        storageProblem = library.message();
         const button = (action, label, attrs = "", style = "") =>
           `<button class="chamfer ${style}" data-plan-action="${action}" ${attrs}>${label}</button>`;
         const glyphKind = (m) =>
@@ -142,7 +121,7 @@
         ];
         const banner = () =>
           storageProblem
-            ? `<div class="notice build-storage-warning" role="status">${esc(storageProblem)}${buildStore.hasRecovery ? '<button data-plan-action="export-build-recovery">Export storage recovery</button>' : ""}</div>`
+            ? `<div class="notice build-storage-warning" role="status">${esc(storageProblem)}${library.hasRecovery ? '<button data-plan-action="export-build-recovery">Export storage recovery</button>' : ""}</div>`
             : "";
         const tiers = (selected, list = A.data.meta.tiers) =>
           list
@@ -166,7 +145,7 @@
             ),
           ].sort((a, b) => a.localeCompare(b));
         function updateStorageWarning() {
-          storageProblem = buildStore.message("Saved-build");
+          storageProblem = library.message();
           const panel = document.querySelector(".expansion-panel:not([hidden])");
           if (panel) {
             panel.querySelectorAll(".build-storage-warning").forEach((n) => n.remove());
@@ -175,15 +154,8 @@
           if (storageProblem) A.toast(storageProblem);
         }
         async function persist(next) {
-          try {
-            next = E.sanitizeBundle(E.exportBundle(next));
-          } catch (e) {
-            A.toast(e.message);
-            return null;
-          }
-          builds = next;
-          const saved = await buildStore.write(E.exportBundle(builds));
-          updateStorageWarning();
+          const saved = await library.persist(next);
+          if (saved !== null) updateStorageWarning();
           return saved;
         }
         function rememberDraft() {
@@ -534,7 +506,7 @@
               },
             ];
           draftMode = "new";
-          draftRevision = buildStore.revision;
+          draftRevision = library.revision;
           readOnly = false;
           dirty = !!planned;
           rememberDraft();
@@ -607,7 +579,7 @@
         }
         async function saveBuild(asNew = false) {
           if (!draft || readOnly) return;
-          if (!asNew && draftMode === "edit" && draftRevision !== buildStore.revision) {
+          if (!asNew && draftMode === "edit" && draftRevision !== library.revision) {
             const message = "This draft was opened before the stored library changed. Save as new or reopen the latest build before editing it.";
             $("plan-save-status").textContent = message;
             A.toast(message);
@@ -644,8 +616,8 @@
             A.toast(e.message);
             return;
           }
-          const exists = builds.some((b) => b.id === clean.id);
-          if (!exists && builds.length >= 1000) {
+          const exists = library.builds.some((b) => b.id === clean.id);
+          if (!exists && library.builds.length >= 1000) {
             A.toast(
               "Library limit reached. Export an archive before adding more builds.",
             );
@@ -654,12 +626,12 @@
           $("plan-save-status").textContent = "Saving…";
           const success = await persist(
             exists
-              ? builds.map((b) => (b.id === clean.id ? clean : b))
-              : [...builds, clean],
+              ? library.builds.map((b) => (b.id === clean.id ? clean : b))
+              : [...library.builds, clean],
           );
           if (success === null) return;
           draft = E.clone(clean);
-          if (success) draftRevision = buildStore.revision;
+          if (success) draftRevision = library.revision;
           draftMode = "edit";
           dirty = false;
           rememberDraft();
@@ -777,31 +749,13 @@
             ?.focus();
         }
         function renderBuilds() {
-          const tags = [...new Set(builds.flatMap((b) => b.tags))].sort();
+          const tags = [...new Set(library.builds.flatMap((b) => b.tags))].sort();
           $("builds-panel").innerHTML =
             `<div class="section-intro"><div><span class="eyebrow cyan">NC / PERSONAL CONFIGURATIONS</span><h1>Saved weapon builds</h1><p>Keep equipment plans, acquisition leads and your own notes. Stored in this browser, separate from weapon favorites.</p></div><div class="exp-actions">${dirty ? button("resume-draft", "Resume unsaved plan") : ""}${button("choose-plan-weapon", "New weapon build", "", "primary")}</div></div>${banner()}<div class="exp-toolbar"><label class="search-box"><span aria-hidden="true">⌕</span><input id="builds-search" type="search" aria-label="Search saved builds" placeholder="Search build names, weapons, tags or personal notes…" value="${esc(buildFilters.query)}"></label>${button("export-builds", "Export JSON")}${button("import-builds", "Import JSON")}<input id="builds-import-file" type="file" accept="application/json,.json" hidden></div><div class="exp-inline-fields"><label>Tag <select id="builds-tag">${options(tags, buildFilters.tag, "All tags")}</select></label><label class="check"><input id="builds-favorites" type="checkbox" ${buildFilters.favorites ? "checked" : ""}> Favorite builds only</label>${button("choose-filter-weapon", esc(E.weapons.get(buildFilters.weapon)?.name || "Any weapon"), 'data-context="builds"')}${buildFilters.weapon ? button("clear-build-weapon", "Clear weapon") : ""}${button("compare-builds", "Review two builds side by side", comparison.length !== 2 ? "disabled" : "")}</div><p id="builds-result-count" class="exp-result-status" role="status"></p><div id="builds-results" class="equipment-grid builds-grid"></div>`;
           renderBuildResults();
         }
         function filteredBuilds() {
-          const words = norm(buildFilters.query).split(/\s+/).filter(Boolean);
-          return builds
-            .filter(
-              (b) =>
-                words.every((q) =>
-                  norm(
-                    [
-                      b.name,
-                      E.weapons.get(b.weaponId)?.name,
-                      b.notes,
-                      ...b.tags,
-                    ].join(" "),
-                  ).includes(q),
-                ) &&
-                (!buildFilters.favorites || b.favorite) &&
-                (!buildFilters.tag || b.tags.includes(buildFilters.tag)) &&
-                (!buildFilters.weapon || b.weaponId === buildFilters.weapon),
-            )
-            .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+          return library.filtered(buildFilters);
         }
         function renderBuildResults() {
           const rows = filteredBuilds();
@@ -821,12 +775,12 @@
               (rows.length > buildPage
                 ? button("more-builds", "Show more builds")
                 : "")
-            : `<div class="empty"><h2>${builds.length ? "No builds match" : "Your build library starts here"}</h2><p>${builds.length ? "Try another keyword or clear your filters." : "Choose a weapon, plan its supported equipment, and save a name and notes."}</p>${button("choose-plan-weapon", "Plan a weapon build", "", "primary")}</div>`;
+            : `<div class="empty"><h2>${library.builds.length ? "No builds match" : "Your build library starts here"}</h2><p>${library.builds.length ? "Try another keyword or clear your filters." : "Choose a weapon, plan its supported equipment, and save a name and notes."}</p>${button("choose-plan-weapon", "Plan a weapon build", "", "primary")}</div>`;
           A.hydrateArtwork($("builds-results"));
           hydrateEquipment($("builds-results"));
         }
         async function openBuild(id, edit = false) {
-          const build = builds.find((b) => b.id === id);
+          const build = library.builds.find((b) => b.id === id);
           if (!build) return;
           if (
             dirty &&
@@ -838,7 +792,7 @@
           )
             return;
           draft = E.clone(build);
-          draftRevision = buildStore.revision;
+          draftRevision = library.revision;
           draftMode = "edit";
           readOnly = !edit;
           dirty = false;
@@ -846,20 +800,20 @@
           A.navigate("planner");
         }
         async function duplicateBuild(id) {
-          if (builds.length >= 1000) {
+          if (library.builds.length >= 1000) {
             A.toast(
               "Library limit reached. Export an archive before adding more builds.",
             );
             return;
           }
-          const original = builds.find((b) => b.id === id);
+          const original = library.builds.find((b) => b.id === id);
           if (!original) return;
           const copy = E.clone(original);
           copy.id = E.uid();
           copy.name = original.name.slice(0, 300 - " (copy)".length) + " (copy)";
           copy.favorite = false;
           copy.createdAt = copy.updatedAt = new Date().toISOString();
-          if ((await persist([...builds, copy])) === null) return;
+          if ((await persist([...library.builds, copy])) === null) return;
           A.toast(
             storageProblem
               ? "Duplicated in this session; export a backup."
@@ -869,7 +823,7 @@
           else openBuild(copy.id, true);
         }
         function renameBuild(id) {
-          const build = builds.find((b) => b.id === id);
+          const build = library.builds.find((b) => b.id === id);
           if (!build) return;
           dialogState = { kind: "rename", id };
           showEquipment(
@@ -883,7 +837,7 @@
           $("rename-build-name").select();
         }
         async function deleteBuild(id) {
-          const b = builds.find((b) => b.id === id);
+          const b = library.builds.find((b) => b.id === id);
           if (!b) return;
           if (
             !(await confirmAction(
@@ -893,7 +847,7 @@
             ))
           )
             return;
-          await persist(builds.filter((x) => x.id !== id));
+          await persist(library.builds.filter((x) => x.id !== id));
           comparison = comparison.filter((x) => x !== id);
           if (draft?.id === id) {
             draft = null;
@@ -933,7 +887,7 @@
           A.hydrateArtwork($("equipment-weapons"));
         }
         function exportBuilds() {
-          download("Night-City-Arsenal-Builds.json", E.exportBundle(builds));
+          download("Night-City-Arsenal-Builds.json", E.exportBundle(library.builds));
         }
         async function importBuilds(file) {
           if (!file) return;
@@ -944,7 +898,7 @@
               );
             const result = E.importBundle(
               JSON.parse(await file.text()),
-              builds,
+              library.builds,
             );
             const durable = await persist(result.builds);
             if (durable === null) return;
@@ -968,7 +922,7 @@
         }
         function compareBuilds() {
           const picks = comparison
-            .map((id) => builds.find((b) => b.id === id))
+            .map((id) => library.builds.find((b) => b.id === id))
             .filter(Boolean);
           if (picks.length !== 2) return;
           showEquipment(
@@ -1198,7 +1152,7 @@
               return;
             }
             const saved = await persist(
-              builds.map((b) =>
+              library.builds.map((b) =>
                 b.id === renameId
                   ? { ...b, name, updatedAt: new Date().toISOString() }
                   : b,
@@ -1210,7 +1164,7 @@
             renderBuilds();
           } else if (action === "favorite-build") {
             await persist(
-              builds.map((b) =>
+              library.builds.map((b) =>
                 b.id === id
                   ? {
                       ...b,
@@ -1223,7 +1177,7 @@
             renderBuildResults();
           } else if (action === "delete-build") await deleteBuild(id);
           else if (action === "export-builds") exportBuilds();
-          else if (action === "export-build-recovery") buildStore.exportRecovery();
+          else if (action === "export-build-recovery") library.exportRecovery();
           else if (action === "import-builds") $("builds-import-file").click();
           else if (action === "compare-builds") compareBuilds();
           else if (action === "more-builds") {
@@ -1235,7 +1189,7 @@
           render,
           engine: E,
           data: DB,
-          getBuilds: () => E.clone(builds),
+          getBuilds: () => E.clone(library.builds),
           getDraft: () => (draft ? E.clone(draft) : null),
           isDraftDirty: () => dirty,
           startPlan,

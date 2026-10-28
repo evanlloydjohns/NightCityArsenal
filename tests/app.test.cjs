@@ -720,6 +720,60 @@ async function setFilter(key, values) {
       await isolated.close();
     }
   });
+  await test("Catalog pools survive empty searches and view switches, then follow replaced preferences", async () => {
+    const c = await newContext(browser);
+    const p = await c.newPage();
+    try {
+      await p.goto(pathToFileURL(path.join(ROOT, "dist/Night-City-Arsenal.html")).href);
+      const id = weapon("Her Majesty").id;
+      const card = p.locator(`.weapon-card[data-weapon="${id}"]`);
+      await card.evaluate((n) => { window.__pooledCard = n; window.__pooledArt = n.querySelector("img"); });
+      await p.locator("#search").fill("no-such-weapon");
+      assert.equal(await p.locator(".weapon-card").count(), 0);
+      await p.locator("[data-action=clear-search]").click();
+      assert.equal(await card.evaluate((n) => n === window.__pooledCard && n.querySelector("img") === window.__pooledArt), true);
+
+      await p.locator("#view-table").click();
+      const row = p.locator(`.catalog-table tr[data-weapon="${id}"]`);
+      await row.evaluate((n) => { window.__pooledRow = n; window.__pooledRowArt = n.querySelector("img"); });
+      await p.locator("#sort").selectOption("damage");
+      await p.locator("#direction").click();
+      await row.locator(".star").click();
+      await row.locator(".compare-add").click();
+      assert.equal(await row.evaluate((n) => n === window.__pooledRow && n.querySelector("img") === window.__pooledRowArt), true);
+      await p.locator("#view-cards").click();
+      assert.equal(await card.evaluate((n) => n === window.__pooledCard && n.querySelector("img") === window.__pooledArt), true);
+      assert.equal(await card.locator(".star").getAttribute("aria-pressed"), "true");
+      assert.equal(await card.locator(".compare-add").getAttribute("aria-pressed"), "true");
+
+      // Import replaces the state object. Rendering must read the new reference,
+      // tier, view and selection, invalidating both old pools at that boundary.
+      const preferences = await p.evaluate(() => ({
+        ...Arsenal.getState(), view: "table", profile: "nd", tier: "5",
+        query: "Her Majesty", favorites: [], compare: [], sort: "name",
+      }));
+      await p.evaluate(() => Arsenal.navigate("data"));
+      await p.locator("#preference-file").setInputFiles({
+        name: "preferences.json", mimeType: "application/json",
+        buffer: Buffer.from(JSON.stringify({ application: "night-city-arsenal", preferences })),
+      });
+      await p.waitForFunction(() => Arsenal.getState().profile === "nd");
+      await p.evaluate(() => Arsenal.navigate("arsenal"));
+      assert.equal(await p.locator(".catalog-table tbody tr").count(), 1);
+      assert.equal(await row.evaluate((n) => n === window.__pooledRow), false);
+      assert.equal(await row.locator(".star").getAttribute("aria-pressed"), "false");
+      assert.equal(await row.locator(".compare-add").getAttribute("aria-pressed"), "false");
+      assert.equal(await row.locator("td.num").first().textContent(), await p.evaluate((id) =>
+        NCAPresentation.valueText(Arsenal.data.weapons.find((w) => w.id === id), "damage", Arsenal.getState()), id));
+      await p.locator("#view-cards").click();
+      assert.equal(await card.evaluate((n) => n === window.__pooledCard), false);
+      await p.waitForFunction(() => document.querySelector(".cards")?.classList.contains("cv-ready"));
+      assert.equal(await card.locator("img").getAttribute("loading"), "lazy");
+      assert.equal(await card.locator("img").getAttribute("decoding"), "async");
+    } finally {
+      await c.close();
+    }
+  });
   await test("Cards/table view, favorites, preference persistence and keyboard search", async () => {
     await page
       .getByRole("button", { name: "Favorite Her Majesty", exact: true })
