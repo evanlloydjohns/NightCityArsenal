@@ -1,12 +1,11 @@
-const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
+const { launchBrowser, newContext } = require("./browser.cjs");
+const { root, artifactDir, writeReport } = require("./support.cjs");
 const fs = require("node:fs"),
   path = require("node:path"),
   assert = require("node:assert/strict"),
   crypto = require("node:crypto"),
   { pathToFileURL } = require("node:url");
-const root = path.resolve(__dirname, ".."),
-  out = path.join(root, ".tmp/tests/modifications");
-fs.mkdirSync(out, { recursive: true });
+const out = artifactDir("modifications");
 let browser, p;
 const results = [],
   errors = [],
@@ -60,13 +59,8 @@ async function select(slot, name, tier) {
   await card.locator("[data-plan-action=select-equipment]").click();
 }
 (async () => {
-  browser = await chromium.launch({
-    headless: true,
-    executablePath: process.env.BROWSER_EXECUTABLE,
-    args: ["--disable-gpu", "--disable-gpu-compositing"],
-  });
-  const c = await browser.newContext({
-    offline: true,
+  browser = await launchBrowser();
+  const c = await newContext(browser, {
     viewport: { width: 1920, height: 1080 },
     acceptDownloads: true,
     reducedMotion: "reduce",
@@ -528,10 +522,7 @@ async function select(slot, name, tier) {
     results,
     errors,
   };
-  fs.writeFileSync(
-    path.join(out, "ui-results.json"),
-    JSON.stringify(report, null, 2),
-  );
+  writeReport("modifications/ui-results.json", report);
   console.log("RESULT", report.passed, "passed", report.failed, "failed");
   if (report.failed) process.exitCode = 1;
 })().catch(async (e) => {

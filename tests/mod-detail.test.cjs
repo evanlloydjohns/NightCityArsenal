@@ -1,14 +1,13 @@
 /* Source-preserving modification inspection QA; isolated offline production file. */
-const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
+const { launchBrowser, newContext } = require("./browser.cjs");
+const { root, artifactDir, writeReport } = require("./support.cjs");
 const fs = require("fs"),
   path = require("path"),
   assert = require("assert/strict"),
   crypto = require("crypto"),
   { pathToFileURL } = require("url");
-const root = path.resolve(__dirname, ".."),
-  out = path.join(root, ".tmp/tests/mod-detail"),
+const out = artifactDir("mod-detail"),
   html = path.join(root, "dist/Night-City-Arsenal.html");
-fs.mkdirSync(out, { recursive: true });
 const data = JSON.parse(
     fs.readFileSync(path.join(root, "src/data/modifications.json")),
   ),
@@ -17,8 +16,7 @@ const data = JSON.parse(
   requests = [];
 let browser;
 async function fixture() {
-  const c = await browser.newContext({
-      offline: true,
+  const c = await newContext(browser, {
       viewport: { width: 1920, height: 1080 },
       reducedMotion: "reduce",
     }),
@@ -62,11 +60,7 @@ async function test(name, fn) {
   }
 }
 (async () => {
-  browser = await chromium.launch({
-    headless: true,
-    executablePath: process.env.BROWSER_EXECUTABLE,
-    args: ["--disable-gpu", "--disable-gpu-compositing"],
-  });
+  browser = await launchBrowser();
   await test("Add-Vantage has separate exact source rows, compact inline tier control and immediately updated values", async () => {
     const { c, p } = await fixture();
     await open(p, "Add-Vantage");
@@ -459,10 +453,7 @@ async function test(name, fn) {
     failed: results.filter((r) => !r.passed).length,
     results,
   };
-  fs.writeFileSync(
-    path.join(out, "results.json"),
-    JSON.stringify(report, null, 2),
-  );
+  writeReport("mod-detail/results.json", report);
   if (report.failed) process.exitCode = 1;
 })().catch(async (e) => {
   console.error(e);

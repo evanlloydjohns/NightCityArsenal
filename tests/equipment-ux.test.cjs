@@ -1,23 +1,22 @@
 /* Targeted quality pass on the final offline production file, never the user's browser. */
-const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
+const { launchBrowser, newContext } = require("./browser.cjs");
+const { root, artifactDir, writeReport } = require("./support.cjs");
 const fs = require("fs"),
   path = require("path"),
   assert = require("assert/strict"),
   crypto = require("crypto"),
   http = require("http"),
   { pathToFileURL } = require("url");
-const root = path.resolve(__dirname, ".."),
-  out = path.join(root, ".tmp/tests/equipment-ux"),
+const out = artifactDir("equipment-ux"),
   html = path.join(root, "dist/Night-City-Arsenal.html"),
   url = pathToFileURL(html).href;
-fs.mkdirSync(out, { recursive: true });
 const results = [],
   errors = [],
   network = [];
 let browser, server;
 const key = "night-city-arsenal.v1";
 async function fixture(seed, hosted = false) {
-  const c = await browser.newContext({
+  const c = await newContext(browser, {
     offline: !hosted,
     viewport: { width: 1920, height: 1080 },
     reducedMotion: "reduce",
@@ -62,11 +61,7 @@ async function test(name, fn) {
   }
 }
 (async () => {
-  browser = await chromium.launch({
-    headless: true,
-    executablePath: process.env.BROWSER_EXECUTABLE,
-    args: ["--disable-gpu", "--disable-gpu-compositing"],
-  });
+  browser = await launchBrowser();
   await test("Favorites retain old storage, navigate all sections, and agree in cards/table after reload", async () => {
     const { c, p } = await fixture({
       favorites: ["Items.Preset_Unity_Agent"],
@@ -507,10 +502,7 @@ async function test(name, fn) {
     failed: results.filter((r) => !r.passed).length,
     results,
   };
-  fs.writeFileSync(
-    path.join(out, "results.json"),
-    JSON.stringify(report, null, 2),
-  );
+  writeReport("equipment-ux/results.json", report);
   if (report.failed) process.exitCode = 1;
 })().catch(async (e) => {
   console.error(e);

@@ -1,14 +1,14 @@
 /* Verify the exact files friends receive. Development dependencies only. */
+const { launchBrowser, newContext } = require("./browser.cjs");
+const { root: ROOT, artifactDir, artifactPath, writeReport } = require("./support.cjs");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const crypto = require("node:crypto");
 const { execFileSync } = require("node:child_process");
 const { pathToFileURL } = require("node:url");
-const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
-const ROOT = path.resolve(__dirname, "..");
 const SHARED = path.join(ROOT, "dist");
-const SCRATCH = path.join(ROOT, ".tmp/tests/distribution");
+const SCRATCH = artifactDir("distribution");
 const hash = (value) => crypto.createHash("sha256").update(value).digest("hex");
 const report = {
   method:
@@ -17,7 +17,6 @@ const report = {
 };
 let browser;
 (async () => {
-  fs.mkdirSync(SCRATCH, { recursive: true });
   const original = fs.readFileSync(path.join(ROOT, "dist/Night-City-Arsenal.html"));
   const html = path.join(SHARED, "Night-City-Arsenal.html"),
     zip = path.join(SHARED, "Night-City-Arsenal.zip");
@@ -46,16 +45,9 @@ print(destination/'Night-City-Arsenal'/'Night-City-Arsenal.html')`;
   report.checks.push(
     "ZIP integrity passes; fresh extraction contains the identical app and no development template",
   );
-  browser = await chromium.launch({
-    headless: true,
-    args: ["--disable-gpu", "--disable-gpu-compositing"],
-    ...(process.env.BROWSER_EXECUTABLE
-      ? { executablePath: process.env.BROWSER_EXECUTABLE }
-      : { channel: "msedge" }),
-  });
+  browser = await launchBrowser();
   for (const file of [html, extracted]) {
-    const context = await browser.newContext({
-      offline: true,
+    const context = await newContext(browser, {
       viewport: { width: 1440, height: 1000 },
     });
     const page = await context.newPage(),
@@ -156,12 +148,9 @@ print(destination/'Night-City-Arsenal'/'Night-City-Arsenal.html')`;
   report.applicationFingerprint = hash(original).slice(0, 12);
   report.productionSHA256 = hash(original);
   report.passed = true;
-  fs.writeFileSync(
-    path.join(ROOT, ".tmp/tests/distribution-test.json"),
-    JSON.stringify(report, null, 2),
-  );
+  writeReport("distribution-test.json", report);
   console.log(JSON.stringify(report, null, 2));
-  if (path.resolve(SCRATCH) !== path.join(ROOT, ".tmp/tests/distribution")) {
+  if (path.resolve(SCRATCH) !== artifactPath("distribution")) {
     throw new Error("Unexpected extraction cleanup path");
   }
   fs.rmSync(SCRATCH, { recursive: true, force: true });

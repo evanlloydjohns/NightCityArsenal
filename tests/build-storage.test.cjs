@@ -1,12 +1,12 @@
-const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright"),
-  assert = require("node:assert/strict"),
+const { launchBrowser, newContext } = require("./browser.cjs");
+const { root, writeReport } = require("./support.cjs");
+const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   path = require("node:path"),
   { pathToFileURL } = require("node:url"),
   crypto = require("node:crypto");
 const http = require("node:http");
-const root = path.resolve(__dirname, ".."),
-  results = [];
+const results = [];
 let browser;
 let server;
 const BUILD_KEY = "night-city-arsenal.builds.v1", PREF_KEY = "night-city-arsenal.v1";
@@ -40,15 +40,10 @@ async function test(name, fn) {
   }
 }
 (async () => {
-  browser = await chromium.launch({
-    headless: true,
-    executablePath: process.env.BROWSER_EXECUTABLE,
-    args: ["--disable-gpu", "--disable-gpu-compositing"],
-  });
+  browser = await launchBrowser();
   const url = pathToFileURL(path.join(root, "dist/Night-City-Arsenal.html")).href;
   await test("Build quota failure keeps a usable exportable session and does not alter weapon preferences", async () => {
-    const c = await browser.newContext({
-      offline: true,
+    const c = await newContext(browser, {
       acceptDownloads: true,
     });
     await c.addInitScript(() => {
@@ -98,7 +93,7 @@ async function test(name, fn) {
     await c.close();
   });
   await test("Corrupt build storage is reported and retained; ordinary weapon favorites still load", async () => {
-    const c = await browser.newContext({ offline: true });
+    const c = await newContext(browser);
     await c.addInitScript(() => {
       if (!sessionStorage.getItem("fixture")) {
         localStorage.setItem("night-city-arsenal.builds.v1", "{broken");
@@ -130,7 +125,7 @@ async function test(name, fn) {
     await c.close();
   });
   await test("Compatible-weapon filtering respects fixed sights and unknown slot data", async () => {
-    const c = await browser.newContext({ offline: true });
+    const c = await newContext(browser);
     const p = await c.newPage();
     await p.goto(url);
     await p.locator(".masthead [data-nav=mods]").click();
@@ -144,7 +139,7 @@ async function test(name, fn) {
     await c.close();
   });
   await test("Duplicate names stay within 300 characters, survive reload, and invalid writes are rejected", async () => {
-    const c = await browser.newContext({ offline: true });
+    const c = await newContext(browser);
     const initial = [294, 295, 300].map((length) => ({ ...fixture(), name: "x".repeat(length) }));
     await c.addInitScript(({ key, bundle }) => {
       if (localStorage.getItem(key) === null) localStorage.setItem(key, JSON.stringify(bundle));
@@ -177,7 +172,7 @@ async function test(name, fn) {
   });
   await test("Malformed preferences survive initialization and saves and export their exact stored text", async () => {
     for (const raw of [" {broken\n", "null", "[]", "42"]) {
-      const c = await browser.newContext({ offline: true, acceptDownloads: true });
+      const c = await newContext(browser, { acceptDownloads: true });
       await c.addInitScript(({ key, raw }) => localStorage.setItem(key, raw), { key: PREF_KEY, raw });
       const p = await c.newPage();
       await p.goto(url + "#data");
@@ -198,7 +193,7 @@ async function test(name, fn) {
     const good = { ...fixture(), name: "Recover this", notes: "Original notes" };
     const bad = { ...fixture(), name: "x".repeat(301) };
     const raw = "\n" + JSON.stringify(E.exportBundle([good, bad]), null, 2) + "\n";
-    const c = await browser.newContext({ offline: true, acceptDownloads: true });
+    const c = await newContext(browser, { acceptDownloads: true });
     await c.addInitScript(({ key, raw }) => {
       if (localStorage.getItem(key) === null) localStorage.setItem(key, raw);
     }, { key: BUILD_KEY, raw });
@@ -219,7 +214,7 @@ async function test(name, fn) {
     await c.close();
   });
   await test("Unavailable reads are distinct from malformed data and never trigger replacement writes", async () => {
-    const c = await browser.newContext({ offline: true });
+    const c = await newContext(browser);
     await c.addInitScript(() => {
       window.storageWrites = [];
       const get = Storage.prototype.getItem, set = Storage.prototype.setItem;
@@ -243,7 +238,7 @@ async function test(name, fn) {
     await c.close();
   });
   await test("Corruption introduced after load is detected before either storage key can be overwritten", async () => {
-    const c = await browser.newContext({ offline: true, acceptDownloads: true });
+    const c = await newContext(browser, { acceptDownloads: true });
     const p = await c.newPage();
     await p.goto(url);
     await p.evaluate(([prefs, builds]) => {
@@ -269,7 +264,7 @@ async function test(name, fn) {
   await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
   const hostedURL = `http://127.0.0.1:${server.address().port}/`;
   await test("External saves and conflicting edits cannot be silently overwritten, including a restored draft", async () => {
-    const c = await browser.newContext({ acceptDownloads: true });
+    const c = await newContext(browser, { offline: false, acceptDownloads: true });
     const good = fixture();
     await c.addInitScript(({ key, bundle }) => {
       if (localStorage.getItem(key) === null) localStorage.setItem(key, JSON.stringify(bundle));
@@ -302,7 +297,7 @@ async function test(name, fn) {
     await c.close();
   });
   await test("Simultaneous tab saves serialize their storage checks and preserve the losing session for export", async () => {
-    const c = await browser.newContext({ acceptDownloads: true });
+    const c = await newContext(browser, { offline: false, acceptDownloads: true });
     // Deliberately delay all notification handling: the save boundary itself
     // must still detect a changed value while holding the shared lock.
     await c.addInitScript(() => window.addEventListener("storage", (event) => event.stopImmediatePropagation()));
@@ -334,10 +329,7 @@ async function test(name, fn) {
     failed: results.filter((r) => !r.passed).length,
     results,
   };
-  fs.writeFileSync(
-    path.join(root, ".tmp/tests/modifications/storage-results.json"),
-    JSON.stringify(report, null, 2),
-  );
+  writeReport("modifications/storage-results.json", report);
   if (report.failed) process.exitCode = 1;
 })().catch(async (e) => {
   console.error(e);

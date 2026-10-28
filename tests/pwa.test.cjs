@@ -4,18 +4,16 @@ const assert = require("node:assert/strict"),
   path = require("node:path"),
   http = require("node:http"),
   crypto = require("node:crypto");
-const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
-const ROOT = path.resolve(__dirname, ".."),
-  DIST = path.join(ROOT, "dist/pwa"),
-  REPORT = path.join(ROOT, ".tmp/tests/pwa-test.json");
+const { launchPersistentContext } = require("./browser.cjs");
+const { root: ROOT, artifactPath, artifactDir, writeReport } = require("./support.cjs");
+const DIST = path.join(ROOT, "dist/pwa");
 const hash = (b) => crypto.createHash("sha256").update(b).digest("hex");
 const original = fs.readFileSync(path.join(DIST, "index.html")),
   worker = fs.readFileSync(path.join(DIST, "sw.js"), "utf8");
 const originalVersion = worker.match(/const VERSION = "([^"]+)"/)[1];
-fs.mkdirSync(path.join(ROOT, ".tmp/tests"), { recursive: true });
-const profile = fs.mkdtempSync(path.join(ROOT, ".tmp/tests/pwa-profile-"));
+const profile = fs.mkdtempSync(path.join(artifactDir(), "pwa-profile-"));
 function cleanupProfile() {
-  if (path.dirname(profile) !== path.join(ROOT, ".tmp/tests") || !path.basename(profile).startsWith("pwa-profile-")) {
+  if (path.dirname(profile) !== artifactPath() || !path.basename(profile).startsWith("pwa-profile-")) {
     throw new Error("Unexpected test profile cleanup path");
   }
   fs.rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
@@ -29,8 +27,6 @@ let context,
   revision = 1,
   broken = false,
   missingIcon = true;
-const executablePath = process.env.BROWSER_EXECUTABLE;
-const args = ["--disable-gpu", "--disable-gpu-compositing"];
 const url = () => `http://localhost:${port}/arsenal/`;
 async function check(name, fn) {
   await fn();
@@ -104,10 +100,7 @@ async function listen() {
   port = server.address().port;
 }
 async function launch() {
-  context = await chromium.launchPersistentContext(profile, {
-    headless: true,
-    executablePath,
-    args,
+  context = await launchPersistentContext(profile, {
     viewport: { width: 1440, height: 1000 },
     acceptDownloads: true,
   });
@@ -207,7 +200,6 @@ async function exportImport(p) {
   );
 }
 (async () => {
-  fs.mkdirSync(path.dirname(profile), { recursive: true });
   const manifest = JSON.parse(
     fs.readFileSync(path.join(DIST, "manifest.webmanifest"), "utf8"),
   );
@@ -610,7 +602,7 @@ async function exportImport(p) {
       );
       await rootPage.locator(".main-footer").scrollIntoViewIfNeeded();
       await rootPage.screenshot({
-        path: path.join(ROOT, ".tmp/tests/pwa-footer.png"),
+        path: artifactPath("pwa-footer.png"),
       });
       await rootPage.close();
     },
@@ -621,25 +613,18 @@ async function exportImport(p) {
   context = null;
   await new Promise((resolve) => server.close(resolve));
   server = null;
-  fs.writeFileSync(
-    REPORT,
-    JSON.stringify(
-      {
-        passed: true,
-        browser:
-          "Installed Microsoft Edge, isolated headless persistent profile, GPU disabled",
-        productionSHA256: hash(fs.readFileSync(path.join(ROOT, "dist/Night-City-Arsenal.html"))),
-        pwaSHA256: hash(original),
-        checks,
-        limitations: [
-          "Windows Start/taskbar installation and standalone OS window were not automated; manual verification required.",
-          "Offline cache can be evicted by browser/OS storage policy; JSON backups remain necessary.",
-        ],
-      },
-      null,
-      2,
-    ),
-  );
+  writeReport("pwa-test.json", {
+    passed: true,
+    browser:
+      "Installed Microsoft Edge, isolated headless persistent profile, GPU disabled",
+    productionSHA256: hash(fs.readFileSync(path.join(ROOT, "dist/Night-City-Arsenal.html"))),
+    pwaSHA256: hash(original),
+    checks,
+    limitations: [
+      "Windows Start/taskbar installation and standalone OS window were not automated; manual verification required.",
+      "Offline cache can be evicted by browser/OS storage policy; JSON backups remain necessary.",
+    ],
+  });
   console.log(`RESULT ${checks.length} PWA groups passed`);
   cleanupProfile();
 })().catch(async (error) => {

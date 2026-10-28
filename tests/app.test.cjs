@@ -1,12 +1,11 @@
 /* Development tests only. Run with Node and Playwright; the delivered app needs neither. */
+const { launchBrowser, newContext } = require("./browser.cjs");
+const { root: ROOT, artifactDir, writeReport } = require("./support.cjs");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const { pathToFileURL } = require("node:url");
-const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
-const ROOT = path.resolve(__dirname, "..");
-const validation = path.join(ROOT, ".tmp/tests");
-fs.mkdirSync(validation, { recursive: true });
+const validation = artifactDir();
 const DATA = JSON.parse(
   fs.readFileSync(path.join(ROOT, "src/data/weapons.json"), "utf8"),
 );
@@ -148,16 +147,9 @@ async function setFilter(key, values) {
       4,
     );
   });
-  browser = await chromium.launch({
-    headless: true,
-    args: ["--disable-gpu", "--disable-gpu-compositing"],
-    ...(process.env.BROWSER_EXECUTABLE
-      ? { executablePath: process.env.BROWSER_EXECUTABLE }
-      : { channel: "msedge" }),
-  });
-  context = await browser.newContext({
+  browser = await launchBrowser();
+  context = await newContext(browser, {
     viewport: { width: 1440, height: 1000 },
-    offline: true,
     acceptDownloads: true,
   });
   page = await context.newPage();
@@ -669,7 +661,7 @@ async function setFilter(key, values) {
     assert.equal(await page.locator("#details").evaluate((d) => d.open), false);
   });
   await test("Detail disclosures, scroll, keyboard tooltips, focus and catalog nodes survive updates", async () => {
-    const isolated = await browser.newContext({ offline: true, viewport: { width: 1440, height: 1000 } });
+    const isolated = await newContext(browser, { viewport: { width: 1440, height: 1000 } });
     const p = await isolated.newPage();
     try {
       await p.goto(pathToFileURL(path.join(ROOT, "dist/Night-City-Arsenal.html")).href);
@@ -919,7 +911,7 @@ async function setFilter(key, values) {
     fs.unlinkSync(preferencesPath);
   });
   await test("Current data labels follow metadata while historical provenance stays fixed", async () => {
-    const isolated = await browser.newContext({ offline: true, timezoneId: "America/Los_Angeles" });
+    const isolated = await newContext(browser, { timezoneId: "America/Los_Angeles" });
     const p = await isolated.newPage();
     try {
       await p.goto(pathToFileURL(path.join(ROOT, "dist/Night-City-Arsenal.html")).href);
@@ -989,7 +981,7 @@ async function setFilter(key, values) {
     await page.setViewportSize({ width: 1440, height: 1000 });
   });
   await test("Blocked or corrupt local storage: app remains usable", async () => {
-    const c = await browser.newContext({ offline: true });
+    const c = await newContext(browser);
     await c.addInitScript(() => {
       Object.defineProperty(window, "localStorage", {
         get() {
@@ -1035,10 +1027,7 @@ async function setFilter(key, values) {
     failed: results.filter((x) => x.status === "failed").length,
     results,
   };
-  fs.writeFileSync(
-    path.join(validation, "test-results.json"),
-    JSON.stringify(report, null, 2),
-  );
+  writeReport("test-results.json", report);
   console.log(`RESULT: ${report.passed} passed, ${report.failed} failed`);
   if (report.failed) process.exitCode = 1;
 })().catch(async (e) => {

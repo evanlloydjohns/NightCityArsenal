@@ -1,9 +1,9 @@
+const { root, writeReport } = require("./support.cjs");
 const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   path = require("node:path"),
   crypto = require("node:crypto");
-const root = path.resolve(__dirname, ".."),
-  W = JSON.parse(fs.readFileSync(path.join(root, "src/data/weapons.json"))),
+const W = JSON.parse(fs.readFileSync(path.join(root, "src/data/weapons.json"))),
   D = JSON.parse(fs.readFileSync(path.join(root, "src/data/modifications.json"))),
   { createEngine } = require("../src/planner-core.js"),
   E = createEngine(W, D),
@@ -342,10 +342,6 @@ const report = {
   failed: results.filter((r) => !r.passed).length,
   results,
 };
-fs.mkdirSync(path.join(root, ".tmp/tests/modifications"), { recursive: true });
-fs.writeFileSync(
-  path.join(root, ".tmp/tests/modifications/core-results.json"),
-  JSON.stringify(report, null, 2),
-);
+writeReport("modifications/core-results.json", report);
 console.log("RESULT", report.passed, "passed", report.failed, "failed");
 if (report.failed) process.exitCode = 1;

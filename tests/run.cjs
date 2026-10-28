@@ -1,8 +1,8 @@
 /* Development-only runner; no dependencies are shipped with the app. */
-const fs = require("node:fs");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
-const root = path.resolve(__dirname, "..");
+const { root } = require("./support.cjs");
+const { browserExecutable } = require("./browser.cjs");
 const suites = ["build", "planner-core", "app", "mod-detail", "modifications-ui", "equipment-ux", "build-storage", "distribution", "pwa"];
 const selected = process.argv.slice(2);
 const requested = selected.length ? selected : suites;
@@ -12,15 +12,12 @@ if (requested.some((name) => !suites.includes(name))) {
 }
 const env = { ...process.env };
 if (requested.some((name) => !["build", "planner-core"].includes(name))) {
-  let chromium;
-  try { ({ chromium } = require(env.PLAYWRIGHT_MODULE || "playwright")); }
-  catch { console.error("Install test dependencies with npm install, or set PLAYWRIGHT_MODULE."); process.exit(1); }
-  if (!env.BROWSER_EXECUTABLE) {
-    const edge = process.platform === "win32" && path.join(process.env["ProgramFiles(x86)"] || "C:/Program Files (x86)", "Microsoft/Edge/Application/msedge.exe");
-    env.BROWSER_EXECUTABLE = edge && fs.existsSync(edge) ? edge : chromium.executablePath();
+  try {
+    require(env.PLAYWRIGHT_MODULE || "playwright");
+    env.BROWSER_EXECUTABLE = browserExecutable();
   }
+  catch { console.error("Install test dependencies with npm install, or set PLAYWRIGHT_MODULE."); process.exit(1); }
 }
-fs.mkdirSync(path.join(root, ".tmp/tests/modifications"), { recursive: true });
 for (const suite of requested) {
   console.log("\nRunning", suite);
   const result = suite === "build"
