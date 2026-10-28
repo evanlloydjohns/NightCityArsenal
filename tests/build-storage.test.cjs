@@ -29,6 +29,24 @@ async function newPlan(page, name) {
   await page.evaluate(() => NCAExpansion.startPlan("Items.Preset_Katana_Saburo"));
   await page.locator("#plan-name").fill(name);
 }
+async function holdBuildLock(page) {
+  await page.evaluate((key) => new Promise((held) => {
+    window.buildLock = navigator.locks.request(key, () => new Promise((release) => {
+      window.releaseBuildLock = release;
+      held();
+    }));
+  }), BUILD_KEY);
+}
+async function waitingForBuildLock(page) {
+  await page.waitForFunction(async (key) =>
+    (await navigator.locks.query()).pending.some((lock) => lock.name === key), BUILD_KEY);
+}
+async function releaseBuildLock(page) {
+  await page.evaluate(async () => {
+    window.releaseBuildLock();
+    await window.buildLock;
+  });
+}
 async function test(name, fn) {
   try {
     await fn();
@@ -42,6 +60,114 @@ async function test(name, fn) {
 (async () => {
   browser = await launchBrowser();
   const url = pathToFileURL(path.join(root, "dist/Night-City-Arsenal.html")).href;
+  await test("Repeated Save clicks while the storage lock is held create only one build", async () => {
+    const c = await newContext(browser);
+    try {
+      const p = await c.newPage();
+      await p.goto(url);
+      await newPlan(p, "Single pending save");
+      // Exercise new saves, updates, and Save as new using the real Web Lock.
+      for (const [action, count] of [["save-build", 1], ["save-build", 1], ["save-as-new", 2]]) {
+        await holdBuildLock(p);
+        await p.locator(`[data-plan-action=${action}]`).dblclick();
+        await waitingForBuildLock(p);
+        assert.equal(await p.evaluate(() => NCAExpansion.isDraftDirty()), true);
+        const pending = await p.evaluate(async (key) =>
+          (await navigator.locks.query()).pending.filter((lock) => lock.name === key).length, BUILD_KEY);
+        await releaseBuildLock(p);
+        await saved(p);
+        assert.equal(pending, 1);
+        assert.equal((await p.evaluate(() => NCAExpansion.getBuilds())).length, count);
+        assert.equal(JSON.parse(await p.evaluate((key) => localStorage.getItem(key), BUILD_KEY)).builds.length, count);
+        assert.equal(await p.locator("[data-plan-action=save-build]").isEnabled(), true);
+      }
+    } finally { await c.close(); }
+  });
+  await test("Edits during a queued save survive rerendering and remain dirty until saved", async () => {
+    const c = await newContext(browser);
+    try {
+      const p = await c.newPage();
+      await p.goto(url);
+      await newPlan(p, "Queued snapshot");
+      await p.locator("#plan-notes").fill("Notes before saving");
+      await holdBuildLock(p);
+      await p.locator("[data-plan-action=save-build]").click();
+      await waitingForBuildLock(p);
+      await p.locator("#plan-name").fill("Edited while waiting");
+      await p.locator("#plan-notes").fill("Do not erase these later notes");
+      await p.locator("#plan-tags").fill("Later, Pending");
+      await p.locator("#plan-favorite").check();
+      // Changing tier redraws the planner, including its Save controls.
+      await p.locator("#plan-tier").selectOption("4");
+      await p.locator("#plan-profile").selectOption("nd");
+      const disabled = await p.locator("[data-plan-action=save-build]").isDisabled();
+      await releaseBuildLock(p);
+      await saved(p);
+      const [stored] = await p.evaluate(() => NCAExpansion.getBuilds());
+      const draft = await p.evaluate(() => NCAExpansion.getDraft());
+      assert.equal(disabled, true);
+      assert.equal(stored.name, "Queued snapshot");
+      assert.equal(stored.notes, "Notes before saving");
+      assert.equal(draft.id, stored.id);
+      assert.equal(draft.name, "Edited while waiting");
+      assert.equal(draft.notes, "Do not erase these later notes");
+      assert.deepEqual(draft.tags, ["Later", "Pending"]);
+      assert.equal(draft.favorite, true);
+      assert.equal(draft.tier, "4");
+      assert.equal(draft.profile, "nd");
+      assert.equal(await p.locator("#plan-notes").inputValue(), draft.notes);
+      assert.equal(await p.evaluate(() => NCAExpansion.isDraftDirty()), true);
+      assert.match(await p.locator("#plan-save-status").textContent(), /unsaved/i);
+      await p.waitForFunction(() => JSON.parse(sessionStorage.getItem("night-city-arsenal.draft.v1"))?.dirty === true &&
+        JSON.parse(sessionStorage.getItem("night-city-arsenal.draft.v1")).build.name === "Edited while waiting");
+      await p.reload();
+      assert.equal(await p.locator("#plan-notes").inputValue(), draft.notes);
+      await p.locator("[data-plan-action=save-build]").click();
+      await saved(p);
+      assert.deepEqual(await p.evaluate(() => NCAExpansion.getBuilds()), [await p.evaluate(() => NCAExpansion.getDraft())]);
+      assert.equal(await p.evaluate(() => NCAExpansion.isDraftDirty()), false);
+    } finally { await c.close(); }
+  });
+  await test("A queued save failure restores Save controls and preserves session exports and later edits", async () => {
+    const c = await newContext(browser, { acceptDownloads: true });
+    try {
+      await c.addInitScript(() => {
+        const set = Storage.prototype.setItem;
+        Storage.prototype.setItem = function (key, raw) {
+          if (key === "night-city-arsenal.builds.v1") throw new DOMException("Quota", "QuotaExceededError");
+          return set.call(this, key, raw);
+        };
+      });
+      const p = await c.newPage();
+      await p.goto(url);
+      await newPlan(p, "Exportable failed save");
+      await p.locator("#plan-notes").fill("Session snapshot");
+      await holdBuildLock(p);
+      await p.locator("[data-plan-action=save-build]").click();
+      await waitingForBuildLock(p);
+      await p.locator("#plan-notes").fill("Later notes after failed save");
+      await releaseBuildLock(p);
+      await saved(p);
+      assert.match(await p.locator("#plan-save-status").textContent(), /session only/);
+      assert.equal(await p.locator("[data-plan-action=save-build]").isEnabled(), true);
+      assert.equal(await p.locator("[data-plan-action=save-as-new]").isEnabled(), true);
+      assert.equal(await p.locator("#plan-notes").isEditable(), true);
+      assert.equal(await p.locator("#plan-notes").inputValue(), "Later notes after failed save");
+      assert.equal(await p.evaluate(() => NCAExpansion.isDraftDirty()), true);
+      assert.equal(await p.evaluate((key) => localStorage.getItem(key), BUILD_KEY), null);
+      await p.locator(".masthead [data-nav=builds]").click();
+      const snapshot = await downloadJSON(p, "[data-plan-action=export-builds]");
+      assert.equal(snapshot.builds.length, 1);
+      assert.equal(snapshot.builds[0].notes, "Session snapshot");
+      await p.locator("[data-plan-action=resume-draft]").click();
+      await p.locator("[data-plan-action=save-build]").click();
+      await saved(p);
+      await p.locator(".masthead [data-nav=builds]").click();
+      const updated = await downloadJSON(p, "[data-plan-action=export-builds]");
+      assert.equal(updated.builds.length, 1);
+      assert.equal(updated.builds[0].notes, "Later notes after failed save");
+    } finally { await c.close(); }
+  });
   await test("Build quota failure keeps a usable exportable session and does not alter weapon preferences", async () => {
     const c = await newContext(browser, {
       acceptDownloads: true,
@@ -73,6 +199,8 @@ async function test(name, fn) {
       /session only/,
     );
     assert.equal((await p.evaluate(() => NCAExpansion.getBuilds())).length, 1);
+    assert.equal(await p.locator("[data-plan-action=save-build]").isEnabled(), true);
+    assert.equal(await p.evaluate(() => NCAExpansion.isDraftDirty()), true);
     assert.equal(
       await p.evaluate(() => localStorage.getItem("night-city-arsenal.v1")),
       prefs,

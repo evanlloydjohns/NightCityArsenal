@@ -62304,6 +62304,7 @@ window.NCABuildLibrary = (() => {
           draftMode = "new",
           readOnly = false,
           dirty = false,
+          savingBuild = false,
           draftTimer,
           dialogState = null,
           dialogOpener = null,
@@ -62846,6 +62847,11 @@ window.NCABuildLibrary = (() => {
               )}</div>${!layout.slots.length ? '<p class="muted">No supported slots are published at this tier. You can save a weapon reference with notes; no fictitious slots are added.</p>' : ""}${layout.unknown.map((x) => `<p class="notice">${esc(x)}</p>`).join("")}${orphans.length ? `<section class="notice"><h3>Preserved selections without a current slot</h3>${orphans.map((s) => `<p>${esc(s.slotId)} · ${esc(E.mods.get(s.modId)?.name || s.modId)} · Tier ${esc(s.tier)} ${!readOnly ? button("clear-slot", "Remove from plan", `data-slot-id="${esc(s.slotId)}"`) : ""}</p>`).join("")}</section>` : ""}<p class="installation-note">The planner is freely editable. Conventional mods are normally permanent in the game; x-MOD2 replacement and removable Chimera mods are exceptions. Fixed sights may not be removable. An empty sniper-scope slot means undecided, not a scope-less in-game weapon.</p></div><aside class="plan-notes"><h2>${readOnly ? "Personal notes" : "Save this configuration"}</h2>${readOnly ? `<h3>${esc(draft.name)}</h3><p class="build-notes-full">${esc(draft.notes || "No personal notes.")}</p><p>${draft.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join(" ")}</p><p>${draft.favorite ? "★ Favorite build" : "Not favorited"} · ${esc(draft.patchTarget)} target</p><div class="exp-actions">${button("edit-current-build", "Edit configuration", "", "primary")}${button("duplicate-current", "Duplicate")}</div>` : `<label>Build name<input id="plan-name" value="${esc(draft.name)}" maxlength="300"></label><label>Personal notes<textarea id="plan-notes" rows="9" placeholder="Why this setup? What do you still need to acquire?">${esc(draft.notes)}</textarea></label><label>Tags <small>Separate with commas</small><input id="plan-tags" value="${esc(draft.tags.join(", "))}" placeholder="Stealth, Experimental"></label><label class="check"><input id="plan-favorite" type="checkbox" ${draft.favorite ? "checked" : ""}> Favorite this build</label><p class="muted">Build favorites are independent of weapon favorites.</p><div class="exp-actions">${button("save-build", draftMode === "edit" ? "Update build" : "Save new build", "", "primary")}${draftMode === "edit" ? button("save-as-new", "Save as new") : ""}</div><p id="plan-save-status" role="status" class="muted">${draftMode === "edit" ? "Editing an existing build." : "A new build never overwrites another configuration."}</p>`}</aside></div><section class="planned-effects"><h2>Documented equipment effects & acquisition</h2><p class="muted">Each component is listed independently. Bonuses are not added together or applied to the base weapon.</p>${draft.selections.length ? draft.selections.map((s) => `<article class="equipment-effect-detail">${selectedEffect(s)}</article>`).join("") : '<p class="muted">Choose equipment to review its effects and acquisition here.</p>'}</section>`;
           A.hydrateArtwork($("planner-panel"));
           hydrateEquipment($("planner-panel"));
+          updateSaveControls();
+        }
+        function updateSaveControls() {
+          $("planner-panel").querySelectorAll('[data-plan-action="save-build"], [data-plan-action="save-as-new"]')
+            .forEach((button) => { button.disabled = savingBuild; });
         }
         function editDraftField(target) {
           if (!draft || readOnly) return;
@@ -62865,72 +62871,98 @@ window.NCABuildLibrary = (() => {
           rememberDraft();
         }
         async function saveBuild(asNew = false) {
-          if (!draft || readOnly) return;
-          if (!asNew && draftMode === "edit" && draftRevision !== library.revision) {
-            const message = "This draft was opened before the stored library changed. Save as new or reopen the latest build before editing it.";
-            $("plan-save-status").textContent = message;
-            A.toast(message);
-            return;
-          }
-          draft.name = draft.name.trim();
-          if (!draft.name) {
-            $("plan-name").focus();
-            A.toast("Give this build a name.");
-            return;
-          }
-          const next = E.clone(draft);
-          next.dataVersion = DB.meta.dataVersion;
-          next.patchTarget = DB.meta.targetPatch;
-          next.updatedAt = new Date().toISOString();
-          const warnings = E.issues(next);
-          if (
-            warnings.length &&
-            !(await confirmAction(
-              "Save with review flags?",
-              "Unverified or stale selections will be preserved and clearly flagged. This will not be labeled a validated setup.",
-              "Save flagged plan",
-            ))
-          )
-            return;
-          if (asNew || draftMode !== "edit") {
-            next.id = E.uid();
-            next.createdAt = next.updatedAt;
-          }
-          let clean;
+          if (!draft || readOnly || savingBuild) return;
+          // Guard before any await, including review confirmation. Redraws must
+          // keep both Save actions disabled while editing remains available.
+          savingBuild = true;
+          updateSaveControls();
           try {
-            clean = E.sanitizeBuild(next);
-          } catch (e) {
-            A.toast(e.message);
-            return;
-          }
-          const exists = library.builds.some((b) => b.id === clean.id);
-          if (!exists && library.builds.length >= 1000) {
-            A.toast(
-              "Library limit reached. Export an archive before adding more builds.",
+            if (!asNew && draftMode === "edit" && draftRevision !== library.revision) {
+              const message = "This draft was opened before the stored library changed. Save as new or reopen the latest build before editing it.";
+              $("plan-save-status").textContent = message;
+              A.toast(message);
+              return;
+            }
+            draft.name = draft.name.trim();
+            if (!draft.name) {
+              $("plan-name").focus();
+              A.toast("Give this build a name.");
+              return;
+            }
+            const savingDraft = draft, snapshot = JSON.stringify(draft);
+            const next = E.clone(draft);
+            next.dataVersion = DB.meta.dataVersion;
+            next.patchTarget = DB.meta.targetPatch;
+            next.updatedAt = new Date().toISOString();
+            const warnings = E.issues(next);
+            if (
+              warnings.length &&
+              !(await confirmAction(
+                "Save with review flags?",
+                "Unverified or stale selections will be preserved and clearly flagged. This will not be labeled a validated setup.",
+                "Save flagged plan",
+              ))
+            )
+              return;
+            if (asNew || draftMode !== "edit") {
+              next.id = E.uid();
+              next.createdAt = next.updatedAt;
+            }
+            let clean;
+            try {
+              clean = E.sanitizeBuild(next);
+            } catch (e) {
+              A.toast(e.message);
+              return;
+            }
+            const exists = library.builds.some((b) => b.id === clean.id);
+            if (!exists && library.builds.length >= 1000) {
+              A.toast(
+                "Library limit reached. Export an archive before adding more builds.",
+              );
+              return;
+            }
+            $("plan-save-status").textContent = "Saving…";
+            const success = await persist(
+              exists
+                ? library.builds.map((b) => (b.id === clean.id ? clean : b))
+                : [...library.builds, clean],
             );
-            return;
+            if (success === null) return;
+            // A lock can wait indefinitely. Never replace edits made during that
+            // wait, or a different draft opened in the meantime. Adopt the saved
+            // identity so the next Save updates this build instead of duplicating it.
+            if (draft === savingDraft) {
+              const edited = JSON.stringify(draft) !== snapshot;
+              if (edited) {
+                for (const key of ["id", "createdAt", "updatedAt", "dataVersion", "patchTarget"])
+                  draft[key] = clean[key];
+              } else draft = E.clone(clean);
+              if (success) draftRevision = library.revision;
+              draftMode = "edit";
+              dirty = edited || !success;
+              rememberDraft();
+              renderPlanner();
+              $("plan-save-status").textContent = (success
+                ? "Saved in this browser. Export a backup before moving the HTML file."
+                : "Saved in this session only. Export builds now.") +
+                (edited ? " Later edits are still unsaved. Save again to include them." : "");
+            }
+            A.toast(
+              success
+                ? "Build saved."
+                : storageProblem,
+            );
+          } catch (e) {
+            dirty = true;
+            rememberDraft();
+            const message = "Build save failed. Your draft is preserved. " + e.message;
+            if ($("plan-save-status")) $("plan-save-status").textContent = message;
+            A.toast(message);
+          } finally {
+            savingBuild = false;
+            updateSaveControls();
           }
-          $("plan-save-status").textContent = "Saving…";
-          const success = await persist(
-            exists
-              ? library.builds.map((b) => (b.id === clean.id ? clean : b))
-              : [...library.builds, clean],
-          );
-          if (success === null) return;
-          draft = E.clone(clean);
-          if (success) draftRevision = library.revision;
-          draftMode = "edit";
-          dirty = false;
-          rememberDraft();
-          renderPlanner();
-          $("plan-save-status").textContent = success
-            ? "Saved in this browser. Export a backup before moving the HTML file."
-            : "Saved in this session only. Export builds now.";
-          A.toast(
-            success
-              ? "Build saved."
-              : storageProblem,
-          );
         }
         function openSlot(slotId) {
           const slot = E.slotsFor(draft.weaponId, draft.tier).slots.find(
@@ -63478,7 +63510,7 @@ window.NCABuildLibrary = (() => {
           data: DB,
           getBuilds: () => E.clone(library.builds),
           getDraft: () => (draft ? E.clone(draft) : null),
-          isDraftDirty: () => dirty,
+          isDraftDirty: () => dirty || savingBuild,
           startPlan,
           openBuild,
           filteredMods,
