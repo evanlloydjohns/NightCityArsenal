@@ -6,6 +6,12 @@ An offline Cyberpunk 2077 weapon reference and equipment planner. Browse weapons
 
 ## Open the app
 
+**[Open Night City Arsenal in your browser](https://evanlloydjohns.github.io/NightCityArsenal/)** on your computer or phone.
+
+On iPhone, open that link in **Safari**, tap **Share**, then **Add to Home Screen**. Leave **Open as Web App** enabled if shown, then tap **Add**. Launch it from the new Home Screen icon and let it finish loading before using it offline.
+
+### Download for offline use
+
 1. **[Download Night City Arsenal](dist/Night-City-Arsenal.zip?raw=true).**
 2. Extract the ZIP (on Windows, right-click it and choose **Extract All**).
 3. Open the extracted folder and double-click **Night-City-Arsenal.html** to launch it in your browser.
@@ -39,9 +45,11 @@ The development restructure moved the old `outputs/Share-with-friends/` HTML to 
 
 </details>
 
-## Optional: install as a web app
+## Web app hosting
 
-The [PWA files](dist/pwa/) and [PWA ZIP](dist/Night-City-Arsenal-PWA.zip?raw=true) are available for hosting over HTTPS and installing through Edge. No hosting is configured here. When updating an existing installation, keep the same HTTPS URL and scope to preserve access to browser data. For local PWA development, see below.
+The web app is hosted on GitHub Pages at **https://evanlloydjohns.github.io/NightCityArsenal/**. The [deployment workflow](.github/workflows/pages.yml) rebuilds both distributions, verifies reproducible builds and packaging, and publishes only `dist/pwa/` when `master` is updated. It can also be run manually from GitHub Actions.
+
+The [PWA files](dist/pwa/) and [PWA ZIP](dist/Night-City-Arsenal-PWA.zip?raw=true) remain available for other HTTPS hosting. Keep the same HTTPS URL, manifest identity, and scope when updating an existing installation to preserve access to browser data. Downloads and the hosted app have separate browser storage; export/import preferences and builds to transfer them. For local PWA development, see below.
 
 ## Development
 
