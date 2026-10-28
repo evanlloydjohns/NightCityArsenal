@@ -136,6 +136,7 @@ print(destination/'Night-City-Arsenal'/'Night-City-Arsenal.html')`;
         "Acquisition reminder travels in JSON, not in the shared application.",
       );
     await page.locator('[data-plan-action="save-build"]').click();
+    await page.waitForFunction(() => /Saved in/.test(document.getElementById("plan-save-status")?.textContent));
     await page.reload();
     const saved = await page.evaluate(() => NCAExpansion.getBuilds());
     assert.equal(saved.length, 1);

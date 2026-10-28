@@ -60046,6 +60046,113 @@
       }
     </script>
     <script>
+/* Guard each existing storage key without replacing unreadable or newer data. */
+(() => {
+  "use strict";
+  function create(key, decode, recover = () => undefined) {
+    let baseline, value, problem = "";
+    const snapshots = [], listeners = new Set();
+    const preserve = (raw) => {
+      if (raw !== null && !snapshots.includes(raw)) snapshots.push(raw);
+    };
+    const notify = () => listeners.forEach((fn) => fn());
+    function inspect(raw) {
+      try {
+        return decode(raw);
+      } catch {
+        preserve(raw);
+        problem = "malformed";
+        try { return recover(raw); } catch { return undefined; }
+      }
+    }
+    try {
+      baseline = localStorage.getItem(key);
+      if (baseline !== null) value = inspect(baseline);
+    } catch {
+      problem = "unavailable";
+    }
+    function check() {
+      try {
+        const raw = localStorage.getItem(key);
+        if (raw !== baseline) {
+          preserve(raw);
+          if (raw !== null) inspect(raw);
+          if (problem !== "malformed") problem = "changed";
+          notify();
+          return false;
+        }
+        return !problem;
+      } catch {
+        problem = "unavailable";
+        notify();
+        return false;
+      }
+    }
+    window.addEventListener("storage", (event) => {
+      if (event.key !== key && event.key !== null) return;
+      try {
+        if (event.storageArea === localStorage) check();
+      } catch {
+        problem = "unavailable";
+        notify();
+      }
+    });
+    return {
+      value,
+      get revision() { return baseline; },
+      get problem() { return problem; },
+      get hasRecovery() { return snapshots.length > 0; },
+      subscribe(fn) { listeners.add(fn); },
+      message(label) {
+        if (problem === "malformed")
+          return `${label} storage contains invalid data. Original stored contents are preserved; export recovery data and this session before repairing storage and reloading. Changes are session only.`;
+        if (problem === "changed")
+          return `${label} storage changed in another tab. Saving is blocked to prevent overwriting other changes, including conflicting edits. Export this session before reloading and reconciling the JSON backups.`;
+        if (problem === "unavailable")
+          return `${label} could not be saved: browser storage is unavailable (blocked, full, or safe locking unsupported). Export this session before reloading.`;
+        return "";
+      },
+      async write(next, lock = true) {
+        // Callers validate before changing their session. Validate again at the boundary.
+        const raw = JSON.stringify(next);
+        decode(raw);
+        if (problem) return false;
+        try {
+          const commit = () => {
+            if (!check()) return false;
+            localStorage.setItem(key, raw);
+            baseline = raw;
+            return true;
+          };
+          // Small preference writes stay synchronous so an immediate reload
+          // after favoriting cannot discard a queued write.
+          if (!lock) return commit();
+          // localStorage has no compare-and-swap. A shared Web Lock closes the
+          // read/write race between cooperating Arsenal tabs, including file://.
+          if (!navigator.locks?.request) throw Error("Storage locking unavailable");
+          return await navigator.locks.request(key, commit);
+        } catch {
+          problem = "unavailable";
+          notify();
+          return false;
+        }
+      },
+      exportRecovery() {
+        const url = URL.createObjectURL(new Blob([JSON.stringify({
+          application: "night-city-arsenal", key, snapshots,
+        }, null, 2)], { type: "application/json" }));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = key + ".recovery.json";
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      },
+    };
+  }
+  window.NCAStorage = Object.freeze({ create });
+})();
+    </script>
+    <script>
       "use strict";
       (() => {
         const DB = JSON.parse(
@@ -60210,19 +60317,24 @@
             if (allowed.includes(raw[key])) s[key] = raw[key];
           return s;
         }
-        let state;
-        try {
-          state = sanitize(JSON.parse(localStorage.getItem(KEY)));
-        } catch {
-          state = freshDefaults();
+        const preferenceStore = NCAStorage.create(KEY, (text) => {
+          const raw = JSON.parse(text);
+          if (!raw || typeof raw !== "object" || Array.isArray(raw))
+            throw Error("Preferences must be an object.");
+          return sanitize(raw);
+        });
+        let state = preferenceStore.value || freshDefaults();
+        storageAvailable = !preferenceStore.problem;
+        preferenceStore.subscribe(() => {
           storageAvailable = false;
-        }
+          toast(preferenceStore.message("Preferences"));
+          if (currentView === "data") renderData();
+        });
         function save() {
-          try {
-            localStorage.setItem(KEY, JSON.stringify(state));
-          } catch {
-            storageAvailable = false;
-          }
+          return preferenceStore.write(state, false).then((saved) => {
+            storageAvailable = saved && !preferenceStore.problem;
+            return storageAvailable;
+          });
         }
         function toast(message) {
           clearTimeout(toastTimer);
@@ -61146,7 +61258,7 @@
                 (w) => w.profiles[profile]?.tiers[state.tier]?.damage != null,
               ).length;
           $("data-panel").innerHTML =
-            `<div class="section-intro"><div><div class="eyebrow cyan">PROVENANCE / COVERAGE / LIMITATIONS</div><h1>Archive / data notes</h1><p>Dataset ${META.datasetVersion}. Researched on October 25, 2026. The inventory targets the released PC Update 2.5; per-weapon game verification remains limited.</p></div></div><div class="data-overview"><div><strong>${META.iconicCount}</strong><span>Iconic weapons</span></div><div><strong id="all-total">${META.totalCount}</strong><span>Total records</span></div><div><strong>LOCAL</strong><span>All data & artwork bundled offline</span></div><div><strong>2.5</strong><span>Inventory target · community-sourced stats</span></div></div>${!storageAvailable ? '<div class="inapp-storage">This browser blocked local storage. Changes last for this session; export your preferences below to keep a copy.</div>' : ""}<div class="data-grid"><article class="data-card"><h3>115 iconics, reconciled by identity.</h3><p>All 113 weapons in Vaexil’s 2.31 inventory match the canonical inventory. Nukes & Dragons covers 112 of those, omitting Gwynbleidd. Coronation and Sihil are new in 2.5; Gamestegy independently lists the resulting 115 iconics.</p><p>All x-MOD2 variants, melee weapons, throwables, Phantom Liberty weapons, account rewards and former promotional rewards are represented. Boar Carver is included among ${WEAPONS.length - 115} optional non-iconics; it is not counted as iconic.</p><p>Alias changes such as “Rasetsu (Prototype),” “Crowbar (Bunker)” and capitalization differences are merged by record identity. Standard and iconic versions remain distinct records.</p></article><article class="data-card"><h3>Patch target is not a blanket certification.</h3><p>The official release announcement confirms 2.5 on October 22, 2026. New content references identify Coronation and Sihil. No newer released update was found in the official news check.</p><p>Older entries are not silently certified for 2.5. Vaexil declares 2.31; Games Lantern declares 2.3; Nukes & Dragons does not declare a per-record patch. Gamestegy has 2.5 additions but its older numerical records do not independently establish current in-game behavior.</p><p>No local game files or player-build measurements were used.</p></article><article class="data-card"><h3>Two references. No hidden mixing.</h3><p><b>Detailed game records:</b> Gamestegy’s published structured records. Damage is per projectile or melee hit. DPS is the source’s raw base-DPS record, not sustained DPS and not necessarily damage × firing speed. Other fields include range, armor penetration, stamina and return time where sourced.</p><p><b>Published stats:</b> Nukes & Dragons’ displayed damage and DPS tables. Damage can use a different projectile basis. The source’s DPS formula is not recreated. Source differences are preserved, not averaged.</p><p>The same reference and tier apply to every comparison column. Iconic ability summaries and acquisition remain separately attributed.</p></article><article class="data-card"><h3>Tier coverage & unknown values.</h3><p>Both references include Tier 1–5, 5+ and 5++ where published. Detailed records have no 1+, 2+, 3+ or 4+ samples; those tiers show Unknown. Nukes & Dragons publishes all 11 steps for 112 iconics. Gwynbleidd, Coronation and Sihil are absent there.</p><p>At selected Tier ${escape(state.tier)}: detailed damage exists for ${profileCounts("records")} / 115 iconics; published-reference damage exists for ${profileCounts("nd")} / 115.</p><p>No interpolation or guessed tier multipliers. A published upgrade table does not establish that every weapon naturally drops at every tier.</p></article><article class="data-card"><h3>Effects, comparisons & dual wield.</h3><p>Ability text is an original factual paraphrase of individually linked sources. Numeric conditions are retained when available; there is no invented effect name. Crowbar and Caretaker’s Spade have no separately verified combat ability.</p><p>Best-value highlights are a numeric aid. Lower reload, stamina and return times are favored; other rows favor higher values. Mixed families disable rankings. Different projectile counts disable damage ranking. Charge, bursts, target armor, headshots and ability activation can change actual performance.</p><p>Official 2.5 notes limit Double Trouble to Power pistols and revolvers. The eligibility label is a class-level inference, not an individual compatibility test. Dual-wield penalties and perks never alter these base values.</p></article><article class="data-card"><h3>Known conflicts & missing metadata.</h3><p>Widow Maker’s detailed record reports five projectiles and Physical base damage while its ability describes two chemical projectiles. Both facts are kept with a warning. La Chingona Dorada’s dual-wield effect and Yasha’s effect differ from the older reference; the newer detailed wording is summarized and marked untested.</p><p>Headshot conventions differ between sources. The detailed source’s value is normalized to a percentage bonus; the published reference retains its displayed bonus. They are never compared across references.</p><p>${missingMaker.length} / ${WEAPONS.length} manufacturers are Unknown. Generic “Street” or “Corporation” data labels were not converted into a guessed manufacturer. Unknown crit modifiers and other absent fields remain Unknown.</p></article><article class="data-card wide"><h3>Source ledger</h3><p>Each weapon has individual provenance links. Source links open online only when you click them. The application itself makes no network requests.</p><div class="source-list">${META.sources.map((s) => `<div class="source-item"><a href="${escape(s.url)}" target="_blank" rel="noopener noreferrer">${escape(s.name)} ↗</a></div>`).join("")}</div><p style="margin-top:15px">Cyberpunk Wiki’s category could not be retrieved through the available access methods. Games Lantern’s public pages were cross-checked, but its declared 104-iconic total could not be reconciled record-by-record from an accessible complete export. It is an older count, not the canonical inventory. Access challenges were not bypassed.</p></article><article class="data-card wide"><h3>Your local data</h3><p>Favorites, comparison selections, search, filters, sort order, view and tier are saved in this browser at this file location when local storage is available. Moving the file or changing browser can create a separate preference store. Export a backup before moving it. No account, tracking or cloud storage.</p><div class="data-actions"><button id="export-preferences">Export preferences</button><button id="import-preferences">Import preferences</button><button id="export-dataset">Export bundled dataset</button></div><input type="file" id="preference-file" accept="application/json,.json" hidden><details><summary>View all 115 canonical iconic names</summary><ul class="coverage-list">${iconic.map((w) => `<li>${escape(w.name)}</li>`).join("")}</ul></details></article><article class="data-card wide"><h3>Attribution</h3><p>Cyberpunk 2077 and Phantom Liberty belong to CD PROJEKT RED and their respective rights holders. This is an independent, unofficial fan reference. Numerical facts and acquisition references are attributed to Gamestegy, Nukes & Dragons, Vaexil and Games Lantern. Their site designs, source prose and artwork are not licensed as this project’s code. All 190 weapons display weapon-specific in-game inventory artwork, sourced via Gamestegy and Games Atlas and embedded for offline use. Game artwork belongs to CD PROJEKT RED; see each weapon’s image source link. Source documentation and the validation report accompany this application.</p></article></div>`;
+            `<div class="section-intro"><div><div class="eyebrow cyan">PROVENANCE / COVERAGE / LIMITATIONS</div><h1>Archive / data notes</h1><p>Dataset ${META.datasetVersion}. Researched on October 25, 2026. The inventory targets the released PC Update 2.5; per-weapon game verification remains limited.</p></div></div><div class="data-overview"><div><strong>${META.iconicCount}</strong><span>Iconic weapons</span></div><div><strong id="all-total">${META.totalCount}</strong><span>Total records</span></div><div><strong>LOCAL</strong><span>All data & artwork bundled offline</span></div><div><strong>2.5</strong><span>Inventory target · community-sourced stats</span></div></div>${!storageAvailable ? `<div class="inapp-storage">${escape(preferenceStore.message("Preferences"))}</div>` : ""}<div class="data-grid"><article class="data-card"><h3>115 iconics, reconciled by identity.</h3><p>All 113 weapons in Vaexil’s 2.31 inventory match the canonical inventory. Nukes & Dragons covers 112 of those, omitting Gwynbleidd. Coronation and Sihil are new in 2.5; Gamestegy independently lists the resulting 115 iconics.</p><p>All x-MOD2 variants, melee weapons, throwables, Phantom Liberty weapons, account rewards and former promotional rewards are represented. Boar Carver is included among ${WEAPONS.length - 115} optional non-iconics; it is not counted as iconic.</p><p>Alias changes such as “Rasetsu (Prototype),” “Crowbar (Bunker)” and capitalization differences are merged by record identity. Standard and iconic versions remain distinct records.</p></article><article class="data-card"><h3>Patch target is not a blanket certification.</h3><p>The official release announcement confirms 2.5 on October 22, 2026. New content references identify Coronation and Sihil. No newer released update was found in the official news check.</p><p>Older entries are not silently certified for 2.5. Vaexil declares 2.31; Games Lantern declares 2.3; Nukes & Dragons does not declare a per-record patch. Gamestegy has 2.5 additions but its older numerical records do not independently establish current in-game behavior.</p><p>No local game files or player-build measurements were used.</p></article><article class="data-card"><h3>Two references. No hidden mixing.</h3><p><b>Detailed game records:</b> Gamestegy’s published structured records. Damage is per projectile or melee hit. DPS is the source’s raw base-DPS record, not sustained DPS and not necessarily damage × firing speed. Other fields include range, armor penetration, stamina and return time where sourced.</p><p><b>Published stats:</b> Nukes & Dragons’ displayed damage and DPS tables. Damage can use a different projectile basis. The source’s DPS formula is not recreated. Source differences are preserved, not averaged.</p><p>The same reference and tier apply to every comparison column. Iconic ability summaries and acquisition remain separately attributed.</p></article><article class="data-card"><h3>Tier coverage & unknown values.</h3><p>Both references include Tier 1–5, 5+ and 5++ where published. Detailed records have no 1+, 2+, 3+ or 4+ samples; those tiers show Unknown. Nukes & Dragons publishes all 11 steps for 112 iconics. Gwynbleidd, Coronation and Sihil are absent there.</p><p>At selected Tier ${escape(state.tier)}: detailed damage exists for ${profileCounts("records")} / 115 iconics; published-reference damage exists for ${profileCounts("nd")} / 115.</p><p>No interpolation or guessed tier multipliers. A published upgrade table does not establish that every weapon naturally drops at every tier.</p></article><article class="data-card"><h3>Effects, comparisons & dual wield.</h3><p>Ability text is an original factual paraphrase of individually linked sources. Numeric conditions are retained when available; there is no invented effect name. Crowbar and Caretaker’s Spade have no separately verified combat ability.</p><p>Best-value highlights are a numeric aid. Lower reload, stamina and return times are favored; other rows favor higher values. Mixed families disable rankings. Different projectile counts disable damage ranking. Charge, bursts, target armor, headshots and ability activation can change actual performance.</p><p>Official 2.5 notes limit Double Trouble to Power pistols and revolvers. The eligibility label is a class-level inference, not an individual compatibility test. Dual-wield penalties and perks never alter these base values.</p></article><article class="data-card"><h3>Known conflicts & missing metadata.</h3><p>Widow Maker’s detailed record reports five projectiles and Physical base damage while its ability describes two chemical projectiles. Both facts are kept with a warning. La Chingona Dorada’s dual-wield effect and Yasha’s effect differ from the older reference; the newer detailed wording is summarized and marked untested.</p><p>Headshot conventions differ between sources. The detailed source’s value is normalized to a percentage bonus; the published reference retains its displayed bonus. They are never compared across references.</p><p>${missingMaker.length} / ${WEAPONS.length} manufacturers are Unknown. Generic “Street” or “Corporation” data labels were not converted into a guessed manufacturer. Unknown crit modifiers and other absent fields remain Unknown.</p></article><article class="data-card wide"><h3>Source ledger</h3><p>Each weapon has individual provenance links. Source links open online only when you click them. The application itself makes no network requests.</p><div class="source-list">${META.sources.map((s) => `<div class="source-item"><a href="${escape(s.url)}" target="_blank" rel="noopener noreferrer">${escape(s.name)} ↗</a></div>`).join("")}</div><p style="margin-top:15px">Cyberpunk Wiki’s category could not be retrieved through the available access methods. Games Lantern’s public pages were cross-checked, but its declared 104-iconic total could not be reconciled record-by-record from an accessible complete export. It is an older count, not the canonical inventory. Access challenges were not bypassed.</p></article><article class="data-card wide"><h3>Your local data</h3><p>Favorites, comparison selections, search, filters, sort order, view and tier are saved in this browser at this file location when local storage is available. Moving the file or changing browser can create a separate preference store. Export a backup before moving it. No account, tracking or cloud storage.</p><div class="data-actions"><button id="export-preferences">Export preferences</button><button id="import-preferences">Import preferences</button>${preferenceStore.hasRecovery ? '<button id="export-preference-recovery">Export storage recovery</button>' : ""}<button id="export-dataset">Export bundled dataset</button></div><input type="file" id="preference-file" accept="application/json,.json" hidden><details><summary>View all 115 canonical iconic names</summary><ul class="coverage-list">${iconic.map((w) => `<li>${escape(w.name)}</li>`).join("")}</ul></details></article><article class="data-card wide"><h3>Attribution</h3><p>Cyberpunk 2077 and Phantom Liberty belong to CD PROJEKT RED and their respective rights holders. This is an independent, unofficial fan reference. Numerical facts and acquisition references are attributed to Gamestegy, Nukes & Dragons, Vaexil and Games Lantern. Their site designs, source prose and artwork are not licensed as this project’s code. All 190 weapons display weapon-specific in-game inventory artwork, sourced via Gamestegy and Games Atlas and embedded for offline use. Game artwork belongs to CD PROJEKT RED; see each weapon’s image source link. Source documentation and the validation report accompany this application.</p></article></div>`;
           refineData();
         }
         function renderReference() {
@@ -61324,7 +61436,7 @@
           updateWeaponSelection(id);
           if (!storageAvailable)
             toast(
-              "Favorite updated for this session. Browser storage is unavailable; export preferences to keep it.",
+              preferenceStore.message("Preferences"),
             );
           if (currentView === "favorites") renderCatalog();
         }
@@ -61470,10 +61582,10 @@
               if (raw.application !== "night-city-arsenal" || !raw.preferences)
                 throw new Error("Not an Arsenal preference backup");
               state = sanitize(raw.preferences);
-              save();
+              const durable = await save();
               syncControls();
               render();
-              toast("Preferences imported.");
+              toast(durable ? "Preferences imported." : "Preferences imported for this session only. Export preferences to keep them.");
             } catch (e) {
               toast("Could not import: " + e.message);
             }
@@ -61553,6 +61665,8 @@
             });
           else if (event.target.id === "import-preferences")
             $("preference-file").click();
+          else if (event.target.id === "export-preference-recovery")
+            preferenceStore.exportRecovery();
         });
         // Persist the summary's pending native activation before its queued toggle
         // event. Do not cancel activation or handle option-row clicks here.
@@ -62022,7 +62136,7 @@
           save();
           if (!storageAvailable)
             toast(
-              "Browser storage is unavailable. Export preferences from Data notes to keep them.",
+              preferenceStore.message("Preferences"),
             );
         }
         // Read-only inspection helpers support repeatable tests of the delivered file.
@@ -62445,21 +62559,46 @@
             ),
           ]),
         );
-        try {
-          const raw = localStorage.getItem(KEY);
-          if (raw) builds = E.sanitizeBundle(JSON.parse(raw));
-        } catch {
-          storageProblem =
-            "Saved-build storage is unavailable or contains an invalid file. Existing stored bytes were not replaced. Use JSON export to protect this session.";
-        }
+        const buildStore = NCAStorage.create(
+          KEY,
+          (raw) => E.sanitizeBundle(JSON.parse(raw)),
+          (raw) => {
+            const bundle = JSON.parse(raw);
+            if (bundle?.schemaVersion !== 1 || !Array.isArray(bundle.builds)) return [];
+            // Keep individually valid records usable; the full original remains
+            // untouched and exportable, including rejected records and duplicates.
+            const recovered = [], ids = new Set();
+            for (const build of bundle.builds) {
+              try {
+                const [clean] = E.sanitizeBundle({ schemaVersion: 1, builds: [build] });
+                if (!ids.has(clean.id) && recovered.length < 1000) {
+                  recovered.push(clean);
+                  ids.add(clean.id);
+                }
+              } catch {}
+            }
+            return recovered;
+          },
+        );
+        builds = buildStore.value || [];
+        let draftRevision = buildStore.revision;
+        storageProblem = buildStore.message("Saved-build");
+        buildStore.subscribe(updateStorageWarning);
         try {
           const raw = JSON.parse(sessionStorage.getItem(DRAFT_KEY));
           if (raw?.build) {
             draft = E.sanitizeBuild(raw.build);
             draftMode = raw.mode === "edit" ? "edit" : "new";
             dirty = !!raw.dirty;
+            if (draftMode === "edit") {
+              if (Object.hasOwn(raw, "libraryRevision"))
+                draftRevision = raw.libraryRevision;
+              else if (JSON.stringify(draft) !== JSON.stringify(builds.find((b) => b.id === draft.id)))
+                draftRevision = undefined;
+            }
           }
         } catch {}
+        storageProblem = buildStore.message("Saved-build");
         const button = (action, label, attrs = "", style = "") =>
           `<button class="chamfer ${style}" data-plan-action="${action}" ${attrs}>${label}</button>`;
         const glyphKind = (m) =>
@@ -62511,7 +62650,7 @@
         ];
         const banner = () =>
           storageProblem
-            ? `<div class="notice build-storage-warning" role="status">${esc(storageProblem)}</div>`
+            ? `<div class="notice build-storage-warning" role="status">${esc(storageProblem)}${buildStore.hasRecovery ? '<button data-plan-action="export-build-recovery">Export storage recovery</button>' : ""}</div>`
             : "";
         const tiers = (selected, list = A.data.meta.tiers) =>
           list
@@ -62534,33 +62673,26 @@
               M.flatMap((m) => (Array.isArray(m[key]) ? m[key] : [m[key]])),
             ),
           ].sort((a, b) => a.localeCompare(b));
-        function persist(next) {
-          builds = next;
-          try {
-            localStorage.setItem(KEY, JSON.stringify(E.exportBundle(builds)));
-            storageProblem = "";
-            document
-              .querySelectorAll(".build-storage-warning")
-              .forEach((n) => n.remove());
-            return true;
-          } catch {
-            storageProblem =
-              "This session could not be saved to browser storage (blocked or full). Export builds now to keep your changes.";
-            const panel = document.querySelector(
-              ".expansion-panel:not([hidden])",
-            );
-            if (panel) {
-              let warning = panel.querySelector(".build-storage-warning");
-              if (!warning) {
-                warning = document.createElement("div");
-                warning.className = "notice build-storage-warning";
-                warning.setAttribute("role", "alert");
-                panel.prepend(warning);
-              }
-              warning.textContent = storageProblem;
-            }
-            return false;
+        function updateStorageWarning() {
+          storageProblem = buildStore.message("Saved-build");
+          const panel = document.querySelector(".expansion-panel:not([hidden])");
+          if (panel) {
+            panel.querySelectorAll(".build-storage-warning").forEach((n) => n.remove());
+            panel.insertAdjacentHTML("afterbegin", banner());
           }
+          if (storageProblem) A.toast(storageProblem);
+        }
+        async function persist(next) {
+          try {
+            next = E.sanitizeBundle(E.exportBundle(next));
+          } catch (e) {
+            A.toast(e.message);
+            return null;
+          }
+          builds = next;
+          const saved = await buildStore.write(E.exportBundle(builds));
+          updateStorageWarning();
+          return saved;
         }
         function rememberDraft() {
           clearTimeout(draftTimer);
@@ -62568,7 +62700,7 @@
             try {
               sessionStorage.setItem(
                 DRAFT_KEY,
-                JSON.stringify({ build: draft, mode: draftMode, dirty }),
+                JSON.stringify({ build: draft, mode: draftMode, dirty, libraryRevision: draftRevision }),
               );
             } catch {}
           }, 200);
@@ -62910,6 +63042,7 @@
               },
             ];
           draftMode = "new";
+          draftRevision = buildStore.revision;
           readOnly = false;
           dirty = !!planned;
           rememberDraft();
@@ -62992,6 +63125,12 @@
         }
         async function saveBuild(asNew = false) {
           if (!draft || readOnly) return;
+          if (!asNew && draftMode === "edit" && draftRevision !== buildStore.revision) {
+            const message = "This draft was opened before the stored library changed. Save as new or reopen the latest build before editing it.";
+            $("plan-save-status").textContent = message;
+            A.toast(message);
+            return;
+          }
           draft.name = draft.name.trim();
           if (!draft.name) {
             $("plan-name").focus();
@@ -63030,12 +63169,15 @@
             );
             return;
           }
-          const success = persist(
+          $("plan-save-status").textContent = "Saving…";
+          const success = await persist(
             exists
               ? builds.map((b) => (b.id === clean.id ? clean : b))
               : [...builds, clean],
           );
+          if (success === null) return;
           draft = E.clone(clean);
+          if (success) draftRevision = buildStore.revision;
           draftMode = "edit";
           dirty = false;
           rememberDraft();
@@ -63046,7 +63188,7 @@
           A.toast(
             success
               ? "Build saved."
-              : "Browser storage unavailable — export this session.",
+              : storageProblem,
           );
         }
         function openSlot(slotId) {
@@ -63214,13 +63356,14 @@
           )
             return;
           draft = E.clone(build);
+          draftRevision = buildStore.revision;
           draftMode = "edit";
           readOnly = !edit;
           dirty = false;
           rememberDraft();
           A.navigate("planner");
         }
-        function duplicateBuild(id) {
+        async function duplicateBuild(id) {
           if (builds.length >= 1000) {
             A.toast(
               "Library limit reached. Export an archive before adding more builds.",
@@ -63231,10 +63374,10 @@
           if (!original) return;
           const copy = E.clone(original);
           copy.id = E.uid();
-          copy.name = original.name + " (copy)";
+          copy.name = original.name.slice(0, 300 - " (copy)".length) + " (copy)";
           copy.favorite = false;
           copy.createdAt = copy.updatedAt = new Date().toISOString();
-          persist([...builds, copy]);
+          if ((await persist([...builds, copy])) === null) return;
           A.toast(
             storageProblem
               ? "Duplicated in this session; export a backup."
@@ -63268,7 +63411,7 @@
             ))
           )
             return;
-          persist(builds.filter((x) => x.id !== id));
+          await persist(builds.filter((x) => x.id !== id));
           comparison = comparison.filter((x) => x !== id);
           if (draft?.id === id) {
             draft = null;
@@ -63276,7 +63419,7 @@
             rememberDraft();
           }
           renderBuilds();
-          A.toast("Build deleted.");
+          A.toast(storageProblem || "Build deleted.");
         }
         function chooseWeapon(context = "plan") {
           dialogState = { kind: "weapon", context, query: "" };
@@ -63329,7 +63472,8 @@
               JSON.parse(await file.text()),
               builds,
             );
-            const durable = persist(result.builds);
+            const durable = await persist(result.builds);
+            if (durable === null) return;
             renderBuilds();
             showEquipment(
               shell(
@@ -63570,7 +63714,7 @@
             action === "duplicate-build" ||
             action === "duplicate-current"
           )
-            duplicateBuild(id || draft.id);
+            await duplicateBuild(id || draft.id);
           else if (action === "rename-build") renameBuild(id);
           else if (action === "save-build-name") {
             const name = $("rename-build-name").value.trim(),
@@ -63579,18 +63723,19 @@
               $("rename-build-name").focus();
               return;
             }
-            persist(
+            const saved = await persist(
               builds.map((b) =>
                 b.id === renameId
                   ? { ...b, name, updatedAt: new Date().toISOString() }
                   : b,
               ),
             );
+            if (saved === null) return;
             if (draft?.id === renameId) draft.name = name;
             closeEquipment();
             renderBuilds();
           } else if (action === "favorite-build") {
-            persist(
+            await persist(
               builds.map((b) =>
                 b.id === id
                   ? {
@@ -63604,6 +63749,7 @@
             renderBuildResults();
           } else if (action === "delete-build") await deleteBuild(id);
           else if (action === "export-builds") exportBuilds();
+          else if (action === "export-build-recovery") buildStore.exportRecovery();
           else if (action === "import-builds") $("builds-import-file").click();
           else if (action === "compare-builds") compareBuilds();
           else if (action === "more-builds") {

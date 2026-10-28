@@ -330,6 +330,7 @@ async function exportImport(p) {
       await p.locator("#plan-tags").fill("Stealth, Offline");
       await p.locator("#plan-favorite").check();
       await p.locator("[data-plan-action=save-build]").click();
+      await p.waitForFunction(() => /Saved in/.test(document.getElementById("plan-save-status")?.textContent));
       await p.reload();
       await ready(p);
       assert.equal(await p.locator("#favorite-count").textContent(), "1");
@@ -468,6 +469,7 @@ async function exportImport(p) {
       );
       await p.locator("#plan-notes").fill("Offline notes stay personal.");
       await p.locator("[data-plan-action=save-build]").click();
+      await p.waitForFunction(() => /Saved in/.test(document.getElementById("plan-save-status")?.textContent));
       await p.evaluate(() => Arsenal.openDetail("Items.Preset_Unity_Agent"));
       await p.locator("#pwa-restart").evaluate((n) => n.click());
       assert.match(

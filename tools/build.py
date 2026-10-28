@@ -8,6 +8,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import shutil
 import textwrap
 import zipfile
 
@@ -90,6 +91,7 @@ def build(output):
         "DATA": embedded_data("weapons.json", "weapons", "weapon-images.json"),
         "MOD_DATA": embedded_data("modifications.json", "modifications", "modification-images.json"),
         "LOGIC": block(SOURCE / "app.js"),
+        "STORAGE": block(SOURCE / "storage.js"),
         "PLANNER_CORE": block(SOURCE / "planner-core.js"),
         "EXPANSION": block(SOURCE / "expansion.js"),
     }
@@ -111,13 +113,19 @@ def build(output):
     hosted = replace_once(hosted, "          <span>Unofficial fan work", read(pwa_source / "footer.html") + "<span>Unofficial fan work")
     hosted = replace_once(hosted, "  </body>", "    <script>" + block(pwa_source / "client.js") + "</script>\n  </body>")
     write_html(target / "index.html", hosted)
-    for asset in [pwa_source / "manifest.webmanifest", *sorted((pwa_source / "icons").iterdir())]:
+    assets = [pwa_source / "manifest.webmanifest", *sorted((pwa_source / "icons").iterdir())]
+    # Only this generated directory is replaced; never inventory old output files.
+    if (target / "icons").exists():
+        if not (target / "icons").resolve().is_relative_to(output):
+            raise ValueError("Generated icons must stay inside the output folder")
+        shutil.rmtree(target / "icons")
+    for asset in assets:
         destination = target / asset.relative_to(pwa_source)
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_bytes(asset.read_bytes())
     resources = {
         file.relative_to(target).as_posix(): digest(file.read_bytes())
-        for file in [target / "index.html", target / "manifest.webmanifest", *sorted((target / "icons").iterdir())]
+        for file in [target / "index.html", *(target / asset.relative_to(pwa_source) for asset in assets)]
     }
     worker = read(pwa_source / "sw.js")
     version = digest((json.dumps(resources, sort_keys=True) + worker).encode("utf-8"))[:20]

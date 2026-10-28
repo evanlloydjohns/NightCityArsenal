@@ -190,6 +190,7 @@ async function select(slot, name, tier) {
     await p.locator("#plan-tags").fill("Stealth, Experimental");
     await p.locator("#plan-favorite").check();
     await p.locator("[data-plan-action=save-build]").click();
+    await p.waitForFunction(() => /Saved in/.test(document.getElementById("plan-save-status")?.textContent));
     assert.match(
       await p.locator("#plan-save-status").textContent(),
       /Saved in this browser/,
@@ -234,18 +235,22 @@ async function select(slot, name, tier) {
       .locator("#plan-notes")
       .fill("Updated purpose.\nTest this scope while fighting armor.");
     await p.locator("[data-plan-action=save-build]").click();
+    await p.waitForFunction(() => /Saved in/.test(document.getElementById("plan-save-status")?.textContent));
     assert.equal((await p.evaluate(() => NCAExpansion.getBuilds())).length, 1);
     await p.locator("#plan-name").fill("Second configuration");
     await p.locator("[data-plan-action=save-as-new]").click();
+    await p.waitForFunction(() => /Saved in/.test(document.getElementById("plan-save-status")?.textContent));
     assert.equal((await p.evaluate(() => NCAExpansion.getBuilds())).length, 2);
     await nav("builds");
     await p.locator("#builds-favorites").uncheck();
     await p.locator("#builds-tag").selectOption("");
     await p.locator("[data-plan-action=duplicate-build]").first().click();
+    await p.waitForFunction(() => document.querySelectorAll(".build-card").length === 3);
     assert.equal(await p.locator(".build-card").count(), 3);
     await p.locator("[data-plan-action=rename-build]").first().click();
     await p.locator("#rename-build-name").fill("Boss-fight trial");
     await p.locator("[data-plan-action=save-build-name]").click();
+    await p.locator("#equipment-dialog").waitFor({ state: "hidden" });
     assert.match(
       await p.locator("#builds-results").textContent(),
       /Boss-fight trial/,

@@ -8,6 +8,10 @@ An offline Cyberpunk 2077 weapon reference and equipment planner.
 
 Favorites and builds stay in your browser. Keep the same file location/browser or PWA origin when updating. Before moving, export preferences from **Data notes** and builds from **Builds > Export JSON**, then import both in the new location.
 
+If another tab changes stored data, further writes in the stale tab are blocked. Export its session before reloading, then import builds to keep both versions (duplicate IDs receive new IDs). A restored draft based on an older library must be saved as new or reopened from the latest library before updating. Automatic merging is deliberately avoided.
+
+Invalid stored data is left untouched. **Export storage recovery** in Data notes or Builds downloads a JSON envelope whose `snapshots` strings preserve the original stored text; ordinary exports contain the usable session, including individually valid recovered builds. Keep both exports before repairing the affected storage key and reloading. Completely malformed JSON cannot be partially recovered automatically. Blocked/full storage uses session-only changes and ordinary JSON exports; builds also require Web Locks for safe persistent writes.
+
 The restructure moves the old `outputs/Share-with-friends/` HTML to `dist/`. Its contents and the PWA HTML are preserved byte-for-byte. Moving the offline file may expose a separate browser preference store; export preferences and builds from the old location before switching, then import them. This change does not clear browser data. Git retains the previous paths and working edits at `refs/archive/pre-development-restructure`.
 
 ## Development

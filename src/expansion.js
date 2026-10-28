@@ -66,21 +66,46 @@
             ),
           ]),
         );
-        try {
-          const raw = localStorage.getItem(KEY);
-          if (raw) builds = E.sanitizeBundle(JSON.parse(raw));
-        } catch {
-          storageProblem =
-            "Saved-build storage is unavailable or contains an invalid file. Existing stored bytes were not replaced. Use JSON export to protect this session.";
-        }
+        const buildStore = NCAStorage.create(
+          KEY,
+          (raw) => E.sanitizeBundle(JSON.parse(raw)),
+          (raw) => {
+            const bundle = JSON.parse(raw);
+            if (bundle?.schemaVersion !== 1 || !Array.isArray(bundle.builds)) return [];
+            // Keep individually valid records usable; the full original remains
+            // untouched and exportable, including rejected records and duplicates.
+            const recovered = [], ids = new Set();
+            for (const build of bundle.builds) {
+              try {
+                const [clean] = E.sanitizeBundle({ schemaVersion: 1, builds: [build] });
+                if (!ids.has(clean.id) && recovered.length < 1000) {
+                  recovered.push(clean);
+                  ids.add(clean.id);
+                }
+              } catch {}
+            }
+            return recovered;
+          },
+        );
+        builds = buildStore.value || [];
+        let draftRevision = buildStore.revision;
+        storageProblem = buildStore.message("Saved-build");
+        buildStore.subscribe(updateStorageWarning);
         try {
           const raw = JSON.parse(sessionStorage.getItem(DRAFT_KEY));
           if (raw?.build) {
             draft = E.sanitizeBuild(raw.build);
             draftMode = raw.mode === "edit" ? "edit" : "new";
             dirty = !!raw.dirty;
+            if (draftMode === "edit") {
+              if (Object.hasOwn(raw, "libraryRevision"))
+                draftRevision = raw.libraryRevision;
+              else if (JSON.stringify(draft) !== JSON.stringify(builds.find((b) => b.id === draft.id)))
+                draftRevision = undefined;
+            }
           }
         } catch {}
+        storageProblem = buildStore.message("Saved-build");
         const button = (action, label, attrs = "", style = "") =>
           `<button class="chamfer ${style}" data-plan-action="${action}" ${attrs}>${label}</button>`;
         const glyphKind = (m) =>
@@ -132,7 +157,7 @@
         ];
         const banner = () =>
           storageProblem
-            ? `<div class="notice build-storage-warning" role="status">${esc(storageProblem)}</div>`
+            ? `<div class="notice build-storage-warning" role="status">${esc(storageProblem)}${buildStore.hasRecovery ? '<button data-plan-action="export-build-recovery">Export storage recovery</button>' : ""}</div>`
             : "";
         const tiers = (selected, list = A.data.meta.tiers) =>
           list
@@ -155,33 +180,26 @@
               M.flatMap((m) => (Array.isArray(m[key]) ? m[key] : [m[key]])),
             ),
           ].sort((a, b) => a.localeCompare(b));
-        function persist(next) {
-          builds = next;
-          try {
-            localStorage.setItem(KEY, JSON.stringify(E.exportBundle(builds)));
-            storageProblem = "";
-            document
-              .querySelectorAll(".build-storage-warning")
-              .forEach((n) => n.remove());
-            return true;
-          } catch {
-            storageProblem =
-              "This session could not be saved to browser storage (blocked or full). Export builds now to keep your changes.";
-            const panel = document.querySelector(
-              ".expansion-panel:not([hidden])",
-            );
-            if (panel) {
-              let warning = panel.querySelector(".build-storage-warning");
-              if (!warning) {
-                warning = document.createElement("div");
-                warning.className = "notice build-storage-warning";
-                warning.setAttribute("role", "alert");
-                panel.prepend(warning);
-              }
-              warning.textContent = storageProblem;
-            }
-            return false;
+        function updateStorageWarning() {
+          storageProblem = buildStore.message("Saved-build");
+          const panel = document.querySelector(".expansion-panel:not([hidden])");
+          if (panel) {
+            panel.querySelectorAll(".build-storage-warning").forEach((n) => n.remove());
+            panel.insertAdjacentHTML("afterbegin", banner());
           }
+          if (storageProblem) A.toast(storageProblem);
+        }
+        async function persist(next) {
+          try {
+            next = E.sanitizeBundle(E.exportBundle(next));
+          } catch (e) {
+            A.toast(e.message);
+            return null;
+          }
+          builds = next;
+          const saved = await buildStore.write(E.exportBundle(builds));
+          updateStorageWarning();
+          return saved;
         }
         function rememberDraft() {
           clearTimeout(draftTimer);
@@ -189,7 +207,7 @@
             try {
               sessionStorage.setItem(
                 DRAFT_KEY,
-                JSON.stringify({ build: draft, mode: draftMode, dirty }),
+                JSON.stringify({ build: draft, mode: draftMode, dirty, libraryRevision: draftRevision }),
               );
             } catch {}
           }, 200);
@@ -531,6 +549,7 @@
               },
             ];
           draftMode = "new";
+          draftRevision = buildStore.revision;
           readOnly = false;
           dirty = !!planned;
           rememberDraft();
@@ -613,6 +632,12 @@
         }
         async function saveBuild(asNew = false) {
           if (!draft || readOnly) return;
+          if (!asNew && draftMode === "edit" && draftRevision !== buildStore.revision) {
+            const message = "This draft was opened before the stored library changed. Save as new or reopen the latest build before editing it.";
+            $("plan-save-status").textContent = message;
+            A.toast(message);
+            return;
+          }
           draft.name = draft.name.trim();
           if (!draft.name) {
             $("plan-name").focus();
@@ -651,12 +676,15 @@
             );
             return;
           }
-          const success = persist(
+          $("plan-save-status").textContent = "Saving…";
+          const success = await persist(
             exists
               ? builds.map((b) => (b.id === clean.id ? clean : b))
               : [...builds, clean],
           );
+          if (success === null) return;
           draft = E.clone(clean);
+          if (success) draftRevision = buildStore.revision;
           draftMode = "edit";
           dirty = false;
           rememberDraft();
@@ -667,7 +695,7 @@
           A.toast(
             success
               ? "Build saved."
-              : "Browser storage unavailable — export this session.",
+              : storageProblem,
           );
         }
         function openSlot(slotId) {
@@ -835,13 +863,14 @@
           )
             return;
           draft = E.clone(build);
+          draftRevision = buildStore.revision;
           draftMode = "edit";
           readOnly = !edit;
           dirty = false;
           rememberDraft();
           A.navigate("planner");
         }
-        function duplicateBuild(id) {
+        async function duplicateBuild(id) {
           if (builds.length >= 1000) {
             A.toast(
               "Library limit reached. Export an archive before adding more builds.",
@@ -852,10 +881,10 @@
           if (!original) return;
           const copy = E.clone(original);
           copy.id = E.uid();
-          copy.name = original.name + " (copy)";
+          copy.name = original.name.slice(0, 300 - " (copy)".length) + " (copy)";
           copy.favorite = false;
           copy.createdAt = copy.updatedAt = new Date().toISOString();
-          persist([...builds, copy]);
+          if ((await persist([...builds, copy])) === null) return;
           A.toast(
             storageProblem
               ? "Duplicated in this session; export a backup."
@@ -889,7 +918,7 @@
             ))
           )
             return;
-          persist(builds.filter((x) => x.id !== id));
+          await persist(builds.filter((x) => x.id !== id));
           comparison = comparison.filter((x) => x !== id);
           if (draft?.id === id) {
             draft = null;
@@ -897,7 +926,7 @@
             rememberDraft();
           }
           renderBuilds();
-          A.toast("Build deleted.");
+          A.toast(storageProblem || "Build deleted.");
         }
         function chooseWeapon(context = "plan") {
           dialogState = { kind: "weapon", context, query: "" };
@@ -950,7 +979,8 @@
               JSON.parse(await file.text()),
               builds,
             );
-            const durable = persist(result.builds);
+            const durable = await persist(result.builds);
+            if (durable === null) return;
             renderBuilds();
             showEquipment(
               shell(
@@ -1191,7 +1221,7 @@
             action === "duplicate-build" ||
             action === "duplicate-current"
           )
-            duplicateBuild(id || draft.id);
+            await duplicateBuild(id || draft.id);
           else if (action === "rename-build") renameBuild(id);
           else if (action === "save-build-name") {
             const name = $("rename-build-name").value.trim(),
@@ -1200,18 +1230,19 @@
               $("rename-build-name").focus();
               return;
             }
-            persist(
+            const saved = await persist(
               builds.map((b) =>
                 b.id === renameId
                   ? { ...b, name, updatedAt: new Date().toISOString() }
                   : b,
               ),
             );
+            if (saved === null) return;
             if (draft?.id === renameId) draft.name = name;
             closeEquipment();
             renderBuilds();
           } else if (action === "favorite-build") {
-            persist(
+            await persist(
               builds.map((b) =>
                 b.id === id
                   ? {
@@ -1225,6 +1256,7 @@
             renderBuildResults();
           } else if (action === "delete-build") await deleteBuild(id);
           else if (action === "export-builds") exportBuilds();
+          else if (action === "export-build-recovery") buildStore.exportRecovery();
           else if (action === "import-builds") $("builds-import-file").click();
           else if (action === "compare-builds") compareBuilds();
           else if (action === "more-builds") {

@@ -335,6 +335,7 @@ async function test(name, fn) {
     await p.locator("#plan-tags").fill("Stealth, Experiment");
     await p.locator("#plan-favorite").check();
     await p.locator("[data-plan-action=save-build]").click();
+    await p.waitForFunction(() => /Saved in/.test(document.getElementById("plan-save-status")?.textContent));
     await shot(p, "planner-1920");
     await nav(p, "builds");
     await shot(p, "builds-1920");
@@ -357,6 +358,7 @@ async function test(name, fn) {
     await p.locator("[data-plan-action=edit-current-build]").click();
     await p.locator("#plan-notes").fill("Edited without another build.");
     await p.locator("[data-plan-action=save-build]").click();
+    await p.waitForFunction(() => /Saved in/.test(document.getElementById("plan-save-status")?.textContent));
     await p.reload();
     assert.equal((await p.evaluate(() => NCAExpansion.getBuilds())).length, 1);
     assert.equal(
@@ -431,6 +433,7 @@ async function test(name, fn) {
         ),
       );
       await p.locator("[data-plan-action=save-build]").click();
+      await p.waitForFunction(() => /Saved in/.test(document.getElementById("plan-save-status")?.textContent));
       await nav(p, "builds");
       await shot(p, "builds-" + width);
       assert.ok(

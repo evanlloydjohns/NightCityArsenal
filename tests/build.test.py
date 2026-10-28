@@ -34,6 +34,14 @@ class BuildTest(unittest.TestCase):
             resources = json.loads(re.search(r"const RESOURCES = (.*);", worker)[1])
             for name, checksum in resources.items():
                 self.assertEqual(hashlib.sha256(actual["pwa/" + name]).hexdigest(), checksum)
+            # A previous build (or removed source icon) must not expand the product.
+            stale = output / "pwa/icons/obsolete/nested"
+            stale.mkdir(parents=True)
+            (stale / "old.png").write_bytes(b"not maintained source")
+            (output / "pwa/icons/stale.png").write_bytes(b"old icon")
+            subprocess.run([sys.executable, str(ROOT / "tools/build.py"), "--output", str(output)], cwd=directory, check=True)
+            repeated = {p.relative_to(output).as_posix(): p.read_bytes() for p in output.rglob("*") if p.is_file()}
+            self.assertEqual(actual, repeated)
 
 
 if __name__ == "__main__":
