@@ -1,18 +1,45 @@
 # Night City Arsenal
 
-An offline Cyberpunk 2077 weapon reference and equipment planner.
+An offline Cyberpunk 2077 weapon reference and equipment planner. Browse weapons, compare stats, and save favorites and equipment builds.
 
-- **Open:** [Night-City-Arsenal.html](dist/Night-City-Arsenal.html). Double-click it; no installation or internet is needed.
-- **Share:** [Night-City-Arsenal.zip](dist/Night-City-Arsenal.zip). Extract it, then open the HTML inside.
-- **PWA:** [deployable files](dist/pwa/) or [PWA ZIP](dist/Night-City-Arsenal-PWA.zip). Host the complete folder at the same HTTPS URL/scope used by any existing installation, then install through Edge. No hosting is configured here.
+## Open the app
+
+1. **[Download Night City Arsenal](dist/Night-City-Arsenal.zip?raw=true).**
+2. Extract the ZIP (on Windows, right-click it and choose **Extract All**).
+3. Open the extracted folder and double-click **Night-City-Arsenal.html** to launch it in your browser.
+
+**No installation, account, or internet connection is needed to use the app.** Everything is included in the HTML file.
+
+Already have this repository on your computer? Open [dist/Night-City-Arsenal.html](dist/Night-City-Arsenal.html) directly in your browser. No build or setup is required. You can share the ZIP with friends using the same three steps above.
+
+## Screenshots
+
+Browse the weapon catalog with search, filters, and cards or a table view.
+
+![Night City Arsenal weapon catalog with filters and weapon artwork](docs/images/arsenal.png)
+
+Plan compatible mods and attachments, then save your build. Planning is informational and does not recalculate weapon stats.
+
+![Kyubi equipment planner with selected mods, scope, and muzzle](docs/images/planner.png)
+
+## Favorites and saved builds
 
 Favorites and builds stay in your browser. Keep the same file location/browser or PWA origin when updating. Before moving, export preferences from **Data notes** and builds from **Builds > Export JSON**, then import both in the new location.
+
+<details>
+<summary>Storage recovery and moving from older versions</summary>
 
 If another tab changes stored data, further writes in the stale tab are blocked. Export its session before reloading, then import builds to keep both versions (duplicate IDs receive new IDs). A restored draft based on an older library must be saved as new or reopened from the latest library before updating. Automatic merging is deliberately avoided.
 
 Invalid stored data is left untouched. **Export storage recovery** in Data notes or Builds downloads a JSON envelope whose `snapshots` strings preserve the original stored text; ordinary exports contain the usable session, including individually valid recovered builds. Keep both exports before repairing the affected storage key and reloading. Completely malformed JSON cannot be partially recovered automatically. Blocked/full storage uses session-only changes and ordinary JSON exports; builds also require Web Locks for safe persistent writes.
 
 The development restructure moved the old `outputs/Share-with-friends/` HTML to `dist/`. At that time, the offline and PWA HTML were preserved byte-for-byte. Moving the offline file may expose a separate browser preference store; export preferences and builds from the old location before switching, then import them. This change does not clear browser data. Git retains the previous paths and working edits at `refs/archive/pre-development-restructure`.
+
+</details>
+
+## Optional: install as a web app
+
+The [PWA files](dist/pwa/) and [PWA ZIP](dist/Night-City-Arsenal-PWA.zip?raw=true) are available for hosting over HTTPS and installing through Edge. No hosting is configured here. When updating an existing installation, keep the same HTTPS URL and scope to preserve access to browser data. For local PWA development, see below.
 
 ## Development
 
