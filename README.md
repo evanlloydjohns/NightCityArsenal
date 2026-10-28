@@ -2,6 +2,8 @@
 
 An offline Cyberpunk 2077 weapon reference and equipment planner. Browse weapons, compare stats, and save favorites and equipment builds.
 
+> **AI experiment:** This is a quick personal project I wanted to try, to see what I could build with AI. **The code was written by OpenAI's Codex**, with me providing the ideas, direction, and feedback.
+
 ## Open the app
 
 1. **[Download Night City Arsenal](dist/Night-City-Arsenal.zip?raw=true).**
