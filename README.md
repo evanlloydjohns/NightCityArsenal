@@ -12,7 +12,7 @@ If another tab changes stored data, further writes in the stale tab are blocked.
 
 Invalid stored data is left untouched. **Export storage recovery** in Data notes or Builds downloads a JSON envelope whose `snapshots` strings preserve the original stored text; ordinary exports contain the usable session, including individually valid recovered builds. Keep both exports before repairing the affected storage key and reloading. Completely malformed JSON cannot be partially recovered automatically. Blocked/full storage uses session-only changes and ordinary JSON exports; builds also require Web Locks for safe persistent writes.
 
-The restructure moves the old `outputs/Share-with-friends/` HTML to `dist/`. Its contents and the PWA HTML are preserved byte-for-byte. Moving the offline file may expose a separate browser preference store; export preferences and builds from the old location before switching, then import them. This change does not clear browser data. Git retains the previous paths and working edits at `refs/archive/pre-development-restructure`.
+The development restructure moved the old `outputs/Share-with-friends/` HTML to `dist/`. At that time, the offline and PWA HTML were preserved byte-for-byte. Moving the offline file may expose a separate browser preference store; export preferences and builds from the old location before switching, then import them. This change does not clear browser data. Git retains the previous paths and working edits at `refs/archive/pre-development-restructure`.
 
 ## Development
 
@@ -30,7 +30,7 @@ Edit source, then build from the repository root:
 python tools/build.py
 ```
 
-Python 3.9+ and its standard library are sufficient. The command also works from another directory when given the script's absolute path. `--output SOME_FOLDER` selects a separate output folder. Builds use no network and include all artwork/data. ZIPs are deterministic, contain only their product files, and are tracked alongside the tested HTML.
+Python 3.9+ and its standard library are sufficient. The command also works from another directory when given the script's absolute path. `--output SOME_FOLDER` selects a separate output folder. Builds use no network and include all artwork/data. ZIPs are deterministic, contain only their product files, and are tracked alongside the tested HTML. Source documentation and validation reports are development materials and are not shipped in either ZIP; the application includes source links and verification notes.
 
 `src/data/weapons.json` and `modifications.json` contain the reviewed application data. Their `image.src` values reference `src/assets/`; the build verifies image-manifest checksums and embeds the bytes. Equipment presentation rules are in `modifications.json` under `meta.display`. Preserve IDs, storage keys and source uncertainty. Planning never recalculates weapon statistics.
 

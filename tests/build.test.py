@@ -1,5 +1,6 @@
 """Verify clean builds from another working directory and exact packaged bytes."""
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import re
@@ -7,12 +8,41 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class BuildTest(unittest.TestCase):
+    def test_shell_labels_follow_canonical_metadata(self):
+        spec = importlib.util.spec_from_file_location("arsenal_build", ROOT / "tools/build.py")
+        builder = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(builder)
+        original_read = builder.read
+
+        def fixture_read(path):
+            text = original_read(path)
+            if path == builder.SOURCE / "data/weapons.json":
+                data = json.loads(text)
+                data["meta"].update(targetPatch="9.9 & test", researchedOn="2030-01-02")
+                return json.dumps(data)
+            return text
+
+        scratch = ROOT / ".tmp/tests"
+        scratch.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix="metadata-", dir=scratch) as directory:
+            output = Path(directory) / "dist"
+            with patch.object(builder, "read", side_effect=fixture_read):
+                builder.build(output)
+            for name in ["Night-City-Arsenal.html", "pwa/index.html"]:
+                html = (output / name).read_text(encoding="utf-8")
+                self.assertIn("DATA SNAPSHOT / 02 JAN 2030", html)
+                self.assertIn('aria-label="Patch 9.9 &amp; test target', html)
+                self.assertIn("9.9 &amp; test TARGET", html)
+                self.assertIn("Added in 9.9 &amp; test", html)
+                self.assertNotRegex(html, r"/\*__[A-Z_]+__\*/")
+
     def test_clean_build_matches_checked_in_products_and_packages(self):
         scratch = ROOT / ".tmp/tests"
         scratch.mkdir(parents=True, exist_ok=True)

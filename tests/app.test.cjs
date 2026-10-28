@@ -824,6 +824,13 @@ async function setFilter(key, values) {
       /115 iconics/,
     );
     assert.match(await page.locator("#data-panel").textContent(), /Unknown/);
+    const notes = await page.locator("#data-panel").textContent();
+    assert.ok(notes.includes(`Dataset ${DATA.meta.datasetVersion}`));
+    assert.ok(notes.includes(`Update ${DATA.meta.targetPatch}`));
+    assert.ok(notes.includes("Individual source links and verification notes are included"));
+    assert.doesNotMatch(notes, /documentation.*accompany|validation report/i);
+    assert.ok(notes.includes("All 113 weapons in Vaexil’s 2.31 inventory"));
+    assert.ok(notes.includes("104-iconic total could not be reconciled"));
     let pending = page.waitForEvent("download");
     await page.locator("#export-dataset").click();
     let download = await pending;
@@ -848,6 +855,33 @@ async function setFilter(key, values) {
         "Preferences imported.",
     );
     fs.unlinkSync(preferencesPath);
+  });
+  await test("Current data labels follow metadata while historical provenance stays fixed", async () => {
+    const isolated = await browser.newContext({ offline: true, timezoneId: "America/Los_Angeles" });
+    const p = await isolated.newPage();
+    try {
+      await p.goto(pathToFileURL(path.join(ROOT, "dist/Night-City-Arsenal.html")).href);
+      await p.evaluate(() => {
+        Object.assign(Arsenal.data.meta, {
+          targetPatch: "9.9", researchedOn: "2030-01-02", patchRelease: "2030-01-01",
+          iconicCount: 116, totalCount: 192, weaponImageCount: 192,
+        });
+        Arsenal.navigate("data");
+      });
+      const notes = await p.locator("#data-panel").textContent();
+      for (const text of ["Researched on January 2, 2030", "Update 9.9", "116 iconics, reconciled",
+        "76 optional non-iconics", "confirms 9.9 on January 1, 2030", "/ 116 iconics",
+        "View all 116 canonical iconic names", "All 192 weapons display",
+        "All 113 weapons in Vaexil’s 2.31 inventory", "104-iconic total could not be reconciled"])
+        assert.ok(notes.includes(text), text);
+      assert.equal(await p.locator("#all-total").textContent(), "192");
+      await p.evaluate(() => Arsenal.navigate("arsenal"));
+      await p.locator("#filter-new").check();
+      assert.equal(await p.locator(".weapon-card").count(), 0);
+      assert.ok((await p.locator("#active-filters").textContent()).includes("Added in 9.9"));
+    } finally {
+      await isolated.close();
+    }
   });
   await test("Responsive layouts: desktop, tablet and phone, with readable complete effects", async () => {
     await page.locator('[data-nav="arsenal"]').first().click();

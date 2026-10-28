@@ -4,7 +4,9 @@ Python's standard library is the only build dependency. Run from any directory.
 """
 import argparse
 import base64
+from datetime import date
 import hashlib
+from html import escape
 import json
 from pathlib import Path
 import re
@@ -86,6 +88,7 @@ def build(output):
     if output == ROOT or output.is_relative_to(SOURCE) or output in SOURCE.parents:
         raise ValueError("Build output must be separate from maintained source")
     output.mkdir(parents=True, exist_ok=True)
+    metadata = json.loads(read(SOURCE / "data/weapons.json"))["meta"]
     parts = {
         "STYLES": block(SOURCE / "styles.css"),
         "DATA": embedded_data("weapons.json", "weapons", "weapon-images.json"),
@@ -98,6 +101,8 @@ def build(output):
     html = read(SOURCE / "template.html")
     for name, content in parts.items():
         html = replace_once(html, "/*__" + name + "__*/", content)
+    html = html.replace("/*__TARGET_PATCH__*/", escape(metadata["targetPatch"]))
+    html = html.replace("/*__SNAPSHOT_DATE__*/", date.fromisoformat(metadata["researchedOn"]).strftime("%d %b %Y").upper())
     if re.search(r"/\*__[A-Z_]+__\*/", html):
         raise ValueError("Unresolved application template marker")
     offline = output / (NAME + ".html")

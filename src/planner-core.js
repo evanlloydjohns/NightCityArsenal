@@ -140,7 +140,7 @@
               );
             return answer(
               "compatible",
-              "Source-listed weapon and slot; base stats stay unchanged. Individual patch 2.5 behavior is not game-tested.",
+              `Source-listed weapon and slot; base stats stay unchanged. Individual patch ${modDB.meta.targetPatch} behavior is not game-tested.`,
             );
           }
           function issues(build) {
